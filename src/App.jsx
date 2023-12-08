@@ -11,5 +11,5 @@ function App() {
     </>
   );
 }
-
+function FilterableBookTable({}) {}
 export default App;
