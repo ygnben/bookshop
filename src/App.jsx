@@ -19,4 +19,6 @@ function SearchBar() {
   return;
 }
 
+function BookTable() {}
+
 export default App;
