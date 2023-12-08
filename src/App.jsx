@@ -14,9 +14,25 @@ function App() {
 function FilterableBookTable({}) {
   return;
 }
-
+function bookInfo(){
+  return <>
+  <div>
+    bookInfo
+  </div>
+  </>
+}
 function SearchBar() {
-  return;
+  return <>
+  <form>
+  <input type="
+    text" value={filterText} placeholder="Search...">
+    </input>
+
+  </form>
+ 
+   
+ 
+  </>
 }
 
 function BookTable() {}
