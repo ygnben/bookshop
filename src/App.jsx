@@ -11,5 +11,12 @@ function App() {
     </>
   );
 }
-function FilterableBookTable({}) {}
+function FilterableBookTable({}) {
+  return;
+}
+
+function SearchBar() {
+  return;
+}
+
 export default App;
