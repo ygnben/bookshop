@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
@@ -30,21 +30,41 @@ import { useQuery, gql } from "@apollo/client";
 
 import SwipeableTextMobileStepper from "./SwipeableTextMobileStepper";
 import PrimarySearchAppBar from "./PrimarySearchAppBar";
+import { func } from "prop-types";
+const apiUrl = "https://www.googleapis.com/books/v1/volumes?q=javascript";
 
-const query = gql`
-  query {
-    searchBooks(query: "Harry Potter") {
-      items {
-        id
-        volumeInfo {
-          title
-          authors
-          description
-        }
+function getBook(apiUrl) {
+  fetch(apiUrl)
+    .then((response) => {
+      if (!response.ok) {
+        throw new Error("Network response was not ok");
       }
-    }
-  }
-`;
+      return response.json();
+    })
+    .then((bookData) => {
+      // Process the retrieved user data
+      console.log("Book Data:", bookData);
+      return bookData;
+    })
+    .catch((error) => {
+      console.error("Error:", error);
+    });
+}
+
+// const query = gql`
+//   query {
+//     searchBooks(query: "Harry Potter") {
+//       items {
+//         id
+//         volumeInfo {
+//           title
+//           authors
+//           description
+//         }
+//       }
+//     }
+//   }
+// `;
 
 // client
 //   .query({ query })
@@ -55,14 +75,14 @@ const query = gql`
 //     console.error(error);
 //   });
 
-function getBook() {
-  const { loading, error, data } = useQuery(query);
+// function getBook() {
+//   const { loading, error, data } = useQuery(query);
 
-  if (loading) return null;
-  if (error) return `Error ! ${error}`;
-}
+//   if (loading) return null;
+//   if (error) return `Error ! ${error}`;
+// }
 
-function Book({ title }) {
+function Book({ title, img, desc }) {
   return (
     // <div>
     //   <img src="" alt="" />
@@ -112,17 +132,19 @@ function Book({ title }) {
 
     <Card sx={{ maxWidth: 345 }}>
       <CardMedia
-        sx={{ height: 140 }}
-        image="/static/images/cards/contemplative-reptile.jpg"
+        sx={{ height: 400 }}
+        // image="/static/images/cards/contemplative-reptile.jpg"
+        image={img.smallThumbnail}
         title="green iguana"
       />
       <CardContent>
         <Typography gutterBottom variant="h5" component="div">
-          Lizard
+          {title}
         </Typography>
         <Typography variant="body2" color="text.secondary">
-          Lizards are a widespread group of squamate reptiles, with over 6,000
-          species, ranging across all continents except Antarctica
+          {/* Lizards are a widespread group of squamate reptiles, with over 6,000
+          species, ranging across all continents except Antarctica */}
+          {desc}
         </Typography>
       </CardContent>
       <CardActions>
@@ -133,10 +155,12 @@ function Book({ title }) {
   );
 }
 
-function BookList() {
-  const { loading, error, data } = useQuery(query);
-  console.log(error);
-  console.log(data);
+function BookList({ books }) {
+  // const { loading, error, data } = useQuery(query);
+  // console.log(error);
+  // console.log(data);
+  // getBook(apiUrl);
+  console.log("books", books.items);
   return (
     <div style={{ width: "100%" }}>
       <Box
@@ -150,6 +174,14 @@ function BookList() {
           borderRadius: 1,
         }}
       >
+        {books.items.map((book) => (
+          <Book
+            title={book.volumeInfo.title}
+            img={book.volumeInfo.imageLinks}
+            desc={book.volumeInfo.description}
+          ></Book>
+        ))}
+        {/* <Book title="a"></Book>
         <Book title="a"></Book>
         <Book title="a"></Book>
         <Book title="a"></Book>
@@ -160,8 +192,8 @@ function BookList() {
         <Book title="a"></Book>
         <Book title="a"></Book>
         <Book title="a"></Book>
-        <Book title="a"></Book>
-        <Book title="a"></Book>
+        <Book title="a"></Book> */}
+        {/* <Book title={books.title}></Book> */}
       </Box>
     </div>
   );
@@ -283,13 +315,54 @@ function CategoryBar() {
 }
 
 function Home() {
+  const [data, setData] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    // Function to fetch data asynchronously
+    const fetchData = async () => {
+      try {
+        // Perform an asynchronous operation, such as an API call
+        const response = await fetch(
+          "https://www.googleapis.com/books/v1/volumes?q=javascript"
+        );
+        const jsonData = await response.json();
+
+        // Update the state with the received data
+        setData(jsonData);
+        setIsLoading(false);
+      } catch (error) {
+        // Handle any errors that occur during the fetch operation
+        console.error("Error fetching data:", error);
+        setIsLoading(false);
+      }
+    };
+
+    // Call the fetchData function when the component mounts
+    fetchData();
+
+    // Clean up function to cancel any pending requests or subscriptions
+    return () => {
+      // Perform any necessary cleanup operations
+      // For example, cancel ongoing API requests or subscriptions
+    };
+  }, []);
+
+  if (isLoading) {
+    return <div>Loading...</div>;
+  }
+
+  if (!data) {
+    return <div>No data available.</div>;
+  }
+  console.log("data", data);
   return (
     <div style={{ width: "100%" }}>
       {/* <SearchBar /> */}
       <PrimarySearchAppBar />
       <PictureBar />
       <CategoryBar />
-      <BookList />
+      <BookList books={data} />
     </div>
   );
 }
