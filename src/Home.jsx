@@ -26,8 +26,41 @@ import {
 import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
 
+import { useQuery, gql } from "@apollo/client";
+
 import SwipeableTextMobileStepper from "./SwipeableTextMobileStepper";
 import PrimarySearchAppBar from "./PrimarySearchAppBar";
+
+const query = gql`
+  query {
+    searchBooks(query: "Harry Potter") {
+      items {
+        id
+        volumeInfo {
+          title
+          authors
+          description
+        }
+      }
+    }
+  }
+`;
+
+// client
+//   .query({ query })
+//   .then((result) => {
+//     console.log(result.data.searchBooks.items);
+//   })
+//   .catch((error) => {
+//     console.error(error);
+//   });
+
+function getBook() {
+  const { loading, error, data } = useQuery(query);
+
+  if (loading) return null;
+  if (error) return `Error ! ${error}`;
+}
 
 function Book({ title }) {
   return (
@@ -101,6 +134,9 @@ function Book({ title }) {
 }
 
 function BookList() {
+  const { loading, error, data } = useQuery(query);
+  console.log(error);
+  console.log(data);
   return (
     <div style={{ width: "100%" }}>
       <Box
