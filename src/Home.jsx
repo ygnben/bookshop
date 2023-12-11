@@ -141,7 +141,11 @@ function Book({ title, img, desc }) {
         <Typography gutterBottom variant="h5" component="div">
           {title}
         </Typography>
-        <Typography variant="body2" color="text.secondary">
+        <Typography
+          variant="body2"
+          color="text.secondary"
+          sx={{ height: "40px", overflow: "hidden" }}
+        >
           {/* Lizards are a widespread group of squamate reptiles, with over 6,000
           species, ranging across all continents except Antarctica */}
           {desc}
