@@ -15,6 +15,9 @@ import AccountCircle from "@mui/icons-material/AccountCircle";
 import MailIcon from "@mui/icons-material/Mail";
 import NotificationsIcon from "@mui/icons-material/Notifications";
 import MoreIcon from "@mui/icons-material/MoreVert";
+import Button from "@mui/material/Button";
+
+import { useNavigation } from "react-router-dom";
 
 const Search = styled("div")(({ theme }) => ({
   position: "relative",
@@ -79,6 +82,11 @@ export default function PrimarySearchAppBar() {
   const handleMobileMenuOpen = (event) => {
     setMobileMoreAnchorEl(event.currentTarget);
   };
+
+  const navigate = useNavigation();
+  function handleOnClick() {
+    // navigate("/Login");
+  }
 
   const menuId = "primary-search-account-menu";
   const renderMenu = (
@@ -228,6 +236,7 @@ export default function PrimarySearchAppBar() {
               <MoreIcon />
             </IconButton>
           </Box>
+          <Button color="inherit">Login</Button>
         </Toolbar>
       </AppBar>
       {renderMobileMenu}

@@ -4,6 +4,7 @@ import ReactDOM from "react-dom/client";
 import App from "./App.jsx";
 import Home from "./Home.jsx";
 import Detail from "./Detail.jsx";
+import SignIn from "./features/SignIn.jsx";
 // import "./index.css";
 
 import {
@@ -27,6 +28,7 @@ ReactDOM.createRoot(document.getElementById("root")).render(
         <Routes>
           <Route exact path="/" element={<Home />} />
           <Route path="/Detail/:id" element={<Detail />} />
+          <Route path="/Login" element={<SignIn />} />
         </Routes>
       </BrowserRouter>
     </ApolloProvider>
