@@ -1,8 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 
-import axios from "axios";
-
 import PrimarySearchAppBar from "./components/PrimarySearchAppBar";
 import {
   Box,
@@ -152,7 +150,7 @@ function DetailInfo({ bookInfo }) {
           </Grid>
           <Grid item>
             <Typography variant="subtitle1" component="div">
-              $19.00
+              -
             </Typography>
           </Grid>
         </Grid>
