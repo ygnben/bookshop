@@ -17,6 +17,8 @@ import NotificationsIcon from "@mui/icons-material/Notifications";
 import MoreIcon from "@mui/icons-material/MoreVert";
 import Button from "@mui/material/Button";
 
+import HomeIcon from "@mui/icons-material/Home";
+
 import { useNavigate } from "react-router-dom";
 
 const Search = styled("div")(({ theme }) => ({
@@ -174,7 +176,8 @@ export default function PrimarySearchAppBar() {
             aria-label="open drawer"
             sx={{ mr: 2 }}
           >
-            <MenuIcon />
+            {/* <MenuIcon /> */}
+            <HomeIcon onClick={() => navigate("/Home")} />
           </IconButton>
           <Typography
             variant="h6"
@@ -182,7 +185,7 @@ export default function PrimarySearchAppBar() {
             component="div"
             sx={{ display: { xs: "none", sm: "block" } }}
           >
-            MUI
+            Bookshop
           </Typography>
           <Search>
             <SearchIconWrapper>

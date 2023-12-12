@@ -29,6 +29,7 @@ ReactDOM.createRoot(document.getElementById("root")).render(
           <Route exact path="/" element={<Home />} />
           <Route path="/Detail/:id" element={<Detail />} />
           <Route path="/Login" element={<SignIn />} />
+          <Route path="/Home" element={<Home />} />
         </Routes>
       </BrowserRouter>
     </ApolloProvider>

@@ -300,7 +300,7 @@ function PictureBar() {
   return <SwipeableTextMobileStepper />;
 }
 
-function CategoryBar() {
+function CategoryBar({ category }) {
   const [value, setValue] = React.useState(0);
 
   const handleChange = (event, newValue) => {
@@ -323,8 +323,8 @@ function CategoryBar() {
         scrollButtons="auto"
         aria-label="scrollable auto tabs example"
       >
-        <Tab label="Item One" />
-        <Tab label="Item Two" />
+        <Tab label="JavaScript" onClick={() => category("javascript")} />
+        <Tab label="CSS" onClick={() => category("css")} />
         <Tab label="Item Three" />
         <Tab label="Item Four" />
         <Tab label="Item Five" />
@@ -339,13 +339,14 @@ function Home() {
   const [data, setData] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
 
+  const [category, setCategory] = useState("javascript");
   useEffect(() => {
     // Function to fetch data asynchronously
     const fetchData = async () => {
       try {
         // Perform an asynchronous operation, such as an API call
         const response = await fetch(
-          "https://www.googleapis.com/books/v1/volumes?q=javascript"
+          `https://www.googleapis.com/books/v1/volumes?q=${category}`
         );
         const jsonData = await response.json();
 
@@ -367,7 +368,7 @@ function Home() {
       // Perform any necessary cleanup operations
       // For example, cancel ongoing API requests or subscriptions
     };
-  }, []);
+  }, [category]);
 
   if (isLoading) {
     return <div>Loading...</div>;
@@ -383,7 +384,7 @@ function Home() {
       <PrimarySearchAppBar />
       <PictureBar />
 
-      <CategoryBar />
+      <CategoryBar category={setCategory} />
 
       <BookList books={data} />
     </div>
