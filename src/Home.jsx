@@ -174,28 +174,29 @@ function BookList({ books }) {
   // getBook(apiUrl);
   console.log("books", books.items);
   return (
-    <div style={{ width: "100%" }}>
-      <Box
-        sx={{
-          display: "flex",
-          flexWrap: "wrap",
-          p: 1,
-          m: 1,
-          bgcolor: "background.paper",
-          // maxWidth: 300,
-          borderRadius: 1,
-        }}
-      >
-        {books.items.map((book) => (
-          <Book
-            key={book.id}
-            id={book.id}
-            title={book.volumeInfo.title}
-            img={book.volumeInfo.imageLinks}
-            desc={book.volumeInfo.description}
-          ></Book>
-        ))}
-        {/* <Book title="a"></Book>
+    <Box
+      sx={{
+        display: "flex",
+        flexWrap: "wrap",
+        p: 1,
+        m: 1,
+        bgcolor: "background.paper",
+        // maxWidth: 300,
+        width: "100%",
+        borderRadius: 1,
+        justifyContent: "center",
+      }}
+    >
+      {books.items.map((book) => (
+        <Book
+          key={book.id}
+          id={book.id}
+          title={book.volumeInfo.title}
+          img={book.volumeInfo.imageLinks}
+          desc={book.volumeInfo.description}
+        ></Book>
+      ))}
+      {/* <Book title="a"></Book>
         <Book title="a"></Book>
         <Book title="a"></Book>
         <Book title="a"></Book>
@@ -207,9 +208,8 @@ function BookList({ books }) {
         <Book title="a"></Book>
         <Book title="a"></Book>
         <Book title="a"></Book> */}
-        {/* <Book title={books.title}></Book> */}
-      </Box>
-    </div>
+      {/* <Book title={books.title}></Book> */}
+    </Box>
   );
 
   // <Book title="a"></Book>;
@@ -308,7 +308,14 @@ function CategoryBar() {
   };
 
   return (
-    <Box sx={{ maxWidth: { xs: 320, sm: 480 }, bgcolor: "background.paper" }}>
+    <Box
+      sx={{
+        display: "flex",
+        justifyContent: "center",
+        maxWidth: { sm: "100%" },
+        bgcolor: "background.paper",
+      }}
+    >
       <Tabs
         value={value}
         onChange={handleChange}
@@ -375,7 +382,9 @@ function Home() {
       {/* <SearchBar /> */}
       <PrimarySearchAppBar />
       <PictureBar />
+
       <CategoryBar />
+
       <BookList books={data} />
     </div>
   );

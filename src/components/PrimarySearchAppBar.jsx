@@ -17,7 +17,7 @@ import NotificationsIcon from "@mui/icons-material/Notifications";
 import MoreIcon from "@mui/icons-material/MoreVert";
 import Button from "@mui/material/Button";
 
-import { useNavigation } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const Search = styled("div")(({ theme }) => ({
   position: "relative",
@@ -83,9 +83,10 @@ export default function PrimarySearchAppBar() {
     setMobileMoreAnchorEl(event.currentTarget);
   };
 
-  const navigate = useNavigation();
+  const navigate = useNavigate();
   function handleOnClick() {
-    // navigate("/Login");
+    console.log("click");
+    navigate("/Login");
   }
 
   const menuId = "primary-search-account-menu";
@@ -236,7 +237,9 @@ export default function PrimarySearchAppBar() {
               <MoreIcon />
             </IconButton>
           </Box>
-          <Button color="inherit">Login</Button>
+          <Button color="inherit" onClick={handleOnClick}>
+            Login
+          </Button>
         </Toolbar>
       </AppBar>
       {renderMobileMenu}
