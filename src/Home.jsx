@@ -28,8 +28,10 @@ import Tab from "@mui/material/Tab";
 
 import { useQuery, gql } from "@apollo/client";
 
+import { Link } from "react-router-dom";
+
 import SwipeableTextMobileStepper from "./SwipeableTextMobileStepper";
-import PrimarySearchAppBar from "./PrimarySearchAppBar";
+import PrimarySearchAppBar from "./components/PrimarySearchAppBar";
 import { func } from "prop-types";
 const apiUrl = "https://www.googleapis.com/books/v1/volumes?q=javascript";
 
@@ -82,7 +84,10 @@ function getBook(apiUrl) {
 //   if (error) return `Error ! ${error}`;
 // }
 
-function Book({ title, img, desc }) {
+function Book({ id, title, img, desc }) {
+  function handleOnClick(id) {
+    console.log(id);
+  }
   return (
     // <div>
     //   <img src="" alt="" />
@@ -153,7 +158,10 @@ function Book({ title, img, desc }) {
       </CardContent>
       <CardActions>
         <Button size="small">Share</Button>
-        <Button size="small">Learn More</Button>
+        {/* <Button size="small" onClick={() => handleOnClick(id)}>
+          Learn More
+        </Button> */}
+        <Link to={`/Detail/${id}`}> Learn More</Link>
       </CardActions>
     </Card>
   );
@@ -180,6 +188,8 @@ function BookList({ books }) {
       >
         {books.items.map((book) => (
           <Book
+            key={book.id}
+            id={book.id}
             title={book.volumeInfo.title}
             img={book.volumeInfo.imageLinks}
             desc={book.volumeInfo.description}
