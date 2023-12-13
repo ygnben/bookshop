@@ -13,6 +13,8 @@ import {
 
 import { styled } from "@mui/material/styles";
 
+import parse from "html-react-parser";
+
 function Detail() {
   const { id } = useParams();
 
@@ -131,8 +133,8 @@ function DetailInfo({ bookInfo }) {
               <Typography variant="body2" gutterBottom>
                 {bookInfo.volumeInfo.publishedDate}
               </Typography>
-              <Typography variant="body2" gutterBottom>
-                {bookInfo.volumeInfo.description}
+              <Typography variant="body2" component="div" gutterBottom>
+                {parse(bookInfo.volumeInfo.description)}
               </Typography>
               {/* <Typography variant="body2" color="text.secondary">
                 ID: 1030114
