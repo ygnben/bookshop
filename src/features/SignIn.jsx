@@ -1,4 +1,6 @@
 import * as React from "react";
+import { useNavigate } from "react-router-dom";
+
 import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import CssBaseline from "@mui/material/CssBaseline";
@@ -12,6 +14,9 @@ import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
+
+// import jwt from "jsonwebtoken";
+import * as jose from "jose";
 
 function Copyright(props) {
   return (
@@ -36,9 +41,53 @@ function Copyright(props) {
 const defaultTheme = createTheme();
 
 export default function SignIn() {
+  const navigate = useNavigate();
+
+  const account = {
+    name: "ben",
+    password: "123",
+  };
+  // const getToken = async () => {
+  //   const secret = new TextEncoder().encode(
+  //     "cc7e0d44fd473002f1c42167459001140ec6389b7353f8088f4d9a95f2f596f2"
+  //   );
+  //   const alg = "HS256";
+
+  //   const jwt = await new jose.SignJWT({ "urn:example:claim": true })
+  //     .setProtectedHeader({ alg })
+  //     .setIssuedAt()
+  //     .setIssuer("urn:example:issuer")
+  //     .setAudience("urn:example:audience")
+  //     .setExpirationTime("2h")
+  //     .sign(secret);
+
+  //   console.log(jwt);
+  // };
+  // getToken();
   const handleSubmit = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
+
+    if (
+      account.name === data.get("email") &&
+      account.password === data.get("password")
+    ) {
+      console.log("pass");
+      const token = "abc";
+
+      // const token = jwt.sign(account.name, import.meta.env.VITE_TOKEN_SECRET, {
+      //   expiresIn: "1800s",
+      // });
+      localStorage.setItem("jwtToken", token);
+      navigate("/Home");
+    }
+    // if (
+    //   Object.values(account).includes(data.get("email")) &
+    //   Object.values(account).includes(+data.get("password"))
+    // ) {
+    //   console.log("pass");
+    // }
+
     console.log({
       email: data.get("email"),
       password: data.get("password"),

@@ -212,15 +212,15 @@ export default function PrimarySearchAppBar({ category }) {
                 onClick={() => handleSearchClick()}
               />
             </SearchIconWrapper> */}
+            <StyledInputBase
+              placeholder="Search…"
+              inputProps={{ "ariaTOKEN_SECRET-label": "search" }}
+              value={searchValue}
+              onChange={handleSearchChange}
+            />
             <SearchIcon
               sx={{ cursor: "pointer" }}
               onClick={() => handleSearchClick()}
-            />
-            <StyledInputBase
-              placeholder="Search…"
-              inputProps={{ "aria-label": "search" }}
-              value={searchValue}
-              onChange={handleSearchChange}
             />
           </Search>
           <Box sx={{ flexGrow: 1 }} />

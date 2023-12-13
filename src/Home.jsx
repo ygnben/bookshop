@@ -187,7 +187,7 @@ function BookList({ books }) {
         justifyContent: "center",
       }}
     >
-      {books.items.map((book) => (
+      {books?.items.map((book) => (
         <Book
           key={book.id}
           id={book.id}
@@ -340,7 +340,8 @@ function Home() {
   const [isLoading, setIsLoading] = useState(true);
 
   const [category, setCategory] = useState("javascript");
-
+  const [login, setLogin] = useState(localStorage.getItem("jwtToken"));
+  console.log("login", login);
   useEffect(() => {
     // Function to fetch data asynchronously
     const fetchData = async () => {
