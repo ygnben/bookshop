@@ -340,6 +340,7 @@ function Home() {
   const [isLoading, setIsLoading] = useState(true);
 
   const [category, setCategory] = useState("javascript");
+
   useEffect(() => {
     // Function to fetch data asynchronously
     const fetchData = async () => {
