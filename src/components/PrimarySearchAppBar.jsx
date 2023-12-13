@@ -67,7 +67,7 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
   },
 }));
 
-export default function PrimarySearchAppBar({ category, Login }) {
+export default function PrimarySearchAppBar({ category, login, setLogin }) {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
 
@@ -182,7 +182,7 @@ export default function PrimarySearchAppBar({ category, Login }) {
       </MenuItem>
     </Menu>
   );
-  console.log(Login);
+  console.log("Login", login);
   return (
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="static">
@@ -225,7 +225,7 @@ export default function PrimarySearchAppBar({ category, Login }) {
           </Search>
           <Box sx={{ flexGrow: 1 }} />
           <Box sx={{ display: { xs: "none", md: "flex" } }}>
-            <IconButton
+            {/* <IconButton
               size="large"
               aria-label="show 4 new mails"
               color="inherit"
@@ -233,8 +233,8 @@ export default function PrimarySearchAppBar({ category, Login }) {
               <Badge badgeContent={4} color="error">
                 <MailIcon />
               </Badge>
-            </IconButton>
-            <IconButton
+            </IconButton> */}
+            {/* <IconButton
               size="large"
               aria-label="show 17 new notifications"
               color="inherit"
@@ -242,7 +242,7 @@ export default function PrimarySearchAppBar({ category, Login }) {
               <Badge badgeContent={17} color="error">
                 <NotificationsIcon />
               </Badge>
-            </IconButton>
+            </IconButton> */}
             <IconButton
               size="large"
               edge="end"
@@ -267,10 +267,21 @@ export default function PrimarySearchAppBar({ category, Login }) {
               <MoreIcon />
             </IconButton>
           </Box>
-          {Login ? "Login" : "Logout"}
-          <Button color="inherit" onClick={handleOnClick}>
-            Login
-          </Button>
+          {login ? (
+            <Button
+              color="inherit"
+              onClick={() => {
+                localStorage.removeItem("jwtToken");
+                setLogin("");
+              }}
+            >
+              Logout
+            </Button>
+          ) : (
+            <Button color="inherit" onClick={handleOnClick}>
+              Login
+            </Button>
+          )}
         </Toolbar>
       </AppBar>
       {renderMobileMenu}
