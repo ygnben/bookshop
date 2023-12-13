@@ -382,7 +382,7 @@ function Home() {
   return (
     <div style={{ width: "100%" }}>
       {/* <SearchBar /> */}
-      <PrimarySearchAppBar />
+      <PrimarySearchAppBar category={setCategory} />
       <PictureBar />
 
       <CategoryBar category={setCategory} />

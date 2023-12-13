@@ -67,7 +67,7 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
   },
 }));
 
-export default function PrimarySearchAppBar() {
+export default function PrimarySearchAppBar({ category }) {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
 
@@ -99,7 +99,7 @@ export default function PrimarySearchAppBar() {
 
   const handleSearchClick = () => {
     console.log("Search");
-    searchValue;
+    category(searchValue);
     // navigate("/Search");
   };
 
