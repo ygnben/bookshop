@@ -67,7 +67,7 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
   },
 }));
 
-export default function PrimarySearchAppBar({ category }) {
+export default function PrimarySearchAppBar({ category, Login }) {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
 
@@ -182,7 +182,7 @@ export default function PrimarySearchAppBar({ category }) {
       </MenuItem>
     </Menu>
   );
-
+  console.log(Login);
   return (
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="static">
@@ -267,6 +267,7 @@ export default function PrimarySearchAppBar({ category }) {
               <MoreIcon />
             </IconButton>
           </Box>
+          {Login ? "Login" : "Logout"}
           <Button color="inherit" onClick={handleOnClick}>
             Login
           </Button>
