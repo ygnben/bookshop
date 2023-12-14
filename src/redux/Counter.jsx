@@ -10,8 +10,9 @@ function Counter({ id }) {
   const dispatch = useDispatch();
   // dispatch(setCurrentItemID(id));
   // console.log();
-  const items = useSelector((state) => state.counter);
-  console.log(items);
+  //   const items = useSelector((state) => state.counter);
+  //   console.log(items);
+
   return (
     <div>
       {/* <button onClick={() => dispatch(decrement())}>-</button>

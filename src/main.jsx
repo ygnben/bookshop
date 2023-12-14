@@ -11,6 +11,7 @@ import Search from "./Search.jsx";
 import store from "./redux/store.jsx";
 // import "./index.css";
 
+import Favourite from "./Favourite.jsx";
 import {
   ApolloClient,
   InMemoryCache,
@@ -36,6 +37,7 @@ ReactDOM.createRoot(document.getElementById("root")).render(
             <Route path="/Login" element={<SignIn />} />
             <Route path="/Home" element={<Home />} />{" "}
             <Route path="/Search" element={<Search />} />
+            <Route path="/Favourite" element={<Favourite />} />
           </Routes>
         </BrowserRouter>
       </ApolloProvider>

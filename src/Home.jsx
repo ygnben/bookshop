@@ -347,8 +347,11 @@ function Home() {
   const [data, setData] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
 
-  const items = useSelector((state) => state.items);
-  console.log(items);
+  // const items = useSelector((state) => state);
+  // console.log(items);
+
+  const items = useSelector((state) => state.counter);
+  console.log("home", items);
 
   const [category, setCategory] = useState("javascript");
   const [login, setLogin] = useState(localStorage.getItem("token"));
