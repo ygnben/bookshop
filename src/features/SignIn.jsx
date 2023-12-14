@@ -111,7 +111,7 @@ export default function SignIn() {
     const data = new FormData(event.currentTarget);
 
     if (
-      account.name === data.get("email") &&
+      account.name === data.get("name") &&
       account.password === data.get("password")
     ) {
       console.log("pass");
@@ -136,10 +136,10 @@ export default function SignIn() {
     //   console.log("pass");
     // }
 
-    console.log({
-      email: data.get("email"),
-      password: data.get("password"),
-    });
+    // console.log({
+    //   email: data.get("email"),
+    //   password: data.get("password"),
+    // });
   };
 
   return (
@@ -170,10 +170,10 @@ export default function SignIn() {
               margin="normal"
               required
               fullWidth
-              id="email"
-              label="Email Address"
-              name="email"
-              autoComplete="email"
+              id="name"
+              label="Name"
+              name="name"
+              autoComplete="name"
               autoFocus
             />
             <TextField
@@ -186,10 +186,10 @@ export default function SignIn() {
               id="password"
               autoComplete="current-password"
             />
-            <FormControlLabel
+            {/* <FormControlLabel
               control={<Checkbox value="remember" color="primary" />}
               label="Remember me"
-            />
+            /> */}
             <Button
               type="submit"
               fullWidth
@@ -214,7 +214,7 @@ export default function SignIn() {
               <GoogleLoginButton />
             </LoginSocialGoogle>
 
-            <Grid container>
+            {/* <Grid container>
               <Grid item xs>
                 <Link href="#" variant="body2">
                   Forgot password?
@@ -225,10 +225,10 @@ export default function SignIn() {
                   {"Don't have an account? Sign Up"}
                 </Link>
               </Grid>
-            </Grid>
+            </Grid> */}
           </Box>
         </Box>
-        <Copyright sx={{ mt: 8, mb: 4 }} />
+        {/* <Copyright sx={{ mt: 8, mb: 4 }} /> */}
       </Container>
     </ThemeProvider>
   );

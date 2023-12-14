@@ -16,6 +16,11 @@ import Grid from "@mui/material/Grid";
 import Divider from "@mui/material/Divider";
 import Stack from "@mui/material/Stack";
 import Chip from "@mui/material/Chip";
+
+import Counter from "./redux/Counter.jsx";
+
+import { useSelector, useDispatch } from "react-redux";
+
 import {
   Card,
   Button,
@@ -84,7 +89,7 @@ function getBook(apiUrl) {
 //   if (error) return `Error ! ${error}`;
 // }
 
-function Book({ id, title, img, desc }) {
+function Book({ id, title, img, desc, login }) {
   function handleOnClick(id) {
     console.log(id);
   }
@@ -156,8 +161,10 @@ function Book({ id, title, img, desc }) {
           {desc}
         </Typography>
       </CardContent>
+      <Counter id={id} />
       <CardActions>
-        <Button size="small">Share</Button>
+        {login ? <Button size="small">Add Favourite</Button> : null}
+        {/* <Button size="small">Share</Button> */}
         {/* <Button size="small" onClick={() => handleOnClick(id)}>
           Learn More
         </Button> */}
@@ -167,7 +174,7 @@ function Book({ id, title, img, desc }) {
   );
 }
 
-function BookList({ books }) {
+function BookList({ books, login }) {
   // const { loading, error, data } = useQuery(query);
   // console.log(error);
   // console.log(data);
@@ -194,6 +201,7 @@ function BookList({ books }) {
           title={book.volumeInfo.title}
           img={book.volumeInfo.imageLinks}
           desc={book.volumeInfo.description}
+          login={login}
         ></Book>
       ))}
       {/* <Book title="a"></Book>
@@ -339,6 +347,9 @@ function Home() {
   const [data, setData] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
 
+  const items = useSelector((state) => state.items);
+  console.log(items);
+
   const [category, setCategory] = useState("javascript");
   const [login, setLogin] = useState(localStorage.getItem("token"));
   console.log("login", login);
@@ -392,7 +403,7 @@ function Home() {
 
       <CategoryBar category={setCategory} />
 
-      <BookList books={data} />
+      <BookList books={data} login={login} />
     </div>
   );
 }
