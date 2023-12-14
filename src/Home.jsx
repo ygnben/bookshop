@@ -38,6 +38,7 @@ import { Link } from "react-router-dom";
 import SwipeableTextMobileStepper from "./SwipeableTextMobileStepper";
 import PrimarySearchAppBar from "./components/PrimarySearchAppBar";
 import { func } from "prop-types";
+import { selectItems } from "./redux/counterSlice.jsx";
 const apiUrl = "https://www.googleapis.com/books/v1/volumes?q=javascript";
 
 function getBook(apiUrl) {
@@ -350,12 +351,16 @@ function Home() {
   // const items = useSelector((state) => state);
   // console.log(items);
 
-  const items = useSelector((state) => state.counter);
-  console.log("home", items);
+  const items = useSelector(selectItems);
+
+  useEffect(() => {
+    localStorage.setItem("items", items);
+  }, [items]);
 
   const [category, setCategory] = useState("javascript");
   const [login, setLogin] = useState(localStorage.getItem("token"));
   console.log("login", login);
+
   useEffect(() => {
     // Function to fetch data asynchronously
     const fetchData = async () => {

@@ -4,6 +4,7 @@ import { createSlice } from "@reduxjs/toolkit";
 const initialState = {
   items: [],
   currentItemID: null,
+  value: 0,
 };
 export const counterSlice = createSlice({
   name: "counter",
@@ -15,9 +16,13 @@ export const counterSlice = createSlice({
       //   console.log("payload", state.currentItemID);
       //   console.log("items", state.items);
     },
+
+    // selectItems: (state) => state.counter.value,
   },
 });
+
 export const { setCurrentItemID } = counterSlice.actions;
+export const selectItems = (state) => state.counter.items;
 
 // export const { add } = counterSlice.actions;
 // export const { increment, decrement } = counterSlice.actions;

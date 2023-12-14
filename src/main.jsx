@@ -7,11 +7,11 @@ import Home from "./Home.jsx";
 import Detail from "./Detail.jsx";
 import SignIn from "./features/SignIn.jsx";
 import Search from "./Search.jsx";
+import Favourite from "./Favourite.jsx";
 
 import store from "./redux/store.jsx";
 // import "./index.css";
 
-import Favourite from "./Favourite.jsx";
 import {
   ApolloClient,
   InMemoryCache,
