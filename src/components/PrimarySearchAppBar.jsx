@@ -271,7 +271,7 @@ export default function PrimarySearchAppBar({ category, login, setLogin }) {
             <Button
               color="inherit"
               onClick={() => {
-                localStorage.removeItem("jwtToken");
+                localStorage.removeItem("token");
                 setLogin("");
               }}
             >

@@ -340,7 +340,7 @@ function Home() {
   const [isLoading, setIsLoading] = useState(true);
 
   const [category, setCategory] = useState("javascript");
-  const [login, setLogin] = useState(localStorage.getItem("jwtToken"));
+  const [login, setLogin] = useState(localStorage.getItem("token"));
   console.log("login", login);
   useEffect(() => {
     // Function to fetch data asynchronously

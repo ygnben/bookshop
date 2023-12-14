@@ -1,4 +1,4 @@
-import * as React from "react";
+import React, { useCallback, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 import Avatar from "@mui/material/Avatar";
@@ -15,7 +15,13 @@ import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 
-// import jwt from "jsonwebtoken";
+import { LoginSocialGoogle, LoginSocialGithub } from "reactjs-social-login";
+
+import {
+  GoogleLoginButton,
+  GithubLoginButton,
+} from "react-social-login-buttons";
+
 import * as jose from "jose";
 
 function Copyright(props) {
@@ -47,6 +53,25 @@ export default function SignIn() {
     name: "ben",
     password: "123",
   };
+  const [provider, setProvider] = useState("");
+  const [profile, setProfile] = useState(null);
+
+  const onLoginStart = useCallback(() => {
+    // alert("login start");
+  }, []);
+  const onLogoutSuccess = useCallback(() => {
+    setProfile(null);
+    setProvider("");
+    alert("logout success");
+  }, []);
+
+  const getToHome = (token) => {
+    if (token) {
+      window.localStorage.setItem("token", token);
+      navigate("/home");
+      // <Route path="home" element={<Home token={token} />} />;
+    }
+  };
   // const getToken = async () => {
   //   const secret = new TextEncoder().encode(
   //     "cc7e0d44fd473002f1c42167459001140ec6389b7353f8088f4d9a95f2f596f2"
@@ -64,14 +89,6 @@ export default function SignIn() {
   //   console.log(jwt);
   // };
   // getToken();
-
-  createJsonWebToken(
-    "the issuer",
-    account.name,
-    import.meta.env.VITE_TOKEN_SECRET
-  ).then((token) => {
-    localStorage.setItem("jwtToken", token);
-  });
 
   async function createJsonWebToken(iss, sub, secret) {
     const header = {
@@ -104,6 +121,13 @@ export default function SignIn() {
       // });
 
       navigate("/Home");
+      createJsonWebToken(
+        "the issuer",
+        account.name,
+        import.meta.env.VITE_TOKEN_SECRET
+      ).then((token) => {
+        localStorage.setItem("token", token);
+      });
     }
     // if (
     //   Object.values(account).includes(data.get("email")) &
@@ -174,6 +198,22 @@ export default function SignIn() {
             >
               Sign In
             </Button>
+
+            <LoginSocialGoogle
+              isOnlyGetToken
+              // client_id="297248572097-v24t8i1jbbivtkdr1ef13qn0sid8gbjh.apps.googleusercontent.com"
+              client_id={import.meta.env.VITE_APP_GG_APP_ID || ""}
+              onLoginStart={onLoginStart}
+              onResolve={({ provider, data }) => {
+                getToHome(data.access_token);
+              }}
+              onReject={(err) => {
+                console.log(err);
+              }}
+            >
+              <GoogleLoginButton />
+            </LoginSocialGoogle>
+
             <Grid container>
               <Grid item xs>
                 <Link href="#" variant="body2">
