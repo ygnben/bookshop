@@ -21,7 +21,8 @@ function Favourite() {
   const [data, setData] = useState([]);
   const items = useSelector(selectItems);
   const [login, setLogin] = useState(localStorage.getItem("token"));
-  console.log(items[0]);
+  //   console.log(items[0]);
+
   useEffect(() => {
     // Function to fetch data asynchronously
     const fetchData = async () => {
@@ -33,14 +34,14 @@ function Favourite() {
         // );
 
         const response = await fetch(
-          `https://www.googleapis.com/books/v1/volumes?q=3On-moJDuO0C`
+          "https://www.googleapis.com/books/v1/volumes?q=3On-moJDuO0C"
         );
 
         const jsonData = await response.json();
 
         // Update the state with the received data
         setData(jsonData);
-        console.log("jsonData", jsonData);
+        // console.log("jsonData", jsonData);
         // setIsLoading(false);
       } catch (error) {
         // Handle any errors that occur during the fetch operation
@@ -60,10 +61,15 @@ function Favourite() {
   // console.log(items);
   // return items?.map((item) => <div>{item}</div>);
   // return <div>{items.payload.counter.value}</div>;
+  //   console.log("data", data);
+
+  //   console.log("data", data.items[0].volumeInfo);
+  console.log("data", data);
   return (
     <>
       <PrimarySearchAppBar login={login} setLogin={setLogin} />
-      {data.items.volumeInfo}
+      {data ? data.map((data) => <>{data.items.volumeInfo}</>) : null}
+      {/* {data.items[0].volumeInfo} */}
       {/* <BookList books={data} login={login} /> */}
       {/* {arrbook.map((book) => (
         <div>{book}</div>
