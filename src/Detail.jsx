@@ -18,6 +18,8 @@ import parse from "html-react-parser";
 function Detail() {
   const { id } = useParams();
 
+  const [login, setLogin] = useState(localStorage.getItem("token"));
+
   //   const apiUrl = "https://www.googleapis.com/books/v1/volumes?q=javascript";
   // fetch(`https://www.googleapis.com/books/v1/volumes/${id}`)
 
@@ -74,7 +76,7 @@ function Detail() {
   //   console.log("data", data);
   return (
     <div>
-      <PrimarySearchAppBar />
+      <PrimarySearchAppBar login={login} setLogin={setLogin} />
       {/* <div>{id}</div> */}
       {isLoading ? (
         <div>loading</div>

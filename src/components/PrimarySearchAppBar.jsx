@@ -180,6 +180,19 @@ export default function PrimarySearchAppBar({ category, login, setLogin }) {
         </IconButton>
         <p>Profile</p>
       </MenuItem>
+
+      <MenuItem onClick={() => navigate("/Favourite")}>
+        <IconButton
+          size="large"
+          aria-label="account of current user"
+          aria-controls="primary-search-account-menu"
+          aria-haspopup="true"
+          color="inherit"
+        >
+          {/* <AccountCircle /> */}
+        </IconButton>
+        <p>Favourite page</p>
+      </MenuItem>
     </Menu>
   );
   console.log("Login", login);
