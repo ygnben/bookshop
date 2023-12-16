@@ -19,8 +19,8 @@ import Chip from "@mui/material/Chip";
 
 import Counter from "./redux/Counter.jsx";
 
-import { useSelector, useDispatch } from "react-redux";
-
+import Tab from "@mui/material/Tab";
+import Tabs from "@mui/material/Tabs";
 import {
   Card,
   Button,
@@ -28,8 +28,8 @@ import {
   CardContent,
   CardActions,
 } from "@mui/material";
-import Tabs from "@mui/material/Tabs";
-import Tab from "@mui/material/Tab";
+
+import { useSelector, useDispatch } from "react-redux";
 
 import { useQuery, gql } from "@apollo/client";
 

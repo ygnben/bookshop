@@ -14,15 +14,24 @@ import FormControlLabel from "@mui/material/FormControlLabel";
 import FormGroup from "@mui/material/FormGroup";
 import MenuItem from "@mui/material/MenuItem";
 import Menu from "@mui/material/Menu";
+import {
+  Card,
+  CardMedia,
+  CardContent,
+  CardActions,
+  Button,
+} from "@mui/material";
+
+import { Link } from "react-router-dom";
 
 import PrimarySearchAppBar from "./components/PrimarySearchAppBar";
+// const books = localStorage.getItem("items");
 
 function Favourite() {
   const [data, setData] = useState([]);
-  const items = useSelector(selectItems);
+  const [loading, setLoading] = useState(true);
   const [login, setLogin] = useState(localStorage.getItem("token"));
   //   console.log(items[0]);
-
   useEffect(() => {
     // Function to fetch data asynchronously
     const fetchData = async () => {
@@ -33,16 +42,52 @@ function Favourite() {
         //   `https://www.googleapis.com/books/v1/volumes?q=${items[0]}`
         // );
 
-        const response = await fetch(
-          "https://www.googleapis.com/books/v1/volumes?q=3On-moJDuO0C"
-        );
+        const books = localStorage.getItem("items");
+        console.log(books);
+        let arrbook = books.split(",");
+        console.log(arrbook);
+        let concatObj = [];
+        for (let bookName in arrbook) {
+          console.log(bookName);
+          let response = await fetch(
+            `https://www.googleapis.com/books/v1/volumes?q=${arrbook[bookName]}`
+          );
+          console.log("bookName", bookName);
+          console.log("r", response);
+          const jsonData = await response.json();
 
-        const jsonData = await response.json();
+          console.log("j", jsonData);
+          concatObj.push(jsonData);
+        }
+        // let i = 0;
+        // while (i < 3) {
+        //   const response = await fetch(
+        //     `https://www.googleapis.com/books/v1/volumes?q=8novEAAAQBAJ`
+        //   );
 
+        //   console.log("r", response);
+        //   const jsonData = await response.json();
+        //   console.log("j", jsonData);
+        //   // concatObj += jsonData;
+        //   concatObj = { ...concatObj, ...jsonData };
+        //   console.log("concatObj", concatObj);
+        //   i++;
+        // }
+
+        console.log("concatObj", concatObj);
+        // const response = await fetch(
+        //   `https://www.googleapis.com/books/v1/volumes?q=3On-moJDuO0C`
+        // );
+
+        // console.log(response);
+        // const jsonData = await response.json();
+        // console.log(jsonData);
         // Update the state with the received data
-        setData(jsonData);
+        // setData(jsonData);
+        setData(concatObj);
+        // array.push(jsonData);
         // console.log("jsonData", jsonData);
-        // setIsLoading(false);
+        setLoading(false);
       } catch (error) {
         // Handle any errors that occur during the fetch operation
         console.error("Error fetching data:", error);
@@ -54,26 +99,31 @@ function Favourite() {
     fetchData();
   }, []);
 
-  console.log("Fav", items);
-  const books = localStorage.getItem("items");
-  let arrbook = books.split(",");
+  // console.log("arrbook", arrbook);
+
   // const items = useSelector((state) => state);
   // console.log(items);
   // return items?.map((item) => <div>{item}</div>);
   // return <div>{items.payload.counter.value}</div>;
-  //   console.log("data", data);
+  console.log("data", data);
 
   //   console.log("data", data.items[0].volumeInfo);
-  console.log("data", data);
+  if (loading) {
+    return <div>Loading...</div>;
+  }
+
   return (
     <>
       <PrimarySearchAppBar login={login} setLogin={setLogin} />
-      {data ? data.map((data) => <>{data.items.volumeInfo}</>) : null}
+      {/* {array ? array.map((data) => <>{data.items.volumeInfo.title}</>) : null} */}
       {/* {data.items[0].volumeInfo} */}
-      {/* <BookList books={data} login={login} /> */}
+      <BookList books={data} login={login} />
       {/* {arrbook.map((book) => (
         <div>{book}</div>
       ))} */}
+      {/* {loading
+        ? null
+        : data?.items.map((book) => <div>{book.volumeInfo.title}</div>)} */}
     </>
   );
 }
@@ -83,7 +133,8 @@ function BookList({ books, login }) {
   // console.log(error);
   // console.log(data);
   // getBook(apiUrl);
-  console.log("books", books.items);
+  console.log("books", books);
+  books.map((book) => console.log("book", book));
   return (
     <Box
       sx={{
@@ -98,13 +149,14 @@ function BookList({ books, login }) {
         justifyContent: "center",
       }}
     >
-      {books?.items.map((book) => (
+      {books?.map((book) => (
         <Book
-          key={book.id}
-          id={book.id}
-          title={book.volumeInfo.title}
-          img={book.volumeInfo.imageLinks}
-          desc={book.volumeInfo.description}
+          key={book.items.id}
+          id={book.items.id}
+          // title={book.volumeInfo.title}
+          title={book.items.volumeInfo.title}
+          img={book.items.volumeInfo.imageLinks}
+          desc={book.items.volumeInfo.description}
           login={login}
         ></Book>
       ))}
@@ -199,7 +251,7 @@ function Book({ id, title, img, desc, login }) {
           {desc}
         </Typography>
       </CardContent>
-      <Counter id={id} />
+      {/* <Counter id={id} /> */}
       <CardActions>
         {login ? <Button size="small">Add Favourite</Button> : null}
         {/* <Button size="small">Share</Button> */}
@@ -207,6 +259,7 @@ function Book({ id, title, img, desc, login }) {
             Learn More
           </Button> */}
         <Link to={`/Detail/${id}`}> Learn More</Link>
+        {/* <Link to={"/Home"}> Learn More</Link> */}
       </CardActions>
     </Card>
   );
