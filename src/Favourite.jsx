@@ -149,17 +149,19 @@ function BookList({ books, login }) {
         justifyContent: "center",
       }}
     >
-      {books?.map((book) => (
-        <Book
-          key={book.items.id}
-          id={book.items.id}
-          // title={book.volumeInfo.title}
-          title={book.items.volumeInfo.title}
-          img={book.items.volumeInfo.imageLinks}
-          desc={book.items.volumeInfo.description}
-          login={login}
-        ></Book>
-      ))}
+      {books?.map((book) =>
+        book.items.map((item) => (
+          <Book
+            key={item.id}
+            id={item.id}
+            // title={book.volumeInfo.title}
+            title={item.volumeInfo.title}
+            img={item.volumeInfo.imageLinks}
+            desc={item.volumeInfo.description}
+            login={login}
+          ></Book>
+        ))
+      )}
       {/* <Book title="a"></Book>
           <Book title="a"></Book>
           <Book title="a"></Book>

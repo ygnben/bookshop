@@ -162,9 +162,10 @@ function Book({ id, title, img, desc, login }) {
           {desc}
         </Typography>
       </CardContent>
-      <Counter id={id} />
+
       <CardActions>
-        {login ? <Button size="small">Add Favourite</Button> : null}
+        {/* {login ? <Button size="small">Add Favourite</Button> : null} */}
+        {login ? <Counter id={id} /> : null}
         {/* <Button size="small">Share</Button> */}
         {/* <Button size="small" onClick={() => handleOnClick(id)}>
           Learn More
@@ -334,11 +335,11 @@ function CategoryBar({ category }) {
       >
         <Tab label="JavaScript" onClick={() => category("javascript")} />
         <Tab label="CSS" onClick={() => category("css")} />
-        <Tab label="Item Three" />
-        <Tab label="Item Four" />
-        <Tab label="Item Five" />
-        <Tab label="Item Six" />
-        <Tab label="Item Seven" />
+        <Tab label="GraphQL" onClick={() => category("GraphQL")} />
+        <Tab label="REACT" onClick={() => category("REACT")} />
+        <Tab label="JAVA" onClick={() => category("JAVA")} />
+        <Tab label="PYTHON" onClick={() => category("PYTHON")} />
+        <Tab label="SQL" onClick={() => category("SQL")} />
       </Tabs>
     </Box>
   );
