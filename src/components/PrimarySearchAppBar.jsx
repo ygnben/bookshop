@@ -18,6 +18,9 @@ import NotificationsIcon from "@mui/icons-material/Notifications";
 import MoreIcon from "@mui/icons-material/MoreVert";
 import Button from "@mui/material/Button";
 
+import { useSelector, useDispatch } from "react-redux";
+import { selectItems } from ".././redux/counterSlice.jsx";
+
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import HomeIcon from "@mui/icons-material/Home";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
@@ -70,6 +73,8 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 }));
 
 export default function PrimarySearchAppBar({ category, login, setLogin }) {
+  const favBook = useSelector(selectItems);
+
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
 
@@ -86,6 +91,7 @@ export default function PrimarySearchAppBar({ category, login, setLogin }) {
     setMobileMoreAnchorEl(null);
   };
 
+  console.log("favbook", favBook.length);
   const handleMenuClose = () => {
     setAnchorEl(null);
     handleMobileMenuClose();
@@ -150,25 +156,25 @@ export default function PrimarySearchAppBar({ category, login, setLogin }) {
       open={isMobileMenuOpen}
       onClose={handleMobileMenuClose}
     >
-      <MenuItem>
+      {/* <MenuItem>
         <IconButton size="large" aria-label="show 4 new mails" color="inherit">
           <Badge badgeContent={4} color="error">
             <ShoppingCartIcon />
           </Badge>
         </IconButton>
         <p>Messages</p>
-      </MenuItem>
-      <MenuItem>
+      </MenuItem> */}
+      <MenuItem onClick={() => navigate("/Favourite")}>
         <IconButton
           size="large"
           aria-label="show 17 new notifications"
           color="inherit"
         >
-          <Badge badgeContent={17} color="error">
+          <Badge badgeContent={favBook.length || 0} color="error">
             <FavoriteIcon />
           </Badge>
         </IconButton>
-        <p>Notifications</p>
+        <p>Favourite </p>
       </MenuItem>
       <MenuItem onClick={handleProfileMenuOpen}>
         <IconButton
@@ -181,19 +187,6 @@ export default function PrimarySearchAppBar({ category, login, setLogin }) {
           <AccountCircle />
         </IconButton>
         <p>Profile</p>
-      </MenuItem>
-
-      <MenuItem onClick={() => navigate("/Favourite")}>
-        <IconButton
-          size="large"
-          aria-label="account of current user"
-          aria-controls="primary-search-account-menu"
-          aria-haspopup="true"
-          color="inherit"
-        >
-          {/* <AccountCircle /> */}
-        </IconButton>
-        <p>Favourite page</p>
       </MenuItem>
     </Menu>
   );
@@ -240,7 +233,7 @@ export default function PrimarySearchAppBar({ category, login, setLogin }) {
           </Search>
           <Box sx={{ flexGrow: 1 }} />
           <Box sx={{ display: { xs: "none", md: "flex" } }}>
-            {login ? (
+            {/* {login ? (
               <IconButton
                 size="large"
                 aria-label="show 4 new mails"
@@ -250,7 +243,7 @@ export default function PrimarySearchAppBar({ category, login, setLogin }) {
                   <ShoppingCartIcon />
                 </Badge>
               </IconButton>
-            ) : null}
+            ) : null} */}
 
             {login ? (
               <IconButton
@@ -259,7 +252,7 @@ export default function PrimarySearchAppBar({ category, login, setLogin }) {
                 color="inherit"
                 onClick={() => navigate("/Favourite")}
               >
-                <Badge badgeContent={17} color="error">
+                <Badge badgeContent={favBook.length || 0} color="error">
                   <FavoriteIcon />
                 </Badge>
               </IconButton>

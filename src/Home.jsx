@@ -38,7 +38,10 @@ import { Link } from "react-router-dom";
 import SwipeableTextMobileStepper from "./SwipeableTextMobileStepper";
 import PrimarySearchAppBar from "./components/PrimarySearchAppBar";
 import { func } from "prop-types";
+
 import { selectItems } from "./redux/counterSlice.jsx";
+import { selectName } from "./redux/counterSlice.jsx";
+
 const apiUrl = "https://www.googleapis.com/books/v1/volumes?q=javascript";
 
 function getBook(apiUrl) {
@@ -165,7 +168,7 @@ function Book({ id, title, img, desc, login }) {
 
       <CardActions>
         {/* {login ? <Button size="small">Add Favourite</Button> : null} */}
-        {login ? <Counter id={id} /> : null}
+        {login ? <Counter id={id} title={title} /> : null}
         {/* <Button size="small">Share</Button> */}
         {/* <Button size="small" onClick={() => handleOnClick(id)}>
           Learn More
@@ -353,7 +356,10 @@ function Home() {
   // console.log(items);
 
   const items = useSelector(selectItems);
+  const name = useSelector(selectName);
 
+  console.log("item", items);
+  console.log("name", name);
   useEffect(() => {
     localStorage.setItem("items", items);
   }, [items]);

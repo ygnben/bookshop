@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { selectItems } from "./redux/counterSlice";
+import { selectName } from "./redux/counterSlice";
 
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
@@ -31,6 +32,11 @@ function Favourite() {
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true);
   const [login, setLogin] = useState(localStorage.getItem("token"));
+
+  const favName = useSelector(selectName);
+
+  console.log("favName", favName);
+
   //   console.log(items[0]);
   useEffect(() => {
     // Function to fetch data asynchronously
@@ -115,6 +121,14 @@ function Favourite() {
   return (
     <>
       <PrimarySearchAppBar login={login} setLogin={setLogin} />
+      <Typography
+        sx={{ display: "flex", justifyContent: "center" }}
+        variant="h1"
+        component="h2"
+      >
+        Favourite list
+      </Typography>
+
       {/* {array ? array.map((data) => <>{data.items.volumeInfo.title}</>) : null} */}
       {/* {data.items[0].volumeInfo} */}
       <BookList books={data} login={login} />
@@ -255,7 +269,7 @@ function Book({ id, title, img, desc, login }) {
       </CardContent>
       {/* <Counter id={id} /> */}
       <CardActions>
-        {login ? <Button size="small">Add Favourite</Button> : null}
+        {/* {login ? <Button size="small">Add Favourite</Button> : null} */}
         {/* <Button size="small">Share</Button> */}
         {/* <Button size="small" onClick={() => handleOnClick(id)}>
             Learn More
