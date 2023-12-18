@@ -42,6 +42,7 @@ import { func } from "prop-types";
 import { selectItems } from "./redux/counterSlice.jsx";
 import { selectName } from "./redux/counterSlice.jsx";
 
+import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 const apiUrl = "https://www.googleapis.com/books/v1/volumes?q=javascript";
 
 function getBook(apiUrl) {
@@ -93,7 +94,7 @@ function getBook(apiUrl) {
 //   if (error) return `Error ! ${error}`;
 // }
 
-function Book({ id, title, img, desc, login }) {
+function Book({ id, title, img, desc, price, curCode, login }) {
   function handleOnClick(id) {
     console.log(id);
   }
@@ -155,6 +156,10 @@ function Book({ id, title, img, desc, login }) {
         <Typography gutterBottom variant="h5" component="div">
           {title}
         </Typography>
+
+        {/* <Typography gutterBottom variant="h5" component="div">
+          {bookInfo.saleInfo?.listPrice?.amount}
+        </Typography> */}
         <Typography
           variant="body2"
           color="text.secondary"
@@ -164,6 +169,8 @@ function Book({ id, title, img, desc, login }) {
           species, ranging across all continents except Antarctica */}
           {desc}
         </Typography>
+        <Typography>{curCode}</Typography>
+        <Typography>{price}</Typography>
       </CardContent>
 
       <CardActions>
@@ -206,6 +213,8 @@ function BookList({ books, login }) {
           title={book.volumeInfo.title}
           img={book.volumeInfo.imageLinks}
           desc={book.volumeInfo.description}
+          price={book.saleInfo?.listPrice?.amount}
+          curCode={book.saleInfo?.listPrice?.currencyCode}
           login={login}
         ></Book>
       ))}

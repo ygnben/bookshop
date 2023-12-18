@@ -154,7 +154,11 @@ function DetailInfo({ bookInfo }) {
           </Grid>
           <Grid item>
             <Typography variant="subtitle1" component="div">
-              -
+              {bookInfo.saleInfo.country}
+            </Typography>
+
+            <Typography variant="subtitle1" component="div">
+              {bookInfo.saleInfo?.listPrice?.amount}
             </Typography>
           </Grid>
         </Grid>
