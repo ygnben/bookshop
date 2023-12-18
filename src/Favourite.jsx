@@ -61,9 +61,21 @@ function Favourite() {
           console.log("bookName", bookName);
           console.log("r", response);
           const jsonData = await response.json();
+          let filterData = [];
 
+          filterData = jsonData.items.filter(
+            (book) => book.id === arrbook[bookName]
+          );
+
+          //   for (let bookName in arrbook) {
+          //     filterData = jsonData.items.filter(
+          //       (book) => book.id === arrbook[bookName]
+          //     );
+          //   }
+          console.log("kkkk", filterData);
           console.log("j", jsonData);
-          concatObj.push(jsonData);
+          //   concatObj.push(jsonData);
+          concatObj.push(filterData);
         }
         // let i = 0;
         // while (i < 3) {
@@ -117,7 +129,26 @@ function Favourite() {
   if (loading) {
     return <div>Loading...</div>;
   }
+  //   console.log("data1", data);
+  //   //   data.map((book) => console.log("book1", book.items));
+  //   data.map((book) => book.items.map((book) => console.log(book.id)));
+  //   // filter ans
+  //   console.log(
+  //     "bbbb",
+  //     data.map((book) => book.items.filter((book) => book.id === "8novEAAAQBAJ"))
+  //   );
 
+  //   console.log(
+  //     "filterBook1",
+  //     data.map((book) => book.items).filter((book) => book.id === "8novEAAAQBAJ")
+  //   );
+  //   data.map((book) => book.items).map((book) => console.log("book3", book.id));
+
+  //   data.map((book) =>
+  //     book
+  //       .filter((book) => book.id === "8novEAAAQBAJ")
+  //       .map((book) => console.log(book))
+  //   );
   return (
     <>
       <PrimarySearchAppBar login={login} setLogin={setLogin} />
@@ -163,19 +194,64 @@ function BookList({ books, login }) {
         justifyContent: "center",
       }}
     >
-      {books?.map((book) =>
-        book.items.map((item) => (
-          <Book
-            key={item.id}
-            id={item.id}
-            // title={book.volumeInfo.title}
-            title={item.volumeInfo.title}
-            img={item.volumeInfo.imageLinks}
-            desc={item.volumeInfo.description}
-            login={login}
-          ></Book>
-        ))
-      )}
+      {
+        books?.map(
+          (item) =>
+            item.map((item) => (
+              <Book
+                key={item.id}
+                id={item.id}
+                // title={book.volumeInfo.title}
+                title={item.volumeInfo.title}
+                img={item.volumeInfo.imageLinks}
+                desc={item.volumeInfo.description}
+                login={login}
+              ></Book>
+            ))
+          // book.items.map((item) => (
+          //   <Book
+          //     key={item.id}
+          //     id={item.id}
+          //     // title={book.volumeInfo.title}
+          //     title={item.volumeInfo.title}
+          //     img={item.volumeInfo.imageLinks}
+          //     desc={item.volumeInfo.description}
+          //     login={login}
+          //   ></Book>
+          // ))
+          //   // filter ans
+          //   console.log(
+          //     "bbbb",
+          //     data.map((book) => book.items.filter((book) => book.id === "8novEAAAQBAJ"))
+          //   );
+          //   book.items
+          //     .filter((item) => item.id === "8novEAAAQBAJ")
+          //     .map((item) => (
+          //       <Book
+          //         key={item.id}
+          //         id={item.id}
+          //         // title={book.volumeInfo.title}
+          //         title={item.volumeInfo.title}
+          //         img={item.volumeInfo.imageLinks}
+          //         desc={item.volumeInfo.description}
+          //         login={login}
+          //       ></Book>
+          //     ))
+        )
+        // book.items.filter((item) =>
+        //   (item.id === "8novEAAAQBAJ").map((item) => (
+        //     <Book
+        //       key={item.id}
+        //       id={item.id}
+        //       // title={book.volumeInfo.title}
+        //       title={item.volumeInfo.title}
+        //       img={item.volumeInfo.imageLinks}
+        //       desc={item.volumeInfo.description}
+        //       login={login}
+        //     ></Book>
+        //   ))
+        // )
+      }
       {/* <Book title="a"></Book>
           <Book title="a"></Book>
           <Book title="a"></Book>
