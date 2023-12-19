@@ -19,7 +19,7 @@ import MoreIcon from "@mui/icons-material/MoreVert";
 import Button from "@mui/material/Button";
 
 import { useSelector, useDispatch } from "react-redux";
-import { selectItems } from ".././redux/counterSlice.jsx";
+import { selectItems, selectShop } from ".././redux/counterSlice.jsx";
 
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import HomeIcon from "@mui/icons-material/Home";
@@ -74,6 +74,7 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 
 export default function PrimarySearchAppBar({ category, login, setLogin }) {
   const favBook = useSelector(selectItems);
+  const shop = useSelector(selectShop);
 
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
@@ -156,14 +157,14 @@ export default function PrimarySearchAppBar({ category, login, setLogin }) {
       open={isMobileMenuOpen}
       onClose={handleMobileMenuClose}
     >
-      {/* <MenuItem>
+      <MenuItem>
         <IconButton size="large" aria-label="show 4 new mails" color="inherit">
           <Badge badgeContent={4} color="error">
             <ShoppingCartIcon />
           </Badge>
         </IconButton>
         <p>Messages</p>
-      </MenuItem> */}
+      </MenuItem>
       <MenuItem onClick={() => navigate("/Favourite")}>
         <IconButton
           size="large"
@@ -233,17 +234,17 @@ export default function PrimarySearchAppBar({ category, login, setLogin }) {
           </Search>
           <Box sx={{ flexGrow: 1 }} />
           <Box sx={{ display: { xs: "none", md: "flex" } }}>
-            {/* {login ? (
+            {login ? (
               <IconButton
                 size="large"
                 aria-label="show 4 new mails"
                 color="inherit"
               >
-                <Badge badgeContent={4} color="error">
+                <Badge badgeContent={shop.length} color="error">
                   <ShoppingCartIcon />
                 </Badge>
               </IconButton>
-            ) : null} */}
+            ) : null}
 
             {login ? (
               <IconButton

@@ -18,6 +18,7 @@ import Stack from "@mui/material/Stack";
 import Chip from "@mui/material/Chip";
 
 import Counter from "./redux/Counter.jsx";
+import Shop from "./redux/Shop.jsx";
 
 import Tab from "@mui/material/Tab";
 import Tabs from "@mui/material/Tabs";
@@ -39,7 +40,7 @@ import SwipeableTextMobileStepper from "./SwipeableTextMobileStepper";
 import PrimarySearchAppBar from "./components/PrimarySearchAppBar";
 import { func } from "prop-types";
 
-import { selectItems } from "./redux/counterSlice.jsx";
+import { selectItems, selectShop } from "./redux/counterSlice.jsx";
 import { selectName } from "./redux/counterSlice.jsx";
 
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
@@ -176,6 +177,7 @@ function Book({ id, title, img, desc, price, curCode, login }) {
       <CardActions>
         {/* {login ? <Button size="small">Add Favourite</Button> : null} */}
         {login ? <Counter id={id} title={title} /> : null}
+        <Shop id={id} />
         {/* <Button size="small">Share</Button> */}
         {/* <Button size="small" onClick={() => handleOnClick(id)}>
           Learn More
@@ -366,12 +368,15 @@ function Home() {
 
   const items = useSelector(selectItems);
   const name = useSelector(selectName);
+  const shop = useSelector(selectShop);
 
+  console.log("shop", shop);
   console.log("item", items);
   console.log("name", name);
   useEffect(() => {
     localStorage.setItem("items", items);
-  }, [items]);
+    localStorage.setItem("shop", shop);
+  }, [items, shop]);
 
   const [category, setCategory] = useState("javascript");
   const [login, setLogin] = useState(localStorage.getItem("token"));
