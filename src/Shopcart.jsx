@@ -122,7 +122,7 @@ function Shopcart() {
   // console.log(items);
   // return items?.map((item) => <div>{item}</div>);
   // return <div>{items.payload.counter.value}</div>;
-  console.log("data", data);
+  console.log("data111", data);
 
   //   console.log("data", data.items[0].volumeInfo);
   if (loading) {
@@ -148,6 +148,37 @@ function Shopcart() {
   //       .filter((book) => book.id === "8novEAAAQBAJ")
   //       .map((book) => console.log(book))
   //   );
+
+  console.log(
+    "xxxx1",
+    data.map((book) =>
+      book.map((book) => book.saleInfo.listPrice?.amount || 50)
+    )
+  );
+
+  const total = data
+    .map((book) =>
+      book.map((book) => {
+        if (book.saleInfo?.listPrice !== undefined) {
+          return book.saleInfo?.listPrice?.amount;
+        } else {
+          return 50;
+        }
+        // book.saleInfo.listPrice?.amount || 50;
+      })
+    )
+    .reduce((accumulator, currentValue) => {
+      return parseInt(accumulator) + parseInt(currentValue);
+      // return accumulator + currentValue;
+    });
+
+  // data.map((book) =>
+  //   book
+  //     .map((book) => book.saleInfo.listPrice.amount)
+  //     .reduce((accumulator, currentValue) => {
+  //       return parseInt(accumulator) + currentValue;
+  //     })
+  // );
   return (
     <>
       <PrimarySearchAppBar login={login} setLogin={setLogin} />
@@ -162,6 +193,7 @@ function Shopcart() {
       {/* {array ? array.map((data) => <>{data.items.volumeInfo.title}</>) : null} */}
       {/* {data.items[0].volumeInfo} */}
       <BookList books={data} login={login} />
+      <Typography>Total:{total}</Typography>
       <Button onClick={() => navigator("/Checkout")}>Check out</Button>
       {/* {arrbook.map((book) => (
           <div>{book}</div>

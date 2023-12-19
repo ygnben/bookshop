@@ -170,8 +170,8 @@ function Book({ id, title, img, desc, price, curCode, login }) {
           species, ranging across all continents except Antarctica */}
           {desc}
         </Typography>
-        <Typography>{curCode}</Typography>
-        <Typography>{price}</Typography>
+        <Typography>{curCode || "HKD"}</Typography>
+        <Typography>{price || 50}</Typography>
       </CardContent>
 
       <CardActions>
