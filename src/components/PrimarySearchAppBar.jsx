@@ -157,7 +157,7 @@ export default function PrimarySearchAppBar({ category, login, setLogin }) {
       open={isMobileMenuOpen}
       onClose={handleMobileMenuClose}
     >
-      <MenuItem>
+      <MenuItem onClick={() => navigate("/Shopcart")}>
         <IconButton size="large" aria-label="show 4 new mails" color="inherit">
           <Badge badgeContent={4} color="error">
             <ShoppingCartIcon />
@@ -239,6 +239,7 @@ export default function PrimarySearchAppBar({ category, login, setLogin }) {
                 size="large"
                 aria-label="show 4 new mails"
                 color="inherit"
+                onClick={() => navigate("/Shopcart")}
               >
                 <Badge badgeContent={shop.length} color="error">
                   <ShoppingCartIcon />

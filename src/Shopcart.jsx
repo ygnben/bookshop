@@ -1,4 +1,31 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { selectItems } from "./redux/counterSlice";
+import { selectName } from "./redux/counterSlice";
+
+import AppBar from "@mui/material/AppBar";
+import Box from "@mui/material/Box";
+import Toolbar from "@mui/material/Toolbar";
+import Typography from "@mui/material/Typography";
+import IconButton from "@mui/material/IconButton";
+import MenuIcon from "@mui/icons-material/Menu";
+import AccountCircle from "@mui/icons-material/AccountCircle";
+import Switch from "@mui/material/Switch";
+import FormControlLabel from "@mui/material/FormControlLabel";
+import FormGroup from "@mui/material/FormGroup";
+import MenuItem from "@mui/material/MenuItem";
+import Menu from "@mui/material/Menu";
+import {
+  Card,
+  CardMedia,
+  CardContent,
+  CardActions,
+  Button,
+} from "@mui/material";
+
+import { Link } from "react-router-dom";
+
+import PrimarySearchAppBar from "./components/PrimarySearchAppBar";
 
 function Shopcart() {
   const [data, setData] = useState([]);
@@ -20,7 +47,7 @@ function Shopcart() {
         //   `https://www.googleapis.com/books/v1/volumes?q=${items[0]}`
         // );
 
-        const books = localStorage.getItem("items");
+        const books = localStorage.getItem("shop");
         console.log(books);
         let arrbook = books.split(",");
         console.log(arrbook);
@@ -129,7 +156,7 @@ function Shopcart() {
         variant="h1"
         component="h2"
       >
-        Favourite list
+        Shopping cart
       </Typography>
 
       {/* {array ? array.map((data) => <>{data.items.volumeInfo.title}</>) : null} */}
