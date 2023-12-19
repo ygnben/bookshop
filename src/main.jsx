@@ -9,6 +9,7 @@ import SignIn from "./features/SignIn.jsx";
 import Search from "./Search.jsx";
 import Favourite from "./Favourite.jsx";
 import Shopcart from "./Shopcart.jsx";
+import Checkout from "./Checkout.jsx";
 
 import store from "./redux/store.jsx";
 // import "./index.css";
@@ -40,6 +41,7 @@ ReactDOM.createRoot(document.getElementById("root")).render(
             <Route path="/Search" element={<Search />} />
             <Route path="/Favourite" element={<Favourite />} />
             <Route path="/Shopcart" element={<Shopcart />} />
+            <Route path="/Checkout" element={<Checkout />} />
           </Routes>
         </BrowserRouter>
       </ApolloProvider>

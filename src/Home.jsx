@@ -177,7 +177,8 @@ function Book({ id, title, img, desc, price, curCode, login }) {
       <CardActions>
         {/* {login ? <Button size="small">Add Favourite</Button> : null} */}
         {login ? <Counter id={id} title={title} /> : null}
-        <Shop id={id} />
+        {login ? <Shop id={id} /> : null}
+        {/* <Shop id={id} /> */}
         {/* <Button size="small">Share</Button> */}
         {/* <Button size="small" onClick={() => handleOnClick(id)}>
           Learn More

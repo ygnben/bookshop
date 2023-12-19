@@ -177,7 +177,7 @@ export default function PrimarySearchAppBar({ category, login, setLogin }) {
         </IconButton>
         <p>Favourite </p>
       </MenuItem>
-      <MenuItem onClick={handleProfileMenuOpen}>
+      {/* <MenuItem onClick={handleProfileMenuOpen}>
         <IconButton
           size="large"
           aria-label="account of current user"
@@ -188,7 +188,7 @@ export default function PrimarySearchAppBar({ category, login, setLogin }) {
           <AccountCircle />
         </IconButton>
         <p>Profile</p>
-      </MenuItem>
+      </MenuItem> */}
     </Menu>
   );
   console.log("Login", login);
@@ -260,7 +260,7 @@ export default function PrimarySearchAppBar({ category, login, setLogin }) {
               </IconButton>
             ) : null}
 
-            {login ? (
+            {/* {login ? (
               <IconButton
                 size="large"
                 edge="end"
@@ -272,7 +272,7 @@ export default function PrimarySearchAppBar({ category, login, setLogin }) {
               >
                 <AccountCircle />
               </IconButton>
-            ) : null}
+            ) : null} */}
           </Box>
           <Box sx={{ display: { xs: "flex", md: "none" } }}>
             <IconButton

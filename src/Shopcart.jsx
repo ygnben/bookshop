@@ -162,6 +162,7 @@ function Shopcart() {
       {/* {array ? array.map((data) => <>{data.items.volumeInfo.title}</>) : null} */}
       {/* {data.items[0].volumeInfo} */}
       <BookList books={data} login={login} />
+      <Button onClick={() => navigator("/Checkout")}>Check out</Button>
       {/* {arrbook.map((book) => (
           <div>{book}</div>
         ))} */}
