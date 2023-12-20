@@ -7,6 +7,7 @@ const initialState = {
   currentItemID: null,
   value: 0,
   shopcart: [],
+  clicked: false,
 };
 export const counterSlice = createSlice({
   name: "counter",
@@ -22,7 +23,7 @@ export const counterSlice = createSlice({
       console.log("itemID", action.payload);
     },
     setName: (state, action) => {
-      state.name = action.payload.name;
+      state.name = action.payload;
       // console.log("payloadsetName");
       // console.log("payloadsetName", state.name);
       console.log("setname", action.payload);
@@ -34,14 +35,19 @@ export const counterSlice = createSlice({
       //   console.log("payload", state.currentItemID);
       //   console.log("items", state.items);
     },
+    setClicked: (state, action) => {
+      state.clicked = true;
+    },
     // selectItems: (state) => state.counter.value,
   },
 });
 
-export const { setCurrentItemID, setName, setShopId } = counterSlice.actions;
+export const { setCurrentItemID, setName, setShopId, setClicked } =
+  counterSlice.actions;
 export const selectItems = (state) => state.counter.items;
 export const selectName = (state) => state.counter.name;
 export const selectShop = (state) => state.counter.shopcart;
+export const selectClicked = (state) => state.counter.clicked;
 
 // export const { add } = counterSlice.actions;
 // export const { increment, decrement } = counterSlice.actions;

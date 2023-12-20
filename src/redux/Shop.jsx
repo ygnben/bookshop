@@ -1,5 +1,6 @@
 import React from "react";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
+import AddShoppingCartIcon from "@mui/icons-material/AddShoppingCart";
 
 import { useSelector, useDispatch } from "react-redux";
 

@@ -101,6 +101,8 @@ function getBook(apiUrl) {
 // }
 
 function Book({ id, title, img, desc, price, curCode, login }) {
+  const [click, setClick] = useState(false);
+
   function handleOnClick(id) {
     console.log(id);
   }
@@ -181,7 +183,14 @@ function Book({ id, title, img, desc, price, curCode, login }) {
 
       <CardActions>
         {/* {login ? <Button size="small">Add Favourite</Button> : null} */}
-        {login ? <Counter id={id} title={title} /> : null}
+        {login ? (
+          <Counter
+            id={id}
+            title={title}
+            setClicked={setClick}
+            clicked={click}
+          />
+        ) : null}
         {login ? <Shop id={id} /> : null}
         {/* <Shop id={id} /> */}
         {/* <Button size="small">Share</Button> */}
@@ -226,19 +235,6 @@ function BookList({ books, login }) {
           login={login}
         ></Book>
       ))}
-      {/* <Book title="a"></Book>
-        <Book title="a"></Book>
-        <Book title="a"></Book>
-        <Book title="a"></Book>
-        <Book title="a"></Book>
-        <Book title="a"></Book>
-        <Book title="a"></Book>
-        <Book title="a"></Book>
-        <Book title="a"></Book>
-        <Book title="a"></Book>
-        <Book title="a"></Book>
-        <Book title="a"></Book> */}
-      {/* <Book title={books.title}></Book> */}
     </Box>
   );
 
