@@ -11,6 +11,8 @@ import DialogTitle from "@mui/material/DialogTitle";
 
 import Typography from "@mui/material/Typography";
 
+import { setShopNull } from "./redux/counterSlice";
+import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
 export default function Checkout({ state, setState, total, books }) {
@@ -20,6 +22,7 @@ export default function Checkout({ state, setState, total, books }) {
   //     setOpen(true);
   //   };
 
+  const dispatch = useDispatch();
   const navigate = useNavigate();
   console.log("books1111", books);
   const handleClose = () => {
@@ -32,6 +35,8 @@ export default function Checkout({ state, setState, total, books }) {
     });
 
     localStorage.removeItem("shop");
+    dispatch(setShopNull());
+
     navigate("/Home");
   };
   return (

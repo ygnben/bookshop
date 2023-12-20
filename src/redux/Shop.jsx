@@ -8,15 +8,26 @@ import { useSelector, useDispatch } from "react-redux";
 
 import { setShopId } from "./counterSlice";
 
-function shop({ id }) {
+function shop({ id, setClicked, clicked }) {
   const dispatch = useDispatch();
   // dispatch(setCurrentItemID(id));
   // console.log();
   //   const items = useSelector((state) => state.counter);
   //   console.log(items);
 
+  let checkFav = false;
+  let items;
+
+  items = localStorage.getItem("shop");
+  items = items.split(",");
+  checkFav = items.includes(id);
+
+  if (checkFav) {
+    setClicked(true);
+  }
   function handleShop(id) {
     dispatch(setShopId(id));
+    setClicked(true);
   }
 
   return (
@@ -25,7 +36,13 @@ function shop({ id }) {
         <span>{count}</span>
         <button onClick={() => dispatch(increment())}>+</button> */}
       {/* <FavoriteBorderIcon onClick={() => dispatch(setCurrentItemID(id))} /> */}
-      <ShoppingCartIcon onClick={() => handleShop(id)} />
+
+      {clicked ? (
+        <AddShoppingCartIcon />
+      ) : (
+        <ShoppingCartIcon onClick={() => handleShop(id)} />
+      )}
+
       {/* <FavoriteBorderIcon onClick={() => dispatch(setCurrentItemID(id))} /> */}
 
       {/* <ShoppingCartIcon /> */}

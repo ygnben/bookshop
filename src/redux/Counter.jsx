@@ -1,5 +1,5 @@
 // Counter.js
-import React from "react";
+import React, { useEffect } from "react";
 
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import FavoriteIcon from "@mui/icons-material/Favorite";
@@ -20,7 +20,28 @@ function Counter({ id, name, setClicked, clicked }) {
   // console.log();
   //   const items = useSelector((state) => state.counter);
   //   console.log(items);
+  let checkFav = false;
+  let items;
 
+  items = localStorage.getItem("items");
+  items = items.split(",");
+  checkFav = items.includes(id);
+
+  if (checkFav) {
+    setClicked(true);
+  }
+  console.log("id", id);
+  console.log("items", items);
+  console.log("effect1333", checkFav);
+
+  // useEffect(() => {
+  //   items = localStorage.getItem("items");
+  //   items = items.split(",");
+  //   checkFav = items.includes(id);
+  //   console.log("id", id);
+  //   console.log("items", items);
+  //   console.log("effect1333", checkFav);
+  // }, [clicked]);
   // console.log(clicked);
   function handleFav(id, name) {
     dispatch(setCurrentItemID(id));
@@ -29,11 +50,7 @@ function Counter({ id, name, setClicked, clicked }) {
     setClicked(true);
   }
   console.log("clicked123", clicked);
-  let checkFav = false;
-  let items = localStorage.getItem("items");
-  items = items.split(",");
-
-  checkFav = items.includes(id);
+  console.log("checkFav", checkFav);
 
   return (
     <div>

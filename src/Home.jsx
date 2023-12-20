@@ -101,58 +101,12 @@ function getBook(apiUrl) {
 // }
 
 function Book({ id, title, img, desc, price, curCode, login }) {
-  const [click, setClick] = useState(false);
-
+  const [favClick, setFavClick] = useState(false);
+  const [shopClick, setShopClick] = useState(false);
   function handleOnClick(id) {
     console.log(id);
   }
   return (
-    // <div>
-    //   <img src="" alt="" />
-    //   <div>title:{title}</div>
-    //   <div>Author:</div>
-    //   <div>price</div>
-    //   <div>Detail:</div>
-    //   <button>faourite</button>
-    //   <button>Buy</button>
-    // </div>
-
-    // <Box sx={{ width: "100%", maxWidth: 360, bgcolor: "background.paper" }}>
-    //   <Box sx={{ my: 3, mx: 2 }}>
-    //     <Grid container alignItems="center">
-    //       <Grid item xs>
-    //         <Typography gutterBottom variant="h4" component="div">
-    //           Toothbrush
-    //         </Typography>
-    //       </Grid>
-    //       <Grid item>
-    //         <Typography gutterBottom variant="h6" component="div">
-    //           $4.50
-    //         </Typography>
-    //       </Grid>
-    //     </Grid>
-    //     <Typography color="text.secondary" variant="body2">
-    //       Pinstriped cornflower blue cotton blouse takes you on a walk to the
-    //       park or just down the hall.
-    //     </Typography>
-    //   </Box>
-    //   <Divider variant="middle" />
-    //   <Box sx={{ m: 2 }}>
-    //     <Typography gutterBottom variant="body1">
-    //       Select type
-    //     </Typography>
-    //     <Stack direction="row" spacing={1}>
-    //       <Chip label="Extra Soft" />
-    //       <Chip color="primary" label="Soft" />
-    //       <Chip label="Medium" />
-    //       <Chip label="Hard" />
-    //     </Stack>
-    //   </Box>
-    //   <Box sx={{ mt: 3, ml: 1, mb: 1 }}>
-    //     <Button>Add to cart</Button>
-    //   </Box>
-    // </Box>
-
     <Card sx={{ maxWidth: 345 }}>
       <CardMedia
         sx={{ height: 400 }}
@@ -187,11 +141,13 @@ function Book({ id, title, img, desc, price, curCode, login }) {
           <Counter
             id={id}
             title={title}
-            setClicked={setClick}
-            clicked={click}
+            setClicked={setFavClick}
+            clicked={favClick}
           />
         ) : null}
-        {login ? <Shop id={id} /> : null}
+        {login ? (
+          <Shop id={id} setClicked={setShopClick} clicked={shopClick} />
+        ) : null}
         {/* <Shop id={id} /> */}
         {/* <Button size="small">Share</Button> */}
         {/* <Button size="small" onClick={() => handleOnClick(id)}>
