@@ -28,7 +28,8 @@
     "react-social-login-buttons": "^3.9.1",
     "react-swipeable-views": "^0.14.0",
     "reactjs-social-login": "^2.6.3",
-    "styled-components": "^6.1.1"
+    "styled-components": "^6.1.1",
+    "sweetalert2": "^11.10.1"
   },
   "devDependencies": {
     "@types/react": "^18.2.37",
