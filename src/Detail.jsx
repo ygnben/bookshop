@@ -143,13 +143,13 @@ function DetailInfo({ bookInfo }) {
               </Typography> */}
             </Grid>
             <Grid item>
-              <Typography sx={{ cursor: "pointer" }} variant="body2">
+              {/* <Typography sx={{ cursor: "pointer" }} variant="body2">
                 Buy
               </Typography>
 
               <Typography sx={{ cursor: "pointer" }} variant="body2">
                 Favourite
-              </Typography>
+              </Typography> */}
             </Grid>
           </Grid>
           <Grid item>

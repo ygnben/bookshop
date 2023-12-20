@@ -22,7 +22,13 @@ import {
   CardActions,
   Button,
 } from "@mui/material";
+import Dialog from "@mui/material/Dialog";
+import DialogActions from "@mui/material/DialogActions";
+import DialogContent from "@mui/material/DialogContent";
+import DialogContentText from "@mui/material/DialogContentText";
+import DialogTitle from "@mui/material/DialogTitle";
 
+import Checkout from "./Checkout.jsx";
 import { Link } from "react-router-dom";
 
 import PrimarySearchAppBar from "./components/PrimarySearchAppBar";
@@ -31,6 +37,13 @@ function Shopcart() {
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true);
   const [login, setLogin] = useState(localStorage.getItem("token"));
+
+  const [open, setOpen] = React.useState(false);
+
+  const handleClickOpen = () => {
+    setOpen(true);
+    console.log("open", open);
+  };
 
   const favName = useSelector(selectName);
 
@@ -194,7 +207,8 @@ function Shopcart() {
       {/* {data.items[0].volumeInfo} */}
       <BookList books={data} login={login} />
       <Typography>Total:{total}</Typography>
-      <Button onClick={() => navigator("/Checkout")}>Check out</Button>
+      <Button onClick={handleClickOpen}>Check out</Button>
+      <Checkout state={open} setState={setOpen} total={total} books={data} />
       {/* {arrbook.map((book) => (
           <div>{book}</div>
         ))} */}
@@ -235,6 +249,8 @@ function BookList({ books, login }) {
             title={item.volumeInfo.title}
             img={item.volumeInfo.imageLinks}
             desc={item.volumeInfo.description}
+            price={item.saleInfo?.listPrice?.amount}
+            curCode={item.saleInfo?.listPrice?.currencyCode}
             login={login}
           ></Book>
         ))
@@ -245,7 +261,7 @@ function BookList({ books, login }) {
   // <Book title="a"></Book>;
 }
 
-function Book({ id, title, img, desc, login }) {
+function Book({ id, title, img, desc, price, curCode, login }) {
   function handleOnClick(id) {
     console.log(id);
   }
@@ -316,6 +332,8 @@ function Book({ id, title, img, desc, login }) {
               species, ranging across all continents except Antarctica */}
           {desc}
         </Typography>
+        <Typography>{curCode || "HKD"}</Typography>
+        <Typography>{price || 50}</Typography>
       </CardContent>
       {/* <Counter id={id} /> */}
       <CardActions>

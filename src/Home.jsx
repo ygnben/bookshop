@@ -16,6 +16,11 @@ import Grid from "@mui/material/Grid";
 import Divider from "@mui/material/Divider";
 import Stack from "@mui/material/Stack";
 import Chip from "@mui/material/Chip";
+import Dialog from "@mui/material/Dialog";
+import DialogActions from "@mui/material/DialogActions";
+import DialogContent from "@mui/material/DialogContent";
+import DialogContentText from "@mui/material/DialogContentText";
+import DialogTitle from "@mui/material/DialogTitle";
 
 import Counter from "./redux/Counter.jsx";
 import Shop from "./redux/Shop.jsx";
