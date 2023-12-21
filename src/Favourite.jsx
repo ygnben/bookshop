@@ -27,6 +27,7 @@ import CircularProgress from "@mui/material/CircularProgress";
 import Breadcrumbs from "./Breadcrumbs";
 
 import { Link } from "react-router-dom";
+import Loader from "./Loader";
 
 import PrimarySearchAppBar from "./components/PrimarySearchAppBar";
 import VerticalToggleButtons from "./VerticalToggleButtons";
@@ -132,7 +133,7 @@ function Favourite() {
 
   //   console.log("data", data.items[0].volumeInfo);
   if (loading) {
-    return <div>Loading...</div>;
+    return <Loader />;
   }
   //   console.log("data1", data);
   //   //   data.map((book) => console.log("book1", book.items));
