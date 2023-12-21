@@ -15,6 +15,7 @@ import { styled } from "@mui/material/styles";
 
 import parse from "html-react-parser";
 
+import Loader from "./Loader";
 function Detail() {
   const { id } = useParams();
 
@@ -79,7 +80,7 @@ function Detail() {
       <PrimarySearchAppBar login={login} setLogin={setLogin} />
       {/* <div>{id}</div> */}
       {isLoading ? (
-        <div>loading</div>
+        <loader />
       ) : (
         <>
           <DetailInfo bookInfo={data} />

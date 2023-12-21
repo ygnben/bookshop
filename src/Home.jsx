@@ -50,6 +50,7 @@ import { selectItems, selectShop } from "./redux/counterSlice.jsx";
 import { selectName } from "./redux/counterSlice.jsx";
 
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
+import Loader from "./Loader.jsx";
 const apiUrl = "https://www.googleapis.com/books/v1/volumes?q=javascript";
 
 function getBook(apiUrl) {
@@ -370,11 +371,7 @@ function Home() {
   }, [category]);
 
   if (isLoading) {
-    return (
-      <div>
-        <CircularProgress />
-      </div>
-    );
+    return <Loader />;
   }
 
   if (!data) {

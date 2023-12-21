@@ -35,6 +35,8 @@ import HorizontalLinearStepper from "./HorizontalLinearStepper.jsx";
 
 import Breadcrumbs from "./Breadcrumbs";
 
+import Loader from "./Loader";
+
 import Checkout from "./Checkout.jsx";
 import { Link } from "react-router-dom";
 
@@ -146,7 +148,7 @@ function Shopcart() {
 
   //   console.log("data", data.items[0].volumeInfo);
   if (loading) {
-    return <div>Loading...</div>;
+    return <Loader />;
   }
   //   console.log("data1", data);
   //   //   data.map((book) => console.log("book1", book.items));
