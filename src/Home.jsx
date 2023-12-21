@@ -194,8 +194,6 @@ function BookList({ books, login }) {
       ))}
     </Box>
   );
-
-  // <Book title="a"></Book>;
 }
 
 function SearchBar() {
