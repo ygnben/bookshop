@@ -24,26 +24,6 @@ function Detail() {
 
   const [login, setLogin] = useState(localStorage.getItem("token"));
 
-  //   const apiUrl = "https://www.googleapis.com/books/v1/volumes?q=javascript";
-  // fetch(`https://www.googleapis.com/books/v1/volumes/${id}`)
-
-  //   const [loading, setLoading] = useState(true);
-  //   const [data, setData] = useState([]);
-
-  //   useEffect(() => {
-  //     fetch(`https://www.googleapis.com/books/v1/volumes/${id}`)
-  //       .then((response) => {
-  //         return response.json();
-  //       })
-  //       .then((response) => {
-  //         setData(response);
-  //         (response);
-  //       })
-  //       .catch((error) => {
-  //         (`Error: ${error}`);
-  //       });
-  //   }, []);
-
   const [data, setData] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
 
