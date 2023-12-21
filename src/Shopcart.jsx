@@ -31,6 +31,7 @@ import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
 import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
+import HorizontalLinearStepper from "./HorizontalLinearStepper.jsx";
 
 import Breadcrumbs from "./Breadcrumbs";
 
@@ -202,19 +203,19 @@ function Shopcart() {
     <>
       <PrimarySearchAppBar login={login} setLogin={setLogin} />
       {/* <Breadcrumbs /> */}
-      <Paper>
-        <Typography
+      <Paper sx={{ padding: "10px" }}>
+        <HorizontalLinearStepper />
+        {/* <Typography
           sx={{ display: "flex", justifyContent: "center" }}
           variant="h1"
           component="h2"
         >
           Shopping cart
-        </Typography>
+        </Typography> */}
         <Divider variant="inset" />
         {/* {array ? array.map((data) => <>{data.items.volumeInfo.title}</>) : null} */}
         {/* {data.items[0].volumeInfo} */}
         <BookList books={data} login={login} />
-
         <Typography
           sx={{
             display: "flex",

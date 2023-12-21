@@ -29,12 +29,14 @@ import Breadcrumbs from "./Breadcrumbs";
 import { Link } from "react-router-dom";
 
 import PrimarySearchAppBar from "./components/PrimarySearchAppBar";
+import VerticalToggleButtons from "./VerticalToggleButtons";
 // const books = localStorage.getItem("items");
 
 function Favourite() {
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true);
   const [login, setLogin] = useState(localStorage.getItem("token"));
+  const [view, setView] = useState("list");
 
   const favName = useSelector(selectName);
 
@@ -152,22 +154,26 @@ function Favourite() {
   //       .filter((book) => book.id === "8novEAAAQBAJ")
   //       .map((book) => console.log(book))
   //   );
+  console.log("view", view);
   return (
     <>
       <PrimarySearchAppBar login={login} setLogin={setLogin} />
       {/* <Breadcrumbs /> */}
-
-      <Typography
+      <Box sx={{ display: "flex", justifyContent: "space-between" }}>
+        <Typography>Favourite list</Typography>
+        <VerticalToggleButtons view={view} setView={setView} />
+      </Box>
+      {/* <Typography
         sx={{ display: "flex", justifyContent: "center" }}
         variant="h1"
         component="h2"
       >
         Favourite list
-      </Typography>
+      </Typography> */}
       <Divider variant="inset" />
       {/* {array ? array.map((data) => <>{data.items.volumeInfo.title}</>) : null} */}
       {/* {data.items[0].volumeInfo} */}
-      <BookList books={data} login={login} />
+      <BookList books={data} login={login} view={view} />
       {/* {arrbook.map((book) => (
         <div>{book}</div>
       ))} */}
@@ -178,11 +184,12 @@ function Favourite() {
   );
 }
 
-function BookList({ books, login }) {
+function BookList({ books, login, view }) {
   // const { loading, error, data } = useQuery(query);
   // console.log(error);
   // console.log(data);
   // getBook(apiUrl);
+
   console.log("books", books);
   books.map((book) => console.log("book", book));
   return (
@@ -211,6 +218,7 @@ function BookList({ books, login }) {
                 img={item.volumeInfo.imageLinks}
                 desc={item.volumeInfo.description}
                 login={login}
+                view={view}
               ></Book>
             ))
           // book.items.map((item) => (
@@ -276,10 +284,15 @@ function BookList({ books, login }) {
   // <Book title="a"></Book>;
 }
 
-function Book({ id, title, img, desc, login }) {
+function Book({ id, title, img, desc, login, view, price }) {
   function handleOnClick(id) {
     console.log(id);
   }
+  let list = true;
+  if (view === "module") {
+    list = false;
+  }
+
   return (
     // <div>
     //   <img src="" alt="" />
@@ -326,40 +339,68 @@ function Book({ id, title, img, desc, login }) {
     //     <Button>Add to cart</Button>
     //   </Box>
     // </Box>
-
-    <Card sx={{ maxWidth: 345 }}>
-      <CardMedia
-        sx={{ height: 400 }}
-        // image="/static/images/cards/contemplative-reptile.jpg"
-        image={img.smallThumbnail}
-        title="green iguana"
-      />
-      <CardContent>
-        <Typography gutterBottom variant="h5" component="div">
-          {title}
-        </Typography>
-        <Typography
-          variant="body2"
-          color="text.secondary"
-          sx={{ height: "40px", overflow: "hidden" }}
-        >
-          {/* Lizards are a widespread group of squamate reptiles, with over 6,000
-            species, ranging across all continents except Antarctica */}
-          {desc}
-        </Typography>
-      </CardContent>
-      {/* <Counter id={id} /> */}
-      <CardActions>
-        {/* {login ? <Button size="small">Add Favourite</Button> : null} */}
-        {/* <Button size="small">Share</Button> */}
-        {/* <Button size="small" onClick={() => handleOnClick(id)}>
-            Learn More
-          </Button> */}
-        <Link to={`/Detail/${id}`}> Learn More</Link>
-        {/* <Link to={"/Home"}> Learn More</Link> */}
-      </CardActions>
-    </Card>
+    <>
+      {list ? (
+        <Card sx={{ display: "flex", width: 400 }}>
+          <CardMedia
+            component="img"
+            sx={{ width: 151 }}
+            image={img.smallThumbnail}
+            alt="Live from space album cover"
+          />
+          <Box sx={{ display: "flex", flexDirection: "column" }}>
+            <CardContent sx={{ flex: "1 0 auto" }}>
+              <Typography component="div" variant="h5">
+                {title}
+              </Typography>
+              <Typography
+                variant="subtitle1"
+                color="text.secondary"
+                component="div"
+              >
+                ${price || 50}
+              </Typography>
+            </CardContent>
+            <Box
+              sx={{ display: "flex", alignItems: "center", pl: 1, pb: 1 }}
+            ></Box>
+          </Box>
+        </Card>
+      ) : (
+        <Card sx={{ maxWidth: 345 }}>
+          <CardMedia
+            sx={{ height: 400 }}
+            // image="/static/images/cards/contemplative-reptile.jpg"
+            image={img.smallThumbnail}
+            title="green iguana"
+          />
+          <CardContent>
+            <Typography gutterBottom variant="h5" component="div">
+              {title}
+            </Typography>
+            <Typography
+              variant="body2"
+              color="text.secondary"
+              sx={{ height: "40px", overflow: "hidden" }}
+            >
+              {/* Lizards are a widespread group of squamate reptiles, with over 6,000
+          species, ranging across all continents except Antarctica */}
+              {desc}
+            </Typography>
+          </CardContent>
+          {/* <Counter id={id} /> */}
+          <CardActions>
+            {/* {login ? <Button size="small">Add Favourite</Button> : null} */}
+            {/* <Button size="small">Share</Button> */}
+            {/* <Button size="small" onClick={() => handleOnClick(id)}>
+          Learn More
+        </Button> */}
+            <Link to={`/Detail/${id}`}> Learn More</Link>
+            {/* <Link to={"/Home"}> Learn More</Link> */}
+          </CardActions>
+        </Card>
+      )}
+    </>
   );
 }
-
 export default Favourite;
