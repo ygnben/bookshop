@@ -15,7 +15,10 @@ import { styled } from "@mui/material/styles";
 
 import parse from "html-react-parser";
 
-import Loader from "./Loader";
+import Loader from "./components/Loader";
+
+import Counter from "./redux/Counter.jsx";
+import Shop from "./redux/Shop.jsx";
 function Detail() {
   const { id } = useParams();
 
@@ -83,7 +86,7 @@ function Detail() {
         <loader />
       ) : (
         <>
-          <DetailInfo bookInfo={data} />
+          <DetailInfo bookInfo={data} login={login} id={id} />
         </>
       )}
     </div>
@@ -96,7 +99,9 @@ const Img = styled("img")({
   maxWidth: "100%",
   maxHeight: "100%",
 });
-function DetailInfo({ bookInfo }) {
+function DetailInfo({ bookInfo, login, id }) {
+  const [favClick, setFavClick] = useState(false);
+  const [shopClick, setShopClick] = useState(false);
   return (
     <Paper
       sx={{
@@ -115,6 +120,19 @@ function DetailInfo({ bookInfo }) {
           <ButtonBase sx={{ width: 128, height: 128 }}>
             <Img alt="complex" src={bookInfo.volumeInfo.imageLinks.thumbnail} />
           </ButtonBase>
+          <Box sx={{ padding: "10px", display: "flex" }}>
+            {login ? (
+              <Counter
+                id={id}
+                // title={title}
+                setClicked={setFavClick}
+                clicked={favClick}
+              />
+            ) : null}
+            {login ? (
+              <Shop id={id} setClicked={setShopClick} clicked={shopClick} />
+            ) : null}
+          </Box>
         </Grid>
         <Grid item xs={12} sm container>
           <Grid item xs container direction="column" spacing={2}>

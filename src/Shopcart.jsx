@@ -35,7 +35,7 @@ import HorizontalLinearStepper from "./HorizontalLinearStepper.jsx";
 
 import Breadcrumbs from "./Breadcrumbs";
 
-import Loader from "./Loader";
+import Loader from "./components/Loader.jsx";
 
 import Checkout from "./Checkout.jsx";
 import { Link } from "react-router-dom";

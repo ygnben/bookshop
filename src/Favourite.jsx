@@ -27,7 +27,7 @@ import CircularProgress from "@mui/material/CircularProgress";
 import Breadcrumbs from "./Breadcrumbs";
 
 import { Link } from "react-router-dom";
-import Loader from "./Loader";
+import Loader from "./components/Loader";
 
 import PrimarySearchAppBar from "./components/PrimarySearchAppBar";
 import VerticalToggleButtons from "./VerticalToggleButtons";
@@ -207,78 +207,21 @@ function BookList({ books, login, view }) {
         // justifyContent: "center",
       }}
     >
-      {
-        books?.map(
-          (item) =>
-            item.map((item) => (
-              <Book
-                key={item.id}
-                id={item.id}
-                // title={book.volumeInfo.title}
-                title={item.volumeInfo.title}
-                img={item.volumeInfo.imageLinks}
-                desc={item.volumeInfo.description}
-                login={login}
-                view={view}
-              ></Book>
-            ))
-          // book.items.map((item) => (
-          //   <Book
-          //     key={item.id}
-          //     id={item.id}
-          //     // title={book.volumeInfo.title}
-          //     title={item.volumeInfo.title}
-          //     img={item.volumeInfo.imageLinks}
-          //     desc={item.volumeInfo.description}
-          //     login={login}
-          //   ></Book>
-          // ))
-          //   // filter ans
-          //   console.log(
-          //     "bbbb",
-          //     data.map((book) => book.items.filter((book) => book.id === "8novEAAAQBAJ"))
-          //   );
-          //   book.items
-          //     .filter((item) => item.id === "8novEAAAQBAJ")
-          //     .map((item) => (
-          //       <Book
-          //         key={item.id}
-          //         id={item.id}
-          //         // title={book.volumeInfo.title}
-          //         title={item.volumeInfo.title}
-          //         img={item.volumeInfo.imageLinks}
-          //         desc={item.volumeInfo.description}
-          //         login={login}
-          //       ></Book>
-          //     ))
-        )
-        // book.items.filter((item) =>
-        //   (item.id === "8novEAAAQBAJ").map((item) => (
-        //     <Book
-        //       key={item.id}
-        //       id={item.id}
-        //       // title={book.volumeInfo.title}
-        //       title={item.volumeInfo.title}
-        //       img={item.volumeInfo.imageLinks}
-        //       desc={item.volumeInfo.description}
-        //       login={login}
-        //     ></Book>
-        //   ))
-        // )
-      }
-      {/* <Book title="a"></Book>
-          <Book title="a"></Book>
-          <Book title="a"></Book>
-          <Book title="a"></Book>
-          <Book title="a"></Book>
-          <Book title="a"></Book>
-          <Book title="a"></Book>
-          <Book title="a"></Book>
-          <Book title="a"></Book>
-          <Book title="a"></Book>
-          <Book title="a"></Book>
-          <Book title="a"></Book> */}
-      {/* <Book title={books.title}></Book> */}
+      {books?.map((item) =>
+        item.map((item) => (
+          <Book
+            key={item.id}
+            id={item.id}
+            // title={book.volumeInfo.title}
+            title={item.volumeInfo.title}
+            img={item.volumeInfo.imageLinks}
+            desc={item.volumeInfo.description}
+            price={item.saleInfo?.listPrice?.amount}
+            login={login}
+            view={view}
+          ></Book>
+        ))
+      )}
     </Box>
   );
 
@@ -295,51 +238,6 @@ function Book({ id, title, img, desc, login, view, price }) {
   }
 
   return (
-    // <div>
-    //   <img src="" alt="" />
-    //   <div>title:{title}</div>
-    //   <div>Author:</div>
-    //   <div>price</div>
-    //   <div>Detail:</div>
-    //   <button>faourite</button>
-    //   <button>Buy</button>
-    // </div>
-
-    // <Box sx={{ width: "100%", maxWidth: 360, bgcolor: "background.paper" }}>
-    //   <Box sx={{ my: 3, mx: 2 }}>
-    //     <Grid container alignItems="center">
-    //       <Grid item xs>
-    //         <Typography gutterBottom variant="h4" component="div">
-    //           Toothbrush
-    //         </Typography>
-    //       </Grid>
-    //       <Grid item>
-    //         <Typography gutterBottom variant="h6" component="div">
-    //           $4.50
-    //         </Typography>
-    //       </Grid>
-    //     </Grid>
-    //     <Typography color="text.secondary" variant="body2">
-    //       Pinstriped cornflower blue cotton blouse takes you on a walk to the
-    //       park or just down the hall.
-    //     </Typography>
-    //   </Box>
-    //   <Divider variant="middle" />
-    //   <Box sx={{ m: 2 }}>
-    //     <Typography gutterBottom variant="body1">
-    //       Select type
-    //     </Typography>
-    //     <Stack direction="row" spacing={1}>
-    //       <Chip label="Extra Soft" />
-    //       <Chip color="primary" label="Soft" />
-    //       <Chip label="Medium" />
-    //       <Chip label="Hard" />
-    //     </Stack>
-    //   </Box>
-    //   <Box sx={{ mt: 3, ml: 1, mb: 1 }}>
-    //     <Button>Add to cart</Button>
-    //   </Box>
-    // </Box>
     <>
       {list ? (
         <Card sx={{ display: "flex", width: 400 }}>
