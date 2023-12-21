@@ -17,8 +17,8 @@ import parse from "html-react-parser";
 
 import Loader from "../components/Loader.jsx";
 
-import Counter from "../components/Counter.jsx";
-import Shop from "../components/Shop.jsx";
+import Counter from "../components/FavButton.jsx";
+import Shop from "../components/BuyButton.jsx";
 function Detail() {
   const { id } = useParams();
 
@@ -37,10 +37,10 @@ function Detail() {
   //       })
   //       .then((response) => {
   //         setData(response);
-  //         console.log(response);
+  //         (response);
   //       })
   //       .catch((error) => {
-  //         console.log(`Error: ${error}`);
+  //         (`Error: ${error}`);
   //       });
   //   }, []);
 
@@ -58,7 +58,7 @@ function Detail() {
         const jsonData = await response.json();
 
         // Update the state with the received data
-        // console.log("jsonData", jsonData);
+        // ("jsonData", jsonData);
         setData(jsonData);
         setIsLoading(false);
       } catch (error) {

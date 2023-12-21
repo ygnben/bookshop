@@ -5,7 +5,7 @@ import { useDispatch } from "react-redux";
 
 // import { setShopId } from "./shopSlice";
 
-import { setShopId } from "../redux/counterSlice";
+import { setShopId } from "../redux/shopslice";
 import { Box } from "@mui/material";
 
 function shop({ id, setClicked, clicked }) {

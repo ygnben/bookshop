@@ -13,8 +13,8 @@ import FormGroup from "@mui/material/FormGroup";
 import MenuItem from "@mui/material/MenuItem";
 import Menu from "@mui/material/Menu";
 
-import Counter from "../components/Counter.jsx";
-import Shop from "../components/Shop.jsx";
+import Counter from "../components/FavButton.jsx";
+import Shop from "../components/BuyButton.jsx";
 
 import Tab from "@mui/material/Tab";
 import Tabs from "@mui/material/Tabs";
@@ -27,8 +27,8 @@ import { Link } from "react-router-dom";
 import SwipeableTextMobileStepper from "../components/SwipeableTextMobileStepper.jsx";
 import PrimarySearchAppBar from "../components/PrimarySearchAppBar.jsx";
 
-import { selectItems, selectShop } from "../redux/counterSlice.jsx";
-import { selectName } from "../redux/counterSlice.jsx";
+import { selectItems, selectShop } from "../redux/shopslice.jsx";
+import { selectName } from "../redux/shopslice.jsx";
 
 import Loader from "../components/Loader.jsx";
 const apiUrl = "https://www.googleapis.com/books/v1/volumes?q=javascript";
@@ -37,7 +37,7 @@ function Book({ id, title, img, desc, price, curCode, login }) {
   const [favClick, setFavClick] = useState(false);
   const [shopClick, setShopClick] = useState(false);
   function handleOnClick(id) {
-    console.log(id);
+    id;
   }
   return (
     <Card sx={{ maxWidth: 345 }}>
@@ -158,9 +158,9 @@ function Home() {
   const name = useSelector(selectName);
   const shop = useSelector(selectShop);
 
-  console.log("shop", shop);
-  console.log("item", items);
-  console.log("name", name);
+  "shop", shop;
+  "item", items;
+  "name", name;
   useEffect(() => {
     localStorage.setItem("items", items);
     localStorage.setItem("shop", shop);
@@ -168,7 +168,7 @@ function Home() {
 
   const [category, setCategory] = useState("javascript");
   const [login, setLogin] = useState(localStorage.getItem("token"));
-  console.log("login", login);
+  "login", login;
 
   useEffect(() => {
     const fetchData = async () => {
@@ -199,7 +199,7 @@ function Home() {
   if (!data) {
     return <div>No data available.</div>;
   }
-  console.log("data", data);
+  "data", data;
   return (
     <div style={{ width: "100%" }}>
       <PrimarySearchAppBar

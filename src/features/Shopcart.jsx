@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { selectItems } from "../redux/counterSlice.jsx";
-import { selectName } from "../redux/counterSlice.jsx";
+import { selectItems } from "../redux/shopslice.jsx";
+import { selectName } from "../redux/shopslice.jsx";
 
 import { useTheme } from "@mui/material/styles";
 import AppBar from "@mui/material/AppBar";
@@ -45,14 +45,14 @@ function Shopcart() {
 
   const handleClickOpen = () => {
     setOpen(true);
-    console.log("open", open);
+    "open", open;
   };
 
   const favName = useSelector(selectName);
 
-  console.log("favName", favName);
+  "favName", favName;
 
-  //   console.log(items[0]);
+  //   (items[0]);
   useEffect(() => {
     // Function to fetch data asynchronously
     const fetchData = async () => {
@@ -64,17 +64,17 @@ function Shopcart() {
         // );
 
         const books = localStorage.getItem("shop");
-        console.log(books);
+        books;
         let arrbook = books.split(",");
-        console.log(arrbook);
+        arrbook;
         let concatObj = [];
         for (let bookName in arrbook) {
-          console.log(bookName);
+          bookName;
           let response = await fetch(
             `https://www.googleapis.com/books/v1/volumes?q=${arrbook[bookName]}`
           );
-          console.log("bookName", bookName);
-          console.log("r", response);
+          "bookName", bookName;
+          "r", response;
           const jsonData = await response.json();
           let filterData = [];
 
@@ -87,17 +87,17 @@ function Shopcart() {
           //       (book) => book.id === arrbook[bookName]
           //     );
           //   }
-          console.log("kkkk", filterData);
-          console.log("j", jsonData);
+          "kkkk", filterData;
+          "j", jsonData;
           //   concatObj.push(jsonData);
           concatObj.push(filterData);
         }
 
-        console.log("concatObj", concatObj);
+        "concatObj", concatObj;
 
         setData(concatObj);
         // array.push(jsonData);
-        // console.log("jsonData", jsonData);
+        // ("jsonData", jsonData);
         setLoading(false);
       } catch (error) {
         // Handle any errors that occur during the fetch operation
@@ -110,18 +110,16 @@ function Shopcart() {
     fetchData();
   }, []);
 
-  console.log("data111", data);
+  "data111", data;
 
   if (loading) {
     return <Loader />;
   }
 
-  console.log(
-    "xxxx1",
+  "xxxx1",
     data.map((book) =>
       book.map((book) => book.saleInfo.listPrice?.amount || 50)
-    )
-  );
+    );
 
   const total = data
     .map((book) =>
@@ -164,8 +162,8 @@ function Shopcart() {
 }
 
 function BookList({ books, login }) {
-  console.log("books", books);
-  books.map((book) => console.log("book", book));
+  "books", books;
+  books.map((book) => ("book", book));
   return (
     <Box
       sx={{
@@ -199,7 +197,7 @@ function BookList({ books, login }) {
 function Book({ id, title, img, desc, price, curCode, login }) {
   const theme = useTheme();
   function handleOnClick(id) {
-    console.log(id);
+    id;
   }
   return (
     <Card sx={{ display: "flex", width: 400 }}>

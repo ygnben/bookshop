@@ -15,7 +15,7 @@ import MoreIcon from "@mui/icons-material/MoreVert";
 import Button from "@mui/material/Button";
 
 import { useSelector } from "react-redux";
-import { selectItems, selectShop } from ".././redux/counterSlice.jsx";
+import { selectItems, selectShop } from "../redux/shopslice.jsx";
 
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import HomeIcon from "@mui/icons-material/Home";
@@ -70,7 +70,7 @@ export default function PrimarySearchAppBar({ category, login, setLogin }) {
     setMobileMoreAnchorEl(null);
   };
 
-  console.log("favbook", favBook.length);
+  "favbook", favBook.length;
   const handleMenuClose = () => {
     setAnchorEl(null);
     handleMobileMenuClose();
@@ -85,13 +85,13 @@ export default function PrimarySearchAppBar({ category, login, setLogin }) {
   };
 
   const handleSearchClick = () => {
-    console.log("Search");
+    ("Search");
     category(searchValue);
   };
 
   const navigate = useNavigate();
   function handleOnClick() {
-    console.log("click");
+    ("click");
     navigate("/Login");
   }
 
@@ -156,7 +156,7 @@ export default function PrimarySearchAppBar({ category, login, setLogin }) {
       </MenuItem>
     </Menu>
   );
-  console.log("Login", login);
+  "Login", login;
   return (
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="static">

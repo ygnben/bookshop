@@ -68,7 +68,7 @@ export default function SignIn() {
       account.name === data.get("name") &&
       account.password === data.get("password")
     ) {
-      console.log("pass");
+      ("pass");
 
       navigate("/Home");
       createJsonWebToken(
@@ -141,7 +141,7 @@ export default function SignIn() {
                 getToHome(data.access_token);
               }}
               onReject={(err) => {
-                console.log(err);
+                err;
               }}
             >
               <GoogleLoginButton />

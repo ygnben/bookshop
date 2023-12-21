@@ -10,14 +10,14 @@ import DialogTitle from "@mui/material/DialogTitle";
 
 import Typography from "@mui/material/Typography";
 
-import { setShopNull } from "../redux/counterSlice";
+import { setShopNull } from "../redux/shopslice";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
 export default function Checkout({ state, setState, total, books }) {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  console.log("books1111", books);
+  "books1111", books;
   const handleClose = () => {
     setState(false);
   };

@@ -17,26 +17,26 @@ export const counterSlice = createSlice({
       //   state.currentItemID = action.payload;
       state.items.push(action.payload);
 
-      // console.log("payload", state.currentItemID);
-      //   console.log("items", state.items);
-      // console.log("payloadSetID");
-      console.log("itemID", action.payload);
+      // ("payload", state.currentItemID);
+      //   ("items", state.items);
+      // ("payloadSetID");
+      "itemID", action.payload;
     },
     setShopNull: (state, action) => {
       state.shopcart = [];
     },
     setName: (state, action) => {
       state.name = action.payload;
-      // console.log("payloadsetName");
-      // console.log("payloadsetName", state.name);
-      console.log("setname", action.payload);
+      // ("payloadsetName");
+      // ("payloadsetName", state.name);
+      "setname", action.payload;
     },
     setShopId: (state, action) => {
       //   state.token = action.payload;
       state.shopcart.push(action.payload);
       //   state.items.push(action.payload);
-      //   console.log("payload", state.currentItemID);
-      //   console.log("items", state.items);
+      //   ("payload", state.currentItemID);
+      //   ("items", state.items);
     },
     setClicked: (state, action) => {
       state.clicked = true;

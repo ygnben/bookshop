@@ -4,7 +4,7 @@ import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 
 import { useDispatch } from "react-redux";
-import { setCurrentItemID, setName } from "../redux/counterSlice.jsx";
+import { setCurrentItemID, setName } from "../redux/shopslice.jsx";
 
 function Counter({ id, name, setClicked, clicked }) {
   const dispatch = useDispatch();
@@ -20,9 +20,8 @@ function Counter({ id, name, setClicked, clicked }) {
     setClicked(true);
   }
 
-  function handleFav(id, name) {
+  function handleFav(id) {
     dispatch(setCurrentItemID(id));
-    dispatch(setName(name));
     setClicked(true);
   }
 

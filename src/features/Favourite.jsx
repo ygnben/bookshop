@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
-import { selectName } from "../redux/counterSlice";
+import { selectName } from "../redux/shopslice";
 
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
@@ -27,23 +27,23 @@ function Favourite() {
 
   const favName = useSelector(selectName);
 
-  console.log("favName", favName);
+  "favName", favName;
 
   useEffect(() => {
     const fetchData = async () => {
       try {
         const books = localStorage.getItem("items");
-        console.log(books);
+        books;
         let arrbook = books.split(",");
-        console.log(arrbook);
+        arrbook;
         let concatObj = [];
         for (let bookName in arrbook) {
-          console.log(bookName);
+          bookName;
           let response = await fetch(
             `https://www.googleapis.com/books/v1/volumes?q=${arrbook[bookName]}`
           );
-          console.log("bookName", bookName);
-          console.log("r", response);
+          "bookName", bookName;
+          "r", response;
           const jsonData = await response.json();
           let filterData = [];
 
@@ -65,13 +65,13 @@ function Favourite() {
     fetchData();
   }, []);
 
-  console.log("data", data);
+  "data", data;
 
   if (loading) {
     return <Loader />;
   }
 
-  console.log("view", view);
+  "view", view;
   return (
     <>
       <PrimarySearchAppBar login={login} setLogin={setLogin} />
@@ -88,8 +88,7 @@ function Favourite() {
 }
 
 function BookList({ books, login, view }) {
-  console.log("books", books);
-  books.map((book) => console.log("book", book));
+  "books", books;
   return (
     <Box
       sx={{
@@ -125,7 +124,7 @@ function BookList({ books, login, view }) {
 
 function Book({ id, title, img, desc, login, view, price }) {
   function handleOnClick(id) {
-    console.log(id);
+    id;
   }
   let list = true;
   if (view === "module") {
