@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 
-import PrimarySearchAppBar from "./components/PrimarySearchAppBar";
+import PrimarySearchAppBar from "../components/PrimarySearchAppBar.jsx";
 import {
   Box,
   Typography,
@@ -15,10 +15,10 @@ import { styled } from "@mui/material/styles";
 
 import parse from "html-react-parser";
 
-import Loader from "./components/Loader";
+import Loader from "../components/Loader.jsx";
 
-import Counter from "./redux/Counter.jsx";
-import Shop from "./redux/Shop.jsx";
+import Counter from "../components/Counter.jsx";
+import Shop from "../components/Shop.jsx";
 function Detail() {
   const { id } = useParams();
 
@@ -77,11 +77,9 @@ function Detail() {
     //   // For example, cancel ongoing API requests or subscriptions
     // };
   }, []);
-  //   console.log("data", data);
   return (
-    <div>
+    <Box>
       <PrimarySearchAppBar login={login} setLogin={setLogin} />
-      {/* <div>{id}</div> */}
       {isLoading ? (
         <loader />
       ) : (
@@ -89,7 +87,7 @@ function Detail() {
           <DetailInfo bookInfo={data} login={login} id={id} />
         </>
       )}
-    </div>
+    </Box>
   );
 }
 
@@ -122,12 +120,7 @@ function DetailInfo({ bookInfo, login, id }) {
           </ButtonBase>
           <Box sx={{ padding: "10px", display: "flex" }}>
             {login ? (
-              <Counter
-                id={id}
-                // title={title}
-                setClicked={setFavClick}
-                clicked={favClick}
-              />
+              <Counter id={id} setClicked={setFavClick} clicked={favClick} />
             ) : null}
             {login ? (
               <Shop id={id} setClicked={setShopClick} clicked={shopClick} />
@@ -157,19 +150,8 @@ function DetailInfo({ bookInfo, login, id }) {
               <Typography variant="body2" component="div" gutterBottom>
                 {parse(bookInfo.volumeInfo.description)}
               </Typography>
-              {/* <Typography variant="body2" color="text.secondary">
-                ID: 1030114
-              </Typography> */}
             </Grid>
-            <Grid item>
-              {/* <Typography sx={{ cursor: "pointer" }} variant="body2">
-                Buy
-              </Typography>
-
-              <Typography sx={{ cursor: "pointer" }} variant="body2">
-                Favourite
-              </Typography> */}
-            </Grid>
+            <Grid item></Grid>
           </Grid>
           <Grid item>
             <Typography variant="subtitle1" component="div">
@@ -183,27 +165,6 @@ function DetailInfo({ bookInfo, login, id }) {
         </Grid>
       </Grid>
     </Paper>
-
-    // <Box>
-    //   <img src={bookInfo.volumeInfo.imageLinks.thumbnail} alt="" />
-
-    //   <Typography>Title:</Typography>
-    //   <Typography>{bookInfo.volumeInfo.title}</Typography>
-    //   <Typography>Subtitle:</Typography>
-    //   <Typography>{bookInfo.volumeInfo.subtitle}</Typography>
-    //   <Typography>Authors:</Typography>
-    //   <Typography>{bookInfo.volumeInfo.authors}</Typography>
-    //   <Typography>Publisher:</Typography>
-    //   <Typography>{bookInfo.volumeInfo.publisher}</Typography>
-    //   <Typography>publishedDate:</Typography>
-    //   <Typography>{bookInfo.volumeInfo.publishedDate}</Typography>
-    //   <Typography>description:</Typography>
-    //   <Typography variant="body2" color="text.secondary">
-    //     {bookInfo.volumeInfo.description}
-    //   </Typography>
-    //   <Button size="small">Buy</Button>
-    //   <Button size="small">Favourite</Button>
-    // </Box>
   );
 }
 

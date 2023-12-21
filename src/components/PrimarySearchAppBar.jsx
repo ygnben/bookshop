@@ -10,15 +10,11 @@ import InputBase from "@mui/material/InputBase";
 import Badge from "@mui/material/Badge";
 import MenuItem from "@mui/material/MenuItem";
 import Menu from "@mui/material/Menu";
-import MenuIcon from "@mui/icons-material/Menu";
 import SearchIcon from "@mui/icons-material/Search";
-import AccountCircle from "@mui/icons-material/AccountCircle";
-import MailIcon from "@mui/icons-material/Mail";
-import NotificationsIcon from "@mui/icons-material/Notifications";
 import MoreIcon from "@mui/icons-material/MoreVert";
 import Button from "@mui/material/Button";
 
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
 import { selectItems, selectShop } from ".././redux/counterSlice.jsx";
 
 import FavoriteIcon from "@mui/icons-material/Favorite";
@@ -42,20 +38,6 @@ const Search = styled("div")(({ theme }) => ({
     marginLeft: theme.spacing(3),
     width: "auto",
   },
-}));
-
-const SearchIconWrapper = styled("div")(({ theme }) => ({
-  // "&.MuiButton-root": {
-  //   cursor: "pointer",
-  // },
-  padding: theme.spacing(0, 2),
-  height: "100%",
-  position: "absolute",
-  // pointerEvents: "none",
-  display: "flex",
-  alignItems: "center",
-  justifyContent: "center",
-  cursor: "pointer",
 }));
 
 const StyledInputBase = styled(InputBase)(({ theme }) => ({
@@ -84,10 +66,6 @@ export default function PrimarySearchAppBar({ category, login, setLogin }) {
 
   const [searchValue, setSearchValue] = useState("");
 
-  const handleProfileMenuOpen = (event) => {
-    setAnchorEl(event.currentTarget);
-  };
-
   const handleMobileMenuClose = () => {
     setMobileMoreAnchorEl(null);
   };
@@ -109,7 +87,6 @@ export default function PrimarySearchAppBar({ category, login, setLogin }) {
   const handleSearchClick = () => {
     console.log("Search");
     category(searchValue);
-    // navigate("/Search");
   };
 
   const navigate = useNavigate();
@@ -177,18 +154,6 @@ export default function PrimarySearchAppBar({ category, login, setLogin }) {
         </IconButton>
         <p>Favourite </p>
       </MenuItem>
-      {/* <MenuItem onClick={handleProfileMenuOpen}>
-        <IconButton
-          size="large"
-          aria-label="account of current user"
-          aria-controls="primary-search-account-menu"
-          aria-haspopup="true"
-          color="inherit"
-        >
-          <AccountCircle />
-        </IconButton>
-        <p>Profile</p>
-      </MenuItem> */}
     </Menu>
   );
   console.log("Login", login);
@@ -215,12 +180,6 @@ export default function PrimarySearchAppBar({ category, login, setLogin }) {
             IT Book Shop
           </Typography>
           <Search>
-            {/* <SearchIconWrapper>
-              <SearchIcon
-                sx={{ cursor: "pointer" }}
-                onClick={() => handleSearchClick()}
-              />
-            </SearchIconWrapper> */}
             <StyledInputBase
               placeholder="Search…"
               inputProps={{ "ariaTOKEN_SECRET-label": "search" }}
@@ -259,20 +218,6 @@ export default function PrimarySearchAppBar({ category, login, setLogin }) {
                 </Badge>
               </IconButton>
             ) : null}
-
-            {/* {login ? (
-              <IconButton
-                size="large"
-                edge="end"
-                aria-label="account of current user"
-                aria-controls={menuId}
-                aria-haspopup="true"
-                onClick={handleProfileMenuOpen}
-                color="inherit"
-              >
-                <AccountCircle />
-              </IconButton>
-            ) : null} */}
           </Box>
           <Box sx={{ display: { xs: "flex", md: "none" } }}>
             <IconButton

@@ -6,22 +6,15 @@ import Button from "@mui/material/Button";
 import Dialog from "@mui/material/Dialog";
 import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
-import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
 
 import Typography from "@mui/material/Typography";
 
-import { setShopNull } from "./redux/counterSlice";
-import { useSelector, useDispatch } from "react-redux";
+import { setShopNull } from "../redux/counterSlice";
+import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
 export default function Checkout({ state, setState, total, books }) {
-  //   const [open, setOpen] = React.useState(false);
-
-  //   const handleClickOpen = () => {
-  //     setOpen(true);
-  //   };
-
   const dispatch = useDispatch();
   const navigate = useNavigate();
   console.log("books1111", books);
@@ -45,9 +38,6 @@ export default function Checkout({ state, setState, total, books }) {
   };
   return (
     <>
-      {/* <Button variant="outlined" onClick={handleClickOpen}>
-      Open alert dialog
-    </Button> */}
       <Dialog
         open={state}
         onClose={handleClose}
@@ -56,10 +46,6 @@ export default function Checkout({ state, setState, total, books }) {
       >
         <DialogTitle id="alert-dialog-title">{"Check out book"}</DialogTitle>
         <DialogContent>
-          {/* <DialogContentText id="alert-dialog-description">
-            Let Google help apps determine location. This means sending
-            anonymous location data to Google, even when no apps are running.
-          </DialogContentText> */}
           {books.map((book) =>
             book.map((book) => (
               <>

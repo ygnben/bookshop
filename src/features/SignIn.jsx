@@ -1,48 +1,20 @@
-import React, { useCallback, useState } from "react";
+import { useCallback, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import CssBaseline from "@mui/material/CssBaseline";
 import TextField from "@mui/material/TextField";
-import FormControlLabel from "@mui/material/FormControlLabel";
-import Checkbox from "@mui/material/Checkbox";
 import Link from "@mui/material/Link";
-import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
-import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 
-import { LoginSocialGoogle, LoginSocialGithub } from "reactjs-social-login";
+import { LoginSocialGoogle } from "reactjs-social-login";
 
-import {
-  GoogleLoginButton,
-  GithubLoginButton,
-} from "react-social-login-buttons";
+import { GoogleLoginButton } from "react-social-login-buttons";
 
 import * as jose from "jose";
-
-function Copyright(props) {
-  return (
-    <Typography
-      variant="body2"
-      color="text.secondary"
-      align="center"
-      {...props}
-    >
-      {"Copyright © "}
-      <Link color="inherit" href="https://mui.com/">
-        Your Website
-      </Link>{" "}
-      {new Date().getFullYear()}
-      {"."}
-    </Typography>
-  );
-}
-
-// TODO remove, this demo shouldn't need to reset the theme.
 
 const defaultTheme = createTheme();
 
@@ -69,26 +41,8 @@ export default function SignIn() {
     if (token) {
       window.localStorage.setItem("token", token);
       navigate("/home");
-      // <Route path="home" element={<Home token={token} />} />;
     }
   };
-  // const getToken = async () => {
-  //   const secret = new TextEncoder().encode(
-  //     "cc7e0d44fd473002f1c42167459001140ec6389b7353f8088f4d9a95f2f596f2"
-  //   );
-  //   const alg = "HS256";
-
-  //   const jwt = await new jose.SignJWT({ "urn:example:claim": true })
-  //     .setProtectedHeader({ alg })
-  //     .setIssuedAt()
-  //     .setIssuer("urn:example:issuer")
-  //     .setAudience("urn:example:audience")
-  //     .setExpirationTime("2h")
-  //     .sign(secret);
-
-  //   console.log(jwt);
-  // };
-  // getToken();
 
   async function createJsonWebToken(iss, sub, secret) {
     const header = {
@@ -116,10 +70,6 @@ export default function SignIn() {
     ) {
       console.log("pass");
 
-      // const token = jwt.sign(account.name, import.meta.env.VITE_TOKEN_SECRET, {
-      //   expiresIn: "1800s",
-      // });
-
       navigate("/Home");
       createJsonWebToken(
         "the issuer",
@@ -129,17 +79,6 @@ export default function SignIn() {
         localStorage.setItem("token", token);
       });
     }
-    // if (
-    //   Object.values(account).includes(data.get("email")) &
-    //   Object.values(account).includes(+data.get("password"))
-    // ) {
-    //   console.log("pass");
-    // }
-
-    // console.log({
-    //   email: data.get("email"),
-    //   password: data.get("password"),
-    // });
   };
 
   return (
@@ -154,9 +93,6 @@ export default function SignIn() {
             alignItems: "center",
           }}
         >
-          {/* <Avatar sx={{ m: 1, bgcolor: "secondary.main" }}>
-            <LockOutlinedIcon />
-          </Avatar> */}
           <Typography component="h1" variant="h5">
             Sign in
           </Typography>
@@ -186,10 +122,7 @@ export default function SignIn() {
               id="password"
               autoComplete="current-password"
             />
-            {/* <FormControlLabel
-              control={<Checkbox value="remember" color="primary" />}
-              label="Remember me"
-            /> */}
+
             <Button
               type="submit"
               fullWidth
@@ -213,22 +146,8 @@ export default function SignIn() {
             >
               <GoogleLoginButton />
             </LoginSocialGoogle>
-
-            {/* <Grid container>
-              <Grid item xs>
-                <Link href="#" variant="body2">
-                  Forgot password?
-                </Link>
-              </Grid>
-              <Grid item>
-                <Link href="#" variant="body2">
-                  {"Don't have an account? Sign Up"}
-                </Link>
-              </Grid>
-            </Grid> */}
           </Box>
         </Box>
-        {/* <Copyright sx={{ mt: 8, mb: 4 }} /> */}
       </Container>
     </ThemeProvider>
   );

@@ -3,13 +3,13 @@ import ReactDOM from "react-dom/client";
 import { Provider } from "react-redux";
 
 // import App from "./App.jsx";
-import Home from "./Home.jsx";
-import Detail from "./Detail.jsx";
+import Home from "./features/Home.jsx";
+import Detail from "./features/Detail.jsx";
 import SignIn from "./features/SignIn.jsx";
 import Search from "./Search.jsx";
-import Favourite from "./Favourite.jsx";
-import Shopcart from "./Shopcart.jsx";
-import Checkout from "./Checkout.jsx";
+import Favourite from "./features/Favourite.jsx";
+import Shopcart from "./features/Shopcart.jsx";
+import Checkout from "./features/Checkout.jsx";
 
 import store from "./redux/store.jsx";
 // import "./index.css";

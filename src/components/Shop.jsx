@@ -1,19 +1,15 @@
-import React from "react";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import AddShoppingCartIcon from "@mui/icons-material/AddShoppingCart";
 
-import { useSelector, useDispatch } from "react-redux";
+import { useDispatch } from "react-redux";
 
 // import { setShopId } from "./shopSlice";
 
-import { setShopId } from "./counterSlice";
+import { setShopId } from "../redux/counterSlice";
+import { Box } from "@mui/material";
 
 function shop({ id, setClicked, clicked }) {
   const dispatch = useDispatch();
-  // dispatch(setCurrentItemID(id));
-  // console.log();
-  //   const items = useSelector((state) => state.counter);
-  //   console.log(items);
 
   let checkFav = false;
   let items;
@@ -31,12 +27,7 @@ function shop({ id, setClicked, clicked }) {
   }
 
   return (
-    <div>
-      {/* <button onClick={() => dispatch(decrement())}>-</button>
-        <span>{count}</span>
-        <button onClick={() => dispatch(increment())}>+</button> */}
-      {/* <FavoriteBorderIcon onClick={() => dispatch(setCurrentItemID(id))} /> */}
-
+    <Box>
       {clicked ? (
         <AddShoppingCartIcon />
       ) : (
@@ -47,7 +38,7 @@ function shop({ id, setClicked, clicked }) {
 
       {/* <ShoppingCartIcon /> */}
       {/* <button onClick={() => dispatch(setCurrentItemID(id))}>+</button> */}
-    </div>
+    </Box>
   );
 }
 
