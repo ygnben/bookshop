@@ -21,7 +21,10 @@ import {
   CardContent,
   CardActions,
   Button,
+  Divider,
 } from "@mui/material";
+import CircularProgress from "@mui/material/CircularProgress";
+import Breadcrumbs from "./Breadcrumbs";
 
 import { Link } from "react-router-dom";
 
@@ -152,6 +155,8 @@ function Favourite() {
   return (
     <>
       <PrimarySearchAppBar login={login} setLogin={setLogin} />
+      {/* <Breadcrumbs /> */}
+
       <Typography
         sx={{ display: "flex", justifyContent: "center" }}
         variant="h1"
@@ -159,7 +164,7 @@ function Favourite() {
       >
         Favourite list
       </Typography>
-
+      <Divider variant="inset" />
       {/* {array ? array.map((data) => <>{data.items.volumeInfo.title}</>) : null} */}
       {/* {data.items[0].volumeInfo} */}
       <BookList books={data} login={login} />
@@ -191,7 +196,7 @@ function BookList({ books, login }) {
         // maxWidth: 300,
         width: "100%",
         borderRadius: 1,
-        justifyContent: "center",
+        // justifyContent: "center",
       }}
     >
       {

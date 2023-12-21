@@ -27,6 +27,10 @@ export default function Checkout({ state, setState, total, books }) {
   console.log("books1111", books);
   const handleClose = () => {
     setState(false);
+  };
+
+  const handleCheckOut = () => {
+    setState(false);
 
     Swal.fire({
       title: "Success",
@@ -71,7 +75,7 @@ export default function Checkout({ state, setState, total, books }) {
         </DialogContent>
         <DialogActions>
           <Button onClick={handleClose}>Cancel</Button>
-          <Button onClick={handleClose} autoFocus>
+          <Button onClick={handleCheckOut} autoFocus>
             Confirm
           </Button>
         </DialogActions>

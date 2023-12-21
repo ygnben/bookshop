@@ -159,11 +159,11 @@ export default function PrimarySearchAppBar({ category, login, setLogin }) {
     >
       <MenuItem onClick={() => navigate("/Shopcart")}>
         <IconButton size="large" aria-label="show 4 new mails" color="inherit">
-          <Badge badgeContent={4} color="error">
+          <Badge badgeContent={shop.length} color="error">
             <ShoppingCartIcon />
           </Badge>
         </IconButton>
-        <p>Messages</p>
+        <p>Shopping Cart</p>
       </MenuItem>
       <MenuItem onClick={() => navigate("/Favourite")}>
         <IconButton

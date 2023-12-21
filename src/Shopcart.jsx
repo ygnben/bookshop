@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { selectItems } from "./redux/counterSlice";
 import { selectName } from "./redux/counterSlice";
 
+import { useTheme } from "@mui/material/styles";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
@@ -21,12 +22,17 @@ import {
   CardContent,
   CardActions,
   Button,
+  Chip,
+  Paper,
+  Divider,
 } from "@mui/material";
 import Dialog from "@mui/material/Dialog";
 import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
 import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
+
+import Breadcrumbs from "./Breadcrumbs";
 
 import Checkout from "./Checkout.jsx";
 import { Link } from "react-router-dom";
@@ -195,20 +201,33 @@ function Shopcart() {
   return (
     <>
       <PrimarySearchAppBar login={login} setLogin={setLogin} />
-      <Typography
-        sx={{ display: "flex", justifyContent: "center" }}
-        variant="h1"
-        component="h2"
-      >
-        Shopping cart
-      </Typography>
+      {/* <Breadcrumbs /> */}
+      <Paper>
+        <Typography
+          sx={{ display: "flex", justifyContent: "center" }}
+          variant="h1"
+          component="h2"
+        >
+          Shopping cart
+        </Typography>
+        <Divider variant="inset" />
+        {/* {array ? array.map((data) => <>{data.items.volumeInfo.title}</>) : null} */}
+        {/* {data.items[0].volumeInfo} */}
+        <BookList books={data} login={login} />
 
-      {/* {array ? array.map((data) => <>{data.items.volumeInfo.title}</>) : null} */}
-      {/* {data.items[0].volumeInfo} */}
-      <BookList books={data} login={login} />
-      <Typography>Total:{total}</Typography>
-      <Button onClick={handleClickOpen}>Check out</Button>
-      <Checkout state={open} setState={setOpen} total={total} books={data} />
+        <Typography
+          sx={{
+            display: "flex",
+            justifyContent: "flex-end",
+          }}
+        >
+          Total:{total}
+        </Typography>
+        <Button onClick={handleClickOpen} fullWidth>
+          Check out
+        </Button>
+        <Checkout state={open} setState={setOpen} total={total} books={data} />
+      </Paper>
       {/* {arrbook.map((book) => (
           <div>{book}</div>
         ))} */}
@@ -237,7 +256,7 @@ function BookList({ books, login }) {
         // maxWidth: 300,
         width: "100%",
         borderRadius: 1,
-        justifyContent: "center",
+        // justifyContent: "center",
       }}
     >
       {books?.map((item) =>
@@ -262,90 +281,90 @@ function BookList({ books, login }) {
 }
 
 function Book({ id, title, img, desc, price, curCode, login }) {
+  const theme = useTheme();
   function handleOnClick(id) {
     console.log(id);
   }
   return (
-    // <div>
-    //   <img src="" alt="" />
-    //   <div>title:{title}</div>
-    //   <div>Author:</div>
-    //   <div>price</div>
-    //   <div>Detail:</div>
-    //   <button>faourite</button>
-    //   <button>Buy</button>
-    // </div>
-
-    // <Box sx={{ width: "100%", maxWidth: 360, bgcolor: "background.paper" }}>
-    //   <Box sx={{ my: 3, mx: 2 }}>
-    //     <Grid container alignItems="center">
-    //       <Grid item xs>
-    //         <Typography gutterBottom variant="h4" component="div">
-    //           Toothbrush
-    //         </Typography>
-    //       </Grid>
-    //       <Grid item>
-    //         <Typography gutterBottom variant="h6" component="div">
-    //           $4.50
-    //         </Typography>
-    //       </Grid>
-    //     </Grid>
-    //     <Typography color="text.secondary" variant="body2">
-    //       Pinstriped cornflower blue cotton blouse takes you on a walk to the
-    //       park or just down the hall.
-    //     </Typography>
-    //   </Box>
-    //   <Divider variant="middle" />
-    //   <Box sx={{ m: 2 }}>
-    //     <Typography gutterBottom variant="body1">
-    //       Select type
-    //     </Typography>
-    //     <Stack direction="row" spacing={1}>
-    //       <Chip label="Extra Soft" />
-    //       <Chip color="primary" label="Soft" />
-    //       <Chip label="Medium" />
-    //       <Chip label="Hard" />
-    //     </Stack>
-    //   </Box>
-    //   <Box sx={{ mt: 3, ml: 1, mb: 1 }}>
-    //     <Button>Add to cart</Button>
-    //   </Box>
-    // </Box>
-
-    <Card sx={{ maxWidth: 345 }}>
+    <Card sx={{ display: "flex", width: 400 }}>
       <CardMedia
-        sx={{ height: 400 }}
-        // image="/static/images/cards/contemplative-reptile.jpg"
+        component="img"
+        sx={{ width: 151 }}
         image={img.smallThumbnail}
-        title="green iguana"
+        alt="Live from space album cover"
       />
-      <CardContent>
-        <Typography gutterBottom variant="h5" component="div">
-          {title}
-        </Typography>
-        <Typography
-          variant="body2"
-          color="text.secondary"
-          sx={{ height: "40px", overflow: "hidden" }}
-        >
-          {/* Lizards are a widespread group of squamate reptiles, with over 6,000
-              species, ranging across all continents except Antarctica */}
-          {desc}
-        </Typography>
-        <Typography>{curCode || "HKD"}</Typography>
-        <Typography>{price || 50}</Typography>
-      </CardContent>
-      {/* <Counter id={id} /> */}
-      <CardActions>
-        {/* {login ? <Button size="small">Add Favourite</Button> : null} */}
-        {/* <Button size="small">Share</Button> */}
-        {/* <Button size="small" onClick={() => handleOnClick(id)}>
-              Learn More
-            </Button> */}
-        <Link to={`/Detail/${id}`}> Learn More</Link>
-        {/* <Link to={"/Home"}> Learn More</Link> */}
-      </CardActions>
+      <Box sx={{ display: "flex", flexDirection: "column" }}>
+        <CardContent sx={{ flex: "1 0 auto" }}>
+          <Typography component="div" variant="h5">
+            {title}
+          </Typography>
+          <Typography
+            variant="subtitle1"
+            color="text.secondary"
+            component="div"
+          >
+            ${price || 50}
+          </Typography>
+        </CardContent>
+        <Box sx={{ display: "flex", alignItems: "center", pl: 1, pb: 1 }}></Box>
+      </Box>
     </Card>
+
+    // <Card>
+    //   <Box sx={{ p: 2, display: "flex" }}>
+    //     <Avatar variant="rounded" src="avatar.jpg" />
+    //     <Stack spacing={0.5}>
+    //       <Typography fontWeight="bold">Lucas Smith</Typography>
+    //       <Typography variant="body2" color="text.secondary">
+    //         <LocationOn sx={{ color: grey[500] }} /> Scranton, PA, United States
+    //       </Typography>
+    //     </Stack>
+    //     <IconButton size="small">
+    //       <Edit fontSize="small" />
+    //     </IconButton>
+    //   </Box>
+    //   <Divider />
+    //   <Stack
+    //     direction="row"
+    //     alignItems="center"
+    //     justifyContent="space-between"
+    //     sx={{ px: 2, py: 1, bgcolor: "background.default" }}
+    //   >
+    //     <Chip
+    //       label={active ? "Active account" : "Inactive account"}
+    //       color={active ? "success" : "default"}
+    //       size="small"
+    //     />
+    //     <Switch />
+    //   </Stack>
+    // </Card>
+
+    // <Card sx={{ maxWidth: 200 }}>
+    //   <CardMedia
+    //     sx={{ height: 100 }}
+    //     // image="/static/images/cards/contemplative-reptile.jpg"
+    //     image={img.smallThumbnail}
+    //     title="green iguana"
+    //   />
+    //   <CardContent>
+    //     <Typography gutterBottom variant="h6" component="div">
+    //       {title}
+    //     </Typography>
+
+    //     <Typography>{curCode || "HKD"}</Typography>
+    //     <Typography>{price || 50}</Typography>
+    //   </CardContent>
+    //   {/* <Counter id={id} /> */}
+    //   <CardActions>
+    //     {/* {login ? <Button size="small">Add Favourite</Button> : null} */}
+    //     {/* <Button size="small">Share</Button> */}
+    //     {/* <Button size="small" onClick={() => handleOnClick(id)}>
+    //           Learn More
+    //         </Button> */}
+    //     <Link to={`/Detail/${id}`}> Learn More</Link>
+    //     {/* <Link to={"/Home"}> Learn More</Link> */}
+    //   </CardActions>
+    // </Card>
   );
 }
 
