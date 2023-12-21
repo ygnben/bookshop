@@ -212,7 +212,7 @@ export default function PrimarySearchAppBar({ category, login, setLogin }) {
             component="div"
             sx={{ display: { xs: "none", sm: "block" } }}
           >
-            Bookshop
+            IT Book Shop
           </Typography>
           <Search>
             {/* <SearchIconWrapper>
