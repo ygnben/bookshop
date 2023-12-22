@@ -17,7 +17,7 @@ import { useNavigate } from "react-router-dom";
 export default function Checkout({ state, setState, total, books }) {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  "books1111", books;
+
   const handleClose = () => {
     setState(false);
   };
