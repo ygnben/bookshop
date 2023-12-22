@@ -6,7 +6,7 @@ import { Provider } from "react-redux";
 import Home from "./features/Home.jsx";
 import Detail from "./features/Detail.jsx";
 import SignIn from "./features/SignIn.jsx";
-import Search from "./Search.jsx";
+import Search from "./components/Search.jsx";
 import Favourite from "./features/Favourite.jsx";
 import Shopcart from "./features/Shopcart.jsx";
 import Checkout from "./features/Checkout.jsx";

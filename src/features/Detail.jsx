@@ -37,25 +37,15 @@ function Detail() {
         );
         const jsonData = await response.json();
 
-        // Update the state with the received data
-        // ("jsonData", jsonData);
         setData(jsonData);
         setIsLoading(false);
       } catch (error) {
-        // Handle any errors that occur during the fetch operation
         console.error("Error fetching data:", error);
         setIsLoading(false);
       }
     };
 
-    // Call the fetchData function when the component mounts
     fetchData();
-
-    // Clean up function to cancel any pending requests or subscriptions
-    // return () => {
-    //   // Perform any necessary cleanup operations
-    //   // For example, cancel ongoing API requests or subscriptions
-    // };
   }, []);
   return (
     <Box>
