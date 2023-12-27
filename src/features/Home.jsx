@@ -36,9 +36,7 @@ const apiUrl = "https://www.googleapis.com/books/v1/volumes?q=javascript";
 function Book({ id, title, img, desc, price, curCode, login }) {
   const [favClick, setFavClick] = useState(false);
   const [shopClick, setShopClick] = useState(false);
-  function handleOnClick(id) {
-    id;
-  }
+
   return (
     <Card sx={{ maxWidth: 345 }}>
       <CardMedia
@@ -195,7 +193,6 @@ function Home() {
   if (!data) {
     return <div>No data available.</div>;
   }
-  "data", data;
   return (
     <div style={{ width: "100%" }}>
       <PrimarySearchAppBar

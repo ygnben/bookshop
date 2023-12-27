@@ -70,7 +70,6 @@ export default function PrimarySearchAppBar({ category, login, setLogin }) {
     setMobileMoreAnchorEl(null);
   };
 
-  "favbook", favBook.length;
   const handleMenuClose = () => {
     setAnchorEl(null);
     handleMobileMenuClose();
@@ -85,13 +84,11 @@ export default function PrimarySearchAppBar({ category, login, setLogin }) {
   };
 
   const handleSearchClick = () => {
-    ("Search");
     category(searchValue);
   };
 
   const navigate = useNavigate();
   function handleOnClick() {
-    ("click");
     navigate("/Login");
   }
 
@@ -156,7 +153,6 @@ export default function PrimarySearchAppBar({ category, login, setLogin }) {
       </MenuItem>
     </Menu>
   );
-  "Login", login;
   return (
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="static">

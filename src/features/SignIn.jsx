@@ -68,8 +68,6 @@ export default function SignIn() {
       account.name === data.get("name") &&
       account.password === data.get("password")
     ) {
-      ("pass");
-
       navigate("/Home");
       createJsonWebToken(
         "the issuer",

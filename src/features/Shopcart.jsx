@@ -50,8 +50,6 @@ function Shopcart() {
 
   const favName = useSelector(selectName);
 
-  "favName", favName;
-
   //   (items[0]);
   useEffect(() => {
     // Function to fetch data asynchronously
@@ -64,12 +62,9 @@ function Shopcart() {
         // );
 
         const books = localStorage.getItem("shop");
-        books;
         let arrbook = books.split(",");
-        arrbook;
         let concatObj = [];
         for (let bookName in arrbook) {
-          bookName;
           let response = await fetch(
             `https://www.googleapis.com/books/v1/volumes?q=${arrbook[bookName]}`
           );
@@ -91,8 +86,6 @@ function Shopcart() {
           concatObj.push(filterData);
         }
 
-        "concatObj", concatObj;
-
         setData(concatObj);
         // array.push(jsonData);
         // ("jsonData", jsonData);
@@ -108,16 +101,9 @@ function Shopcart() {
     fetchData();
   }, []);
 
-  "data111", data;
-
   if (loading) {
     return <Loader />;
   }
-
-  "xxxx1",
-    data.map((book) =>
-      book.map((book) => book.saleInfo.listPrice?.amount || 50)
-    );
 
   const total = data
     .map((book) =>
@@ -160,7 +146,6 @@ function Shopcart() {
 }
 
 function BookList({ books, login }) {
-  "books", books;
   books.map((book) => ("book", book));
   return (
     <Box
@@ -194,9 +179,7 @@ function BookList({ books, login }) {
 
 function Book({ id, title, img, desc, price, curCode, login }) {
   const theme = useTheme();
-  function handleOnClick(id) {
-    id;
-  }
+
   return (
     <Card sx={{ display: "flex", width: 400 }}>
       <CardMedia

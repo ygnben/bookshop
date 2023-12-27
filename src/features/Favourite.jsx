@@ -33,12 +33,9 @@ function Favourite() {
     const fetchData = async () => {
       try {
         const books = localStorage.getItem("items");
-        books;
         let arrbook = books.split(",");
-        arrbook;
         let concatObj = [];
         for (let bookName in arrbook) {
-          bookName;
           let response = await fetch(
             `https://www.googleapis.com/books/v1/volumes?q=${arrbook[bookName]}`
           );
@@ -118,9 +115,6 @@ function BookList({ books, login, view }) {
 }
 
 function Book({ id, title, img, desc, login, view, price }) {
-  function handleOnClick(id) {
-    id;
-  }
   let list = true;
   if (view === "module") {
     list = false;
