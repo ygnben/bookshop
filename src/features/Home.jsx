@@ -158,9 +158,6 @@ function Home() {
   const name = useSelector(selectName);
   const shop = useSelector(selectShop);
 
-  "shop", shop;
-  "item", items;
-  "name", name;
   useEffect(() => {
     localStorage.setItem("items", items);
     localStorage.setItem("shop", shop);
@@ -168,7 +165,6 @@ function Home() {
 
   const [category, setCategory] = useState("javascript");
   const [login, setLogin] = useState(localStorage.getItem("token"));
-  "login", login;
 
   useEffect(() => {
     const fetchData = async () => {

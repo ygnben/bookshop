@@ -73,8 +73,7 @@ function Shopcart() {
           let response = await fetch(
             `https://www.googleapis.com/books/v1/volumes?q=${arrbook[bookName]}`
           );
-          "bookName", bookName;
-          "r", response;
+
           const jsonData = await response.json();
           let filterData = [];
 
@@ -87,8 +86,7 @@ function Shopcart() {
           //       (book) => book.id === arrbook[bookName]
           //     );
           //   }
-          "kkkk", filterData;
-          "j", jsonData;
+
           //   concatObj.push(jsonData);
           concatObj.push(filterData);
         }

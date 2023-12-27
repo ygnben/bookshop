@@ -42,8 +42,7 @@ function Favourite() {
           let response = await fetch(
             `https://www.googleapis.com/books/v1/volumes?q=${arrbook[bookName]}`
           );
-          "bookName", bookName;
-          "r", response;
+
           const jsonData = await response.json();
           let filterData = [];
 
@@ -65,13 +64,10 @@ function Favourite() {
     fetchData();
   }, []);
 
-  "data", data;
-
   if (loading) {
     return <Loader />;
   }
 
-  "view", view;
   return (
     <>
       <PrimarySearchAppBar login={login} setLogin={setLogin} />
@@ -88,7 +84,6 @@ function Favourite() {
 }
 
 function BookList({ books, login, view }) {
-  "books", books;
   return (
     <Box
       sx={{
