@@ -30,7 +30,7 @@ import PrimarySearchAppBar from "../components/PrimarySearchAppBar.jsx";
 import { selectItems, selectShop } from "../redux/shopslice.jsx";
 import { selectName } from "../redux/shopslice.jsx";
 
-import useBooks from "../hooks/useBooks.jsx";
+import useBooks from "./hooks/useBooks";
 
 import Loader from "../components/Loader.jsx";
 const apiUrl = "https://www.googleapis.com/books/v1/volumes?q=javascript";
@@ -95,15 +95,15 @@ function BookList({ books, login }) {
         justifyContent: "center",
       }}
     >
-      {books?.map((book) => (
+      {books?.items.map((book) => (
         <Book
           key={book.id}
           id={book.id}
-          title={book.title}
-          img={book.img}
-          desc={book.desc}
-          price={book.price}
-          // curCode={book.saleInfo?.listPrice?.currencyCode}
+          title={book.volumeInfo.title}
+          img={book.volumeInfo.imageLinks}
+          desc={book.volumeInfo.description}
+          price={book.saleInfo?.listPrice?.amount}
+          curCode={book.saleInfo?.listPrice?.currencyCode}
           login={login}
         ></Book>
       ))}
@@ -153,7 +153,6 @@ function CategoryBar({ category }) {
 function Home() {
   const [data, setData] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
-  const { getAllBooks, getUniqueBook } = useBooks();
 
   const items = useSelector(selectItems);
   const name = useSelector(selectName);
@@ -167,44 +166,27 @@ function Home() {
   const [category, setCategory] = useState("javascript");
   const [login, setLogin] = useState(localStorage.getItem("token"));
 
-  // useEffect(() => {
-  //   const fetchData = async () => {
-  //     try {
-  //       const response = await fetch(
-  //         `https://www.googleapis.com/books/v1/volumes?q=${category}`
-  //       );
-  //       const jsonData = await response.json();
-
-  //       // Update the state with the received data
-  //       setData(jsonData);
-  //       setIsLoading(false);
-  //     } catch (error) {
-  //       console.error("Error fetching data:", error);
-  //       setIsLoading(false);
-  //     }
-  //   };
-
-  //   fetchData();
-
-  //   return () => {};
-  // }, [category]);
-
   useEffect(() => {
-    const { data, loading, error } = getAllBooks();
-    console.log("🚀 ~ useEffect ~ data:", data);
-    if (loading) {
-      // Handle loading state
-      setIsLoading(false);
-    }
-    if (error) {
-      // Handle error state
-    }
-    if (data) {
-      console.log(data);
-      // Do something with the fetched books
-      setData(data);
-    }
-  }, [getAllBooks]);
+    const fetchData = async () => {
+      try {
+        const response = await fetch(
+          `https://www.googleapis.com/books/v1/volumes?q=${category}`
+        );
+        const jsonData = await response.json();
+
+        // Update the state with the received data
+        setData(jsonData);
+        setIsLoading(false);
+      } catch (error) {
+        console.error("Error fetching data:", error);
+        setIsLoading(false);
+      }
+    };
+
+    fetchData();
+
+    return () => {};
+  }, [category]);
 
   if (isLoading) {
     return <Loader />;
@@ -221,8 +203,9 @@ function Home() {
         setLogin={setLogin}
       />
       <PictureBar />
+
       <CategoryBar category={setCategory} />
-      {/* <BookList books={data} login={login} /> */}
+
       <BookList books={data} login={login} />
     </div>
   );

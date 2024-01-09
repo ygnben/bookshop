@@ -11,6 +11,10 @@ import Favourite from "./features/Favourite.jsx";
 import Shopcart from "./features/Shopcart.jsx";
 import Checkout from "./features/Checkout.jsx";
 
+import { setContext } from "@apollo/client/link/context";
+
+// import { ApolloClient, createHttpLink } from "@apollo/client/core";
+
 import store from "./redux/store.jsx";
 // import "./index.css";
 
@@ -18,15 +22,48 @@ import {
   ApolloClient,
   InMemoryCache,
   ApolloProvider,
+  createHttpLink,
   gql,
 } from "@apollo/client";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
-const client = new ApolloClient({
-  // uri: "https://www.googleapis.com/books/v1/graphql",
-  uri: "https://www.googleapis.com/books/v1/volumes",
-  cache: new InMemoryCache(),
+const cache = new InMemoryCache();
+const httpLink = createHttpLink({
+  uri: "http://localhost:4000",
 });
+
+const authLink = setContext((_, { headers }) => {
+  // get the authentication token from local storage if it exists
+  const token = localStorage.getItem("idToken");
+  // return the headers to the context so httpLink can read them
+  return {
+    headers: {
+      ...headers,
+      authorization: token ? `Bearer ${token}` : "",
+    },
+  };
+});
+
+const client = new ApolloClient({
+  cache,
+  link: authLink.concat(httpLink),
+  defaultOptions: {
+    watchQuery: {
+      fetchPolicy: "no-cache",
+      errorPolicy: "ignore",
+    },
+    query: {
+      fetchPolicy: "no-cache",
+      errorPolicy: "all",
+    },
+  },
+});
+
+// const client = new ApolloClient({
+//   // uri: "https://www.googleapis.com/books/v1/graphql",
+//   uri: "https://www.googleapis.com/books/v1/volumes",
+//   cache: new InMemoryCache(),
+// });
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
