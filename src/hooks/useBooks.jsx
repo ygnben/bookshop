@@ -2,7 +2,7 @@ import { gql, useQuery } from "@apollo/client";
 
 const GET_BOOKS = gql`
   query Books {
-    Books {
+    books {
       catagory
       createdAt
       desc
@@ -16,8 +16,8 @@ const GET_BOOKS = gql`
 `;
 
 const GET_UNIQUE_BOOK = gql`
-  query Books {
-    Books {
+  query Book($bookId: Int!) {
+    book(id: $bookId) {
       catagory
       createdAt
       desc
@@ -30,7 +30,23 @@ const GET_UNIQUE_BOOK = gql`
   }
 `;
 
-export default function useBooks() {
+// const GET_UNIQUE_BOOK = gql`
+//   query Books {
+//     books {
+//       catagory
+//       createdAt
+//       desc
+//       id
+//       img
+//       price
+//       title
+//       updatedAt
+//     }
+//   }
+// `;
+
+export default function useBooks(id) {
+  console.log("🚀 ~ useBooks ~ id:", id);
   // const { data, loading, error } = useQuery(GET_Book);
 
   // console.log("🚀 ~ useBooks ~ data:", data);
@@ -50,9 +66,9 @@ export default function useBooks() {
     loading: uniqueBookLoading,
     error: uniqueBookError,
   } = useQuery(GET_UNIQUE_BOOK, {
-    variables: { bookId: 3 },
+    variables: { bookId: parseInt(id) },
   });
-
+  console.log("🚀 ~ useBooks ~ bookId: id:", id);
   function getAllBooks() {
     return {
       data: allBooksData,

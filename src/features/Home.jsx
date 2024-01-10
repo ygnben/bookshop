@@ -95,7 +95,7 @@ function BookList({ books, login }) {
         justifyContent: "center",
       }}
     >
-      {books?.map((book) => (
+      {books?.books?.map((book) => (
         <Book
           key={book.id}
           id={book.id}
@@ -200,7 +200,6 @@ function Home() {
       // Handle error state
     }
     if (data) {
-      console.log(data);
       // Do something with the fetched books
       setData(data);
     }

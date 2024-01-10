@@ -15,19 +15,16 @@ import { LoginSocialGoogle } from "reactjs-social-login";
 import { GoogleLoginButton } from "react-social-login-buttons";
 
 import * as jose from "jose";
-import useLogin from "../hooks/useLogin";
 
 const defaultTheme = createTheme();
 
 export default function SignIn() {
   const navigate = useNavigate();
 
-  const [login, loginLoading, loginError] = useLogin();
-
-  // const account = {
-  //   name: "ben",
-  //   password: "123",
-  // };
+  const account = {
+    name: "ben",
+    password: "123",
+  };
   const [provider, setProvider] = useState("");
   const [profile, setProfile] = useState(null);
 
@@ -47,54 +44,39 @@ export default function SignIn() {
     }
   };
 
-  // async function createJsonWebToken(iss, sub, secret) {
-  //   const header = {
-  //     alg: "HS256", // Token generation algorithm
-  //     typ: "JWT",
-  //   };
+  async function createJsonWebToken(iss, sub, secret) {
+    const header = {
+      alg: "HS256", // Token generation algorithm
+      typ: "JWT",
+    };
 
-  //   const payload = {
-  //     iss: iss,
-  //     sub: sub,
-  //     exp: Math.round(Date.now() / 1000) + 60, // token is valid for 60 seconds
-  //   };
+    const payload = {
+      iss: iss,
+      sub: sub,
+      exp: Math.round(Date.now() / 1000) + 60, // token is valid for 60 seconds
+    };
 
-  //   return await new jose.SignJWT(payload)
-  //     .setProtectedHeader(header)
-  //     .sign(new TextEncoder().encode(secret));
-  // }
-  const handleSubmit = async (event) => {
+    return await new jose.SignJWT(payload)
+      .setProtectedHeader(header)
+      .sign(new TextEncoder().encode(secret));
+  }
+  const handleSubmit = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
-    const token = await login({
-      variables: { name: data.get("name"), password: data.get("password") },
-    });
 
-    // localStorage.setItem("token", token);
-    // const { token, loading, error } = useLogin(
-    //   data.get("name"),
-    //   data.get("password")
-    // );
-    // console.log(token);
-    if (token) {
-      // const token = token?.data.login.token;
-      localStorage.setItem("token", token?.data.login?.token);
+    if (
+      account.name === data.get("name") &&
+      account.password === data.get("password")
+    ) {
       navigate("/Home");
+      createJsonWebToken(
+        "the issuer",
+        account.name,
+        import.meta.env.VITE_TOKEN_SECRET
+      ).then((token) => {
+        localStorage.setItem("token", token);
+      });
     }
-    // if (
-    //   account.name === data.get("name") &&
-    //   account.password === data.get("password")
-    // ) {
-    //   navigate("/Home");
-    //   createJsonWebToken(
-    //     "the issuer",
-    //     account.name,
-    //     import.meta.env.VITE_TOKEN_SECRET
-    //   ).then((token) => {
-    //     localStorage.setItem("token", token);
-    //   });
-    // }
-    // if(token)
   };
 
   return (

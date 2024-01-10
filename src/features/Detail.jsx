@@ -19,6 +19,9 @@ import Loader from "../components/Loader.jsx";
 
 import Counter from "../components/FavButton.jsx";
 import Shop from "../components/BuyButton.jsx";
+
+import useBooks from "../hooks/useBooks.jsx";
+
 function Detail() {
   const { id } = useParams();
 
@@ -27,26 +30,45 @@ function Detail() {
   const [data, setData] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
 
+  const { getAllBooks, getUniqueBook } = useBooks(id);
+
+  // useEffect(() => {
+  //   // Function to fetch data asynchronously
+  //   const fetchData = async () => {
+  //     try {
+  //       // Perform an asynchronous operation, such as an API call
+  //       const response = await fetch(
+  //         `https://www.googleapis.com/books/v1/volumes/${id}`
+  //       );
+  //       const jsonData = await response.json();
+
+  //       setData(jsonData);
+  //       setIsLoading(false);
+  //     } catch (error) {
+  //       console.error("Error fetching data:", error);
+  //       setIsLoading(false);
+  //     }
+  //   };
+
+  //   fetchData();
+  // }, []);
+
   useEffect(() => {
-    // Function to fetch data asynchronously
-    const fetchData = async () => {
-      try {
-        // Perform an asynchronous operation, such as an API call
-        const response = await fetch(
-          `https://www.googleapis.com/books/v1/volumes/${id}`
-        );
-        const jsonData = await response.json();
+    const { data, loading, error } = getUniqueBook();
+    console.log("🚀 ~ useEffect ~ data:", data?.book);
 
-        setData(jsonData);
-        setIsLoading(false);
-      } catch (error) {
-        console.error("Error fetching data:", error);
-        setIsLoading(false);
-      }
-    };
-
-    fetchData();
-  }, []);
+    if (loading) {
+      // Handle loading state
+      setIsLoading(false);
+    }
+    if (error) {
+      // Handle error state
+    }
+    if (data) {
+      // Do something with the fetched books
+      setData(data?.book);
+    }
+  }, [getUniqueBook]);
   return (
     <Box>
       <PrimarySearchAppBar login={login} setLogin={setLogin} />
@@ -86,7 +108,7 @@ function DetailInfo({ bookInfo, login, id }) {
       <Grid container spacing={2}>
         <Grid item>
           <ButtonBase sx={{ width: 128, height: 128 }}>
-            <Img alt="complex" src={bookInfo.volumeInfo.imageLinks.thumbnail} />
+            <Img alt="complex" src={bookInfo?.img} />
           </ButtonBase>
           <Box sx={{ padding: "10px", display: "flex" }}>
             {login ? (
@@ -101,35 +123,18 @@ function DetailInfo({ bookInfo, login, id }) {
           <Grid item xs container direction="column" spacing={2}>
             <Grid item xs>
               <Typography gutterBottom variant="subtitle1" component="div">
-                {bookInfo.volumeInfo.title}
-              </Typography>
-              <Typography variant="body2" gutterBottom>
-                {bookInfo.volumeInfo.subtitle}
-              </Typography>
-
-              <Typography variant="body2" gutterBottom>
-                {bookInfo.volumeInfo.authors}
-              </Typography>
-
-              <Typography variant="body2" gutterBottom>
-                {bookInfo.volumeInfo.publisher}
-              </Typography>
-              <Typography variant="body2" gutterBottom>
-                {bookInfo.volumeInfo.publishedDate}
-              </Typography>
-              <Typography variant="body2" component="div" gutterBottom>
-                {parse(bookInfo.volumeInfo.description)}
+                {bookInfo?.title}
               </Typography>
             </Grid>
             <Grid item></Grid>
           </Grid>
           <Grid item>
             <Typography variant="subtitle1" component="div">
-              {bookInfo.saleInfo.country}
+              {/* {bookInfo.saleInfo.country} */}
             </Typography>
 
             <Typography variant="subtitle1" component="div">
-              {bookInfo.saleInfo?.listPrice?.amount}
+              {/* {bookInfo.saleInfo?.listPrice?.amount} */}
             </Typography>
           </Grid>
         </Grid>
