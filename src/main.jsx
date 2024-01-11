@@ -10,6 +10,7 @@ import Search from "./components/Search.jsx";
 import Favourite from "./features/Favourite.jsx";
 import Shopcart from "./features/Shopcart.jsx";
 import Checkout from "./features/Checkout.jsx";
+import SignUp from "./features/SignUp.jsx";
 
 import { setContext } from "@apollo/client/link/context";
 
@@ -79,6 +80,7 @@ ReactDOM.createRoot(document.getElementById("root")).render(
             <Route path="/Favourite" element={<Favourite />} />
             <Route path="/Shopcart" element={<Shopcart />} />
             <Route path="/Checkout" element={<Checkout />} />
+            <Route path="/SignUp" element={<SignUp />} />
           </Routes>
         </BrowserRouter>
       </ApolloProvider>

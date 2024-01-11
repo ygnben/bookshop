@@ -92,6 +92,9 @@ export default function PrimarySearchAppBar({ category, login, setLogin }) {
     navigate("/Login");
   }
 
+  function handleOnSignUp() {
+    navigate("/SignUp");
+  }
   const menuId = "primary-search-account-menu";
   const renderMenu = (
     <Menu
@@ -227,6 +230,9 @@ export default function PrimarySearchAppBar({ category, login, setLogin }) {
               <MoreIcon />
             </IconButton>
           </Box>
+          <Button color="inherit" onClick={handleOnSignUp}>
+            Sign up
+          </Button>
           {login ? (
             <Button
               color="inherit"
