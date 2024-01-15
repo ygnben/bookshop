@@ -9,15 +9,15 @@ const delCart = gql`
 `;
 
 export default function useDelCart(id) {
-  const [delCart, { loading, error }] = useMutation(delCart, {
+  const [delCartitem, { loading, error }] = useMutation(delCart, {
     variables: {
-      deleteCartId: id,
+      deleteCartId: parseInt(id),
     },
   });
-
+  console.log("🚀 ~ useDelCart ~ id:", id);
   //   const newMessage = data?.createOneMessage;
 
-  return [delCart, loading, error];
+  return [delCartitem, loading, error];
 }
 
 // import { gql, useMutation } from "@apollo/client";

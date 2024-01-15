@@ -49,7 +49,6 @@ function Shopcart() {
   const [open, setOpen] = React.useState(false);
 
   const [cart, cartLoading] = useCart();
-  const [delCart, delCartLoading] = useDelCart();
 
   console.log("🚀 ~ Shopcart ~ cart:", cart);
   const handleClickOpen = () => {
@@ -132,7 +131,7 @@ function Shopcart() {
   //   .reduce((accumulator, currentValue) => {
   //     return parseInt(accumulator) + parseInt(currentValue);
   //   });
-
+  console.log("🚀 ~ useEffect ~ data:", data);
   return (
     <>
       <PrimarySearchAppBar login={login} setLogin={setLogin} />
@@ -177,10 +176,12 @@ function BookList({ books, login }) {
     >
       {books?.map((book) => (
         <Book
-          id={book.id}
-          title={book.title}
+          key={book.book.id}
+          itemId={book.id}
+          id={book.book.id}
+          title={book.book.title}
           // img={item.volumeInfo.imageLinks}
-          desc={book.desc}
+          desc={book.book.desc}
           // price={item.saleInfo?.listPrice?.amount}
           // curCode={item.saleInfo?.listPrice?.currencyCode}
           login={login}
@@ -218,8 +219,10 @@ function BookList({ books, login }) {
   // );
 }
 
-function Book({ id, title, img, desc, price, curCode, login }) {
+function Book({ id, title, img, desc, price, curCode, itemId, login }) {
   const theme = useTheme();
+  const [delCartitem, delCartLoading] = useDelCart(itemId);
+  console.log("🚀 ~ Book ~ id:", itemId);
 
   return (
     <Card sx={{ display: "flex", width: 400 }}>
@@ -245,7 +248,7 @@ function Book({ id, title, img, desc, price, curCode, login }) {
 
         <Box sx={{ display: "flex", alignItems: "center", pl: 1, pb: 1 }}></Box>
       </Box>
-      <HighlightOffIcon onClick={delCart(id)} />
+      <HighlightOffIcon onClick={() => delCartitem()} />
     </Card>
   );
 }

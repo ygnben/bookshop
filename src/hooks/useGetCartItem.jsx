@@ -13,6 +13,7 @@ const GET_CART = gql`
         title
         updatedAt
       }
+      id
     }
   }
 `;
