@@ -26,7 +26,7 @@ function shop({ id, setClicked, clicked }) {
     setClicked(true);
   }
   function handleShop(id) {
-    addCart({ variables: { bookId: 1, qty: 1 } });
+    addCart({ variables: { bookId: parseInt(id), qty: 1 } });
     dispatch(setShopId(id));
     setClicked(true);
   }
