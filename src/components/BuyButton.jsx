@@ -8,8 +8,12 @@ import { useDispatch } from "react-redux";
 import { setShopId } from "../redux/shopslice";
 import { Box } from "@mui/material";
 
+import useAddCart from "../hooks/useAddBooks";
+
 function shop({ id, setClicked, clicked }) {
   const dispatch = useDispatch();
+
+  const [addCart] = useAddCart();
 
   let checkFav = false;
   let items;
@@ -22,6 +26,7 @@ function shop({ id, setClicked, clicked }) {
     setClicked(true);
   }
   function handleShop(id) {
+    addCart({ variables: { bookId: 1, qty: 1 } });
     dispatch(setShopId(id));
     setClicked(true);
   }
