@@ -15,6 +15,7 @@ import Switch from "@mui/material/Switch";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import FormGroup from "@mui/material/FormGroup";
 import MenuItem from "@mui/material/MenuItem";
+
 import Menu from "@mui/material/Menu";
 import {
   Card,
@@ -28,6 +29,7 @@ import {
 } from "@mui/material";
 
 import HorizontalLinearStepper from "./HorizontalLinearStepper.jsx";
+import HighlightOffIcon from "@mui/icons-material/HighlightOff";
 
 import Loader from "../components/Loader.jsx";
 
@@ -37,6 +39,8 @@ import { Link } from "react-router-dom";
 import PrimarySearchAppBar from "../components/PrimarySearchAppBar.jsx";
 
 import useCart from "../hooks/useGetCartItem.jsx";
+import useDelCart from "../hooks/useDeleteCart.jsx";
+
 function Shopcart() {
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -45,6 +49,8 @@ function Shopcart() {
   const [open, setOpen] = React.useState(false);
 
   const [cart, cartLoading] = useCart();
+  const [delCart, delCartLoading] = useDelCart();
+
   console.log("🚀 ~ Shopcart ~ cart:", cart);
   const handleClickOpen = () => {
     setOpen(true);
@@ -236,8 +242,10 @@ function Book({ id, title, img, desc, price, curCode, login }) {
             ${price || 50}
           </Typography>
         </CardContent>
+
         <Box sx={{ display: "flex", alignItems: "center", pl: 1, pb: 1 }}></Box>
       </Box>
+      <HighlightOffIcon onClick={delCart(id)} />
     </Card>
   );
 }
