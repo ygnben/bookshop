@@ -13,6 +13,11 @@ export default function useDelLike(id) {
     variables: {
       deleteLikeId: parseInt(id),
     },
+    update(cache) {
+      const normalizedId = cache.identify({ id, __typename: "BookLikes" });
+      cache.evict({ id: normalizedId });
+      cache.gc();
+    },
   });
   console.log("🚀 ~ useDelLike ~ id:", id);
   //   const newMessage = data?.createOneMessage;

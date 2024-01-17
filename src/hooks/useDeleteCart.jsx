@@ -13,6 +13,11 @@ export default function useDelCart(id) {
     variables: {
       deleteCartId: parseInt(id),
     },
+    update(cache) {
+      const normalizedId = cache.identify({ id, __typename: "CartItem" });
+      cache.evict({ id: normalizedId });
+      cache.gc();
+    },
   });
   console.log("🚀 ~ useDelCart ~ id:", id);
   //   const newMessage = data?.createOneMessage;

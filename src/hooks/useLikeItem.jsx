@@ -20,9 +20,9 @@ const GET_LIKE = gql`
 `;
 
 export default function useLikeItem() {
-  const { data, loading, error } = useQuery(GET_LIKE);
+  const { data, loading, error, refetch } = useQuery(GET_LIKE);
 
   //   const newMessage = data?.createOneMessage;
 
-  return [data, loading, error];
+  return [data, loading, error, refetch];
 }

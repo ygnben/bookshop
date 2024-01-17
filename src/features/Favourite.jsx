@@ -29,10 +29,9 @@ function Favourite() {
   const [login, setLogin] = useState(localStorage.getItem("token"));
   const [view, setView] = useState("list");
 
-  const [likes, likesLoading] = useLikeItem();
+  const [likes, _likesLoading, _error, refetch] = useLikeItem();
 
   const favName = useSelector(selectName);
-
   // useEffect(() => {
   //   const fetchData = async () => {
   //     try {
@@ -88,12 +87,18 @@ function Favourite() {
 
       <Divider variant="inset" />
 
-      <BookList likeItems={data} login={login} view={view} />
+      <BookList
+        likeItems={data}
+        login={login}
+        view={view}
+        refetch={refetch}
+        setData={setData}
+      />
     </>
   );
 }
 
-function BookList({ likeItems, login, view }) {
+function BookList({ likeItems, login, view, refetch, setData }) {
   return (
     <Box
       sx={{
@@ -120,15 +125,41 @@ function BookList({ likeItems, login, view }) {
           // price={item.saleInfo?.listPrice?.amount}
           // curCode={item.saleInfo?.listPrice?.currencyCode}
           // login={login}
+          refetch={refetch}
+          setData={setData}
+          likeItems={likeItems}
         ></Book>
       ))}
     </Box>
   );
 }
 
-function Book({ id, title, img, desc, login, view, price, likeId }) {
+function Book({
+  id,
+  title,
+  img,
+  desc,
+  login,
+  view,
+  price,
+  likeId,
+  refetch,
+  setData,
+  likeItems,
+}) {
   console.log("🚀 ~ Book ~ likeId:", likeId);
   const [delLikeitem, deleteLikeLoading] = useDeleteLike(likeId);
+
+  const handleDelete = (id) => {
+    console.log("🚀 ~ handleDelete ~ e:", id);
+    // console.log("🚀 ~ handleDelete ~ likeId:", likeId);
+    console.log("del", delLikeitem(id));
+    // refetch();
+    // setData();
+    delLikeitem(id);
+    setData(likeItems);
+  };
+
   let list = true;
   if (view === "module") {
     list = false;
@@ -160,7 +191,7 @@ function Book({ id, title, img, desc, login, view, price, likeId }) {
             <Box
               sx={{ display: "flex", alignItems: "center", pl: 1, pb: 1 }}
             ></Box>
-            <HighlightOffIcon onClick={() => delLikeitem(likeId)} />
+            <HighlightOffIcon onClick={() => handleDelete(id)} />
           </Box>
         </Card>
       ) : (
@@ -185,7 +216,7 @@ function Book({ id, title, img, desc, login, view, price, likeId }) {
           <CardActions>
             <Link to={`/Detail/${id}`}> Learn More</Link>
           </CardActions>
-          <HighlightOffIcon onClick={() => delLikeitem(likeId)} />
+          <HighlightOffIcon onClick={() => handleDelete(likeId)} />
         </Card>
       )}
     </>
