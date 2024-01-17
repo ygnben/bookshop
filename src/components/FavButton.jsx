@@ -6,8 +6,11 @@ import FavoriteIcon from "@mui/icons-material/Favorite";
 import { useDispatch } from "react-redux";
 import { setCurrentItemID, setName } from "../redux/shopslice.jsx";
 
+import useLike from "../hooks/useLike.jsx";
+
 function Counter({ id, name, setClicked, clicked }) {
   const dispatch = useDispatch();
+  const [addLike] = useLike();
 
   let checkFav = false;
   let items;
@@ -21,6 +24,7 @@ function Counter({ id, name, setClicked, clicked }) {
   }
 
   function handleFav(id) {
+    addLike({ variables: { bookId: parseInt(id) } });
     dispatch(setCurrentItemID(id));
     setClicked(true);
   }

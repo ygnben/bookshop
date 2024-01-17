@@ -18,6 +18,10 @@ import Loader from "../components/Loader";
 
 import PrimarySearchAppBar from "../components/PrimarySearchAppBar";
 import VerticalToggleButtons from "./VerticalToggleButtons";
+import HighlightOffIcon from "@mui/icons-material/HighlightOff";
+
+import useLikeItem from "../hooks/useLikeItem";
+import useDeleteLike from "../hooks/useDeleteLike";
 
 function Favourite() {
   const [data, setData] = useState([]);
@@ -25,45 +29,54 @@ function Favourite() {
   const [login, setLogin] = useState(localStorage.getItem("token"));
   const [view, setView] = useState("list");
 
+  const [likes, likesLoading] = useLikeItem();
+
   const favName = useSelector(selectName);
 
-  "favName", favName;
+  // useEffect(() => {
+  //   const fetchData = async () => {
+  //     try {
+  //       const books = localStorage.getItem("items");
+  //       let arrbook = books.split(",");
+  //       let concatObj = [];
+  //       for (let bookName in arrbook) {
+  //         let response = await fetch(
+  //           `https://www.googleapis.com/books/v1/volumes?q=${arrbook[bookName]}`
+  //         );
+
+  //         const jsonData = await response.json();
+  //         let filterData = [];
+
+  //         filterData = jsonData.items.filter(
+  //           (book) => book.id === arrbook[bookName]
+  //         );
+
+  //         concatObj.push(filterData);
+  //       }
+
+  //       setData(concatObj);
+
+  //       setLoading(false);
+  //     } catch (error) {
+  //       console.error("Error fetching data:", error);
+  //     }
+  //   };
+
+  //   fetchData();
+  // }, []);
 
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const books = localStorage.getItem("items");
-        let arrbook = books.split(",");
-        let concatObj = [];
-        for (let bookName in arrbook) {
-          let response = await fetch(
-            `https://www.googleapis.com/books/v1/volumes?q=${arrbook[bookName]}`
-          );
+    setData(likes);
+    console.log("🚀 ~ useEffect ~ cart:", likes);
 
-          const jsonData = await response.json();
-          let filterData = [];
-
-          filterData = jsonData.items.filter(
-            (book) => book.id === arrbook[bookName]
-          );
-
-          concatObj.push(filterData);
-        }
-
-        setData(concatObj);
-
-        setLoading(false);
-      } catch (error) {
-        console.error("Error fetching data:", error);
-      }
-    };
-
-    fetchData();
-  }, []);
+    setLoading(false);
+  }, [likes]);
 
   if (loading) {
     return <Loader />;
   }
+
+  console.log("data", data);
 
   return (
     <>
@@ -75,12 +88,12 @@ function Favourite() {
 
       <Divider variant="inset" />
 
-      <BookList books={data} login={login} view={view} />
+      <BookList likeItems={data} login={login} view={view} />
     </>
   );
 }
 
-function BookList({ books, login, view }) {
+function BookList({ likeItems, login, view }) {
   return (
     <Box
       sx={{
@@ -95,26 +108,27 @@ function BookList({ books, login, view }) {
         // justifyContent: "center",
       }}
     >
-      {books?.map((item) =>
-        item.map((item) => (
-          <Book
-            key={item.id}
-            id={item.id}
-            // title={book.volumeInfo.title}
-            title={item.volumeInfo.title}
-            img={item.volumeInfo.imageLinks}
-            desc={item.volumeInfo.description}
-            price={item.saleInfo?.listPrice?.amount}
-            login={login}
-            view={view}
-          ></Book>
-        ))
-      )}
+      {likeItems?.likeItems.map((book) => (
+        <Book
+          key={book.id}
+          // itemId={book.id}
+          id={book.book.id}
+          likeId={book.id}
+          title={book.book.title}
+          // img={item.volumeInfo.imageLinks}
+          // desc={book.book.desc}
+          // price={item.saleInfo?.listPrice?.amount}
+          // curCode={item.saleInfo?.listPrice?.currencyCode}
+          // login={login}
+        ></Book>
+      ))}
     </Box>
   );
 }
 
-function Book({ id, title, img, desc, login, view, price }) {
+function Book({ id, title, img, desc, login, view, price, likeId }) {
+  console.log("🚀 ~ Book ~ likeId:", likeId);
+  const [delLikeitem, deleteLikeLoading] = useDeleteLike(likeId);
   let list = true;
   if (view === "module") {
     list = false;
@@ -127,7 +141,7 @@ function Book({ id, title, img, desc, login, view, price }) {
           <CardMedia
             component="img"
             sx={{ width: 151 }}
-            image={img.smallThumbnail}
+            // image={img.smallThumbnail}
             alt="Live from space album cover"
           />
           <Box sx={{ display: "flex", flexDirection: "column" }}>
@@ -146,13 +160,14 @@ function Book({ id, title, img, desc, login, view, price }) {
             <Box
               sx={{ display: "flex", alignItems: "center", pl: 1, pb: 1 }}
             ></Box>
+            <HighlightOffIcon onClick={() => delLikeitem(likeId)} />
           </Box>
         </Card>
       ) : (
         <Card sx={{ maxWidth: 345 }}>
           <CardMedia
             sx={{ height: 400 }}
-            image={img.smallThumbnail}
+            // image={img.smallThumbnail}
             title="green iguana"
           />
           <CardContent>
@@ -170,6 +185,7 @@ function Book({ id, title, img, desc, login, view, price }) {
           <CardActions>
             <Link to={`/Detail/${id}`}> Learn More</Link>
           </CardActions>
+          <HighlightOffIcon onClick={() => delLikeitem(likeId)} />
         </Card>
       )}
     </>
