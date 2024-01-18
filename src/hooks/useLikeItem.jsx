@@ -1,7 +1,7 @@
 import { gql, useMutation, useQuery } from "@apollo/client";
 
 const GET_LIKE = gql`
-  query Query {
+  {
     likeItems {
       userId
       id

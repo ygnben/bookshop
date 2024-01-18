@@ -30,9 +30,15 @@ import PrimarySearchAppBar from "../components/PrimarySearchAppBar.jsx";
 import { selectItems, selectShop } from "../redux/shopslice.jsx";
 import { selectName } from "../redux/shopslice.jsx";
 
+import { useLazyQuery } from "@apollo/client";
+
 import useBooks from "../hooks/useBooks.jsx";
+import useSearchBook from "../hooks/useSearchBook.jsx";
+
+// import { useBooks } from "../hooks/useBooks.jsx";
 
 import Loader from "../components/Loader.jsx";
+// import useSearchBook from "../hooks/useSearchBook.jsx";
 const apiUrl = "https://www.googleapis.com/books/v1/volumes?q=javascript";
 
 function Book({ id, title, img, desc, price, curCode, login }) {
@@ -151,22 +157,29 @@ function CategoryBar({ category }) {
 }
 
 function Home() {
-  const [data, setData] = useState([]);
+  // const [data, setData] = useState([]);
+  const [books, setBooks] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
-  const { getAllBooks, getUniqueBook } = useBooks();
+  const [searchName, setSearchName] = useState("");
+  const [login, setLogin] = useState(localStorage.getItem("token"));
+  // const { getAllBooks, getUniqueBook } = useBooks();
 
   const items = useSelector(selectItems);
   const name = useSelector(selectName);
   const shop = useSelector(selectShop);
+  const { getAllBooks, allBooksData, allBooksLoading, allBooksError } =
+    useBooks();
 
+  const { getSearchBook, searchLoading, searchError, searchData } =
+    useSearchBook();
+  console.log("allBooksData1", allBooksData);
+  console.log("allBooksLoading1", allBooksLoading);
   useEffect(() => {
     localStorage.setItem("items", items);
     localStorage.setItem("shop", shop);
   }, [items, shop]);
 
-  const [category, setCategory] = useState("javascript");
-  const [login, setLogin] = useState(localStorage.getItem("token"));
-
+  const { searchBook } = useSearchBook("java");
   // useEffect(() => {
   //   const fetchData = async () => {
   //     try {
@@ -190,39 +203,99 @@ function Home() {
   // }, [category]);
 
   useEffect(() => {
-    const { data, loading, error } = getAllBooks();
-    console.log("🚀 ~ useEffect ~ data:", data);
-    if (loading) {
+    console.log("🚀 ~ category", searchName);
+    if (searchName) {
+      // get(category);
+      console.log("searchname");
+      // const { data, loading, error } = searchBook(searchName);
+      // const {searchBook,searchBookData,searchBookLoading,searchBookError} = useSearchBook(searchName);
+      // searchBook
+      // console.log("🚀 ~ useEffect ~ data:", data);
+      // const { data, loading, error } = getAllBooks();
+      getSearchBook({
+        variables: {
+          search: searchName,
+        },
+      });
+      // console.log("🚀 ~ useEffect ~ data:", data);
       // Handle loading state
-      setIsLoading(false);
+      setIsLoading(searchLoading);
+
+      if (searchError) {
+        // Handle error state
+      }
+      if (searchData) {
+        // Do something with the fetched books
+        setBooks(searchData);
+      }
+    } else {
+      console.log("all data");
+      getAllBooks();
+      console.log("all dataallBooksData allBooksData", allBooksData);
+
+      setIsLoading(allBooksLoading);
+
+      if (allBooksError) {
+        // Handle error state
+      }
+      if (allBooksData) {
+        // Do something with the fetched books
+        setBooks(allBooksData);
+      }
     }
-    if (error) {
-      // Handle error state
-    }
-    if (data) {
-      // Do something with the fetched books
-      setData(data);
-    }
-  }, [getAllBooks]);
+    // console.log("🚀 ~ useEffect ~ data:", data);
+  }, [searchName]);
+
+  // useEffect(() => {
+  //   if (typeof category === "string") {
+  //     // get(category);
+  //     const { data, loading, error } = getAllBooks();
+  //     if (loading) {
+  //       // Handle loading state
+  //       setIsLoading(false);
+  //     }
+  //     if (error) {
+  //       // Handle error state
+  //     }
+  //     if (data) {
+  //       // Do something with the fetched books
+  //       setData(data);
+  //     }
+  //   } else {
+  //     const { data, loading, error } = getAllBooks();
+  //     if (loading) {
+  //       // Handle loading state
+  //       setIsLoading(false);
+  //     }
+  //     if (error) {
+  //       // Handle error state
+  //     }
+  //     if (data) {
+  //       // Do something with the fetched books
+  //       setData(data);
+  //     }
+  //   }
+  //   console.log("🚀 ~ useEffect ~ data:", data);
+  // }, [getAllBooks]);
 
   if (isLoading) {
     return <Loader />;
   }
 
-  if (!data) {
+  if (!books) {
     return <div>No data available.</div>;
   }
   return (
     <div style={{ width: "100%" }}>
       <PrimarySearchAppBar
-        category={setCategory}
+        setSearchName={setSearchName}
         login={login}
         setLogin={setLogin}
       />
       <PictureBar />
-      <CategoryBar category={setCategory} />
+      <CategoryBar category={setSearchName} />
       {/* <BookList books={data} login={login} /> */}
-      <BookList books={data} login={login} />
+      <BookList books={books} login={login} />
     </div>
   );
 }

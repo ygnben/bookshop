@@ -46,18 +46,19 @@ const authLink = setContext((_, { headers }) => {
 });
 
 const client = new ApolloClient({
+  connectToDevTools: true,
   cache,
   link: authLink.concat(httpLink),
-  defaultOptions: {
-    watchQuery: {
-      fetchPolicy: "no-cache",
-      errorPolicy: "ignore",
-    },
-    query: {
-      fetchPolicy: "no-cache",
-      errorPolicy: "all",
-    },
-  },
+  // defaultOptions: {
+  //   watchQuery: {
+  //     fetchPolicy: "no-cache",
+  //     errorPolicy: "ignore",
+  //   },
+  //   query: {
+  //     fetchPolicy: "no-cache",
+  //     errorPolicy: "all",
+  //   },
+  // },
 });
 
 // const client = new ApolloClient({

@@ -1,23 +1,8 @@
-import { gql, useQuery } from "@apollo/client";
+import { gql, useQuery, useLazyQuery } from "@apollo/client";
 
 const GET_BOOKS = gql`
   query Books {
     books {
-      catagory
-      createdAt
-      desc
-      id
-      img
-      price
-      title
-      updatedAt
-    }
-  }
-`;
-
-const GET_UNIQUE_BOOK = gql`
-  query Book($bookId: Int!) {
-    book(id: $bookId) {
       catagory
       createdAt
       desc
@@ -45,8 +30,8 @@ const GET_UNIQUE_BOOK = gql`
 //   }
 // `;
 
-export default function useBooks(id) {
-  console.log("🚀 ~ useBooks ~ id:", id);
+export default function useBooks() {
+  // console.log("🚀 ~ useBooks ~ id:", id);
   // const { data, loading, error } = useQuery(GET_Book);
 
   // console.log("🚀 ~ useBooks ~ data:", data);
@@ -55,34 +40,10 @@ export default function useBooks(id) {
 
   // return [books, loading, error];
 
-  const {
-    data: allBooksData,
-    loading: allBooksLoading,
-    error: allBooksError,
-  } = useQuery(GET_BOOKS);
-
-  const {
-    data: uniqueBookData,
-    loading: uniqueBookLoading,
-    error: uniqueBookError,
-  } = useQuery(GET_UNIQUE_BOOK, {
-    variables: { bookId: parseInt(id) },
-  });
-  console.log("🚀 ~ useBooks ~ bookId: id:", id);
-  function getAllBooks() {
-    return {
-      data: allBooksData,
-      loading: allBooksLoading,
-      error: allBooksError,
-    };
-  }
-
-  function getUniqueBook() {
-    return {
-      data: uniqueBookData,
-      loading: uniqueBookLoading,
-      error: uniqueBookError,
-    };
-  }
-  return { getAllBooks, getUniqueBook };
+  const [
+    getAllBooks,
+    { data: allBooksData, loading: allBooksLoading, error: allBooksError },
+  ] = useLazyQuery(GET_BOOKS);
+  console.log("bookdata", allBooksData);
+  return { allBooksData, allBooksLoading, allBooksError, getAllBooks };
 }

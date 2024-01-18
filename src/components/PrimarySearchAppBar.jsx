@@ -54,7 +54,11 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
   },
 }));
 
-export default function PrimarySearchAppBar({ category, login, setLogin }) {
+export default function PrimarySearchAppBar({
+  setSearchName,
+  login,
+  setLogin,
+}) {
   const favBook = useSelector(selectItems);
   const shop = useSelector(selectShop);
 
@@ -84,7 +88,7 @@ export default function PrimarySearchAppBar({ category, login, setLogin }) {
   };
 
   const handleSearchClick = () => {
-    category(searchValue);
+    setSearchName(searchValue);
   };
 
   const navigate = useNavigate();

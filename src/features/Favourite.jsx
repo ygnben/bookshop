@@ -150,14 +150,14 @@ function Book({
   console.log("🚀 ~ Book ~ likeId:", likeId);
   const [delLikeitem, deleteLikeLoading] = useDeleteLike(likeId);
 
-  const handleDelete = (id) => {
+  const handleDelete = (id) => () => {
     console.log("🚀 ~ handleDelete ~ e:", id);
     // console.log("🚀 ~ handleDelete ~ likeId:", likeId);
     console.log("del", delLikeitem(id));
     // refetch();
     // setData();
     delLikeitem(id);
-    setData(likeItems);
+    // setData(likeItems);
   };
 
   let list = true;
@@ -191,7 +191,7 @@ function Book({
             <Box
               sx={{ display: "flex", alignItems: "center", pl: 1, pb: 1 }}
             ></Box>
-            <HighlightOffIcon onClick={() => handleDelete(id)} />
+            <HighlightOffIcon onClick={() => delLikeitem(id)} />
           </Box>
         </Card>
       ) : (
