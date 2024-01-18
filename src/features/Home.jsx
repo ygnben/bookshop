@@ -159,7 +159,7 @@ function CategoryBar({ category }) {
 function Home() {
   // const [data, setData] = useState([]);
   const [books, setBooks] = useState([]);
-  const [isLoading, setIsLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(false);
   const [searchName, setSearchName] = useState("");
   const [login, setLogin] = useState(localStorage.getItem("token"));
   // const { getAllBooks, getUniqueBook } = useBooks();
@@ -167,11 +167,12 @@ function Home() {
   const items = useSelector(selectItems);
   const name = useSelector(selectName);
   const shop = useSelector(selectShop);
-  const { getAllBooks, allBooksData, allBooksLoading, allBooksError } =
-    useBooks();
+
+  const { allBooksData, allBooksLoading, allBooksError } = useBooks();
 
   const { getSearchBook, searchLoading, searchError, searchData } =
     useSearchBook();
+
   console.log("allBooksData1", allBooksData);
   console.log("allBooksLoading1", allBooksLoading);
   useEffect(() => {
@@ -230,10 +231,9 @@ function Home() {
       }
     } else {
       console.log("all data");
-      getAllBooks();
       console.log("all dataallBooksData allBooksData", allBooksData);
 
-      setIsLoading(allBooksLoading);
+      // setIsLoading(allBooksLoading);
 
       if (allBooksError) {
         // Handle error state

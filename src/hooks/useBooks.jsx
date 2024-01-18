@@ -40,10 +40,10 @@ export default function useBooks() {
 
   // return [books, loading, error];
 
-  const [
-    getAllBooks,
-    { data: allBooksData, loading: allBooksLoading, error: allBooksError },
-  ] = useLazyQuery(GET_BOOKS);
-  console.log("bookdata", allBooksData);
-  return { allBooksData, allBooksLoading, allBooksError, getAllBooks };
+  const {
+    data: allBooksData,
+    loading: allBooksLoading,
+    error: allBooksError,
+  } = useQuery(GET_BOOKS);
+  return { allBooksData, allBooksLoading, allBooksError };
 }
