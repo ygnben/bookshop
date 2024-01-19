@@ -11,8 +11,28 @@ const addToCart = gql`
   }
 `;
 
+const GET_CART = gql`
+  query CartItems {
+    cartItems {
+      book {
+        catagory
+        createdAt
+        desc
+        id
+        img
+        price
+        title
+        updatedAt
+      }
+      id
+    }
+  }
+`;
+
 export default function useAddCart() {
-  const [addCart, { loading, error }] = useMutation(addToCart);
+  const [addCart, { loading, error }] = useMutation(addToCart, {
+    refetchQueries: [{ query: GET_CART }],
+  });
 
   //   const newMessage = data?.createOneMessage;
 

@@ -1,20 +1,5 @@
 import { gql, useQuery, useLazyQuery } from "@apollo/client";
 
-const GET_BOOKS = gql`
-  query Books {
-    books {
-      catagory
-      createdAt
-      desc
-      id
-      img
-      price
-      title
-      updatedAt
-    }
-  }
-`;
-
 const GET_UNIQUE_BOOK = gql`
   query Book($bookId: Int!) {
     book(id: $bookId) {
@@ -30,22 +15,7 @@ const GET_UNIQUE_BOOK = gql`
   }
 `;
 
-// const GET_UNIQUE_BOOK = gql`
-//   query Books {
-//     books {
-//       catagory
-//       createdAt
-//       desc
-//       id
-//       img
-//       price
-//       title
-//       updatedAt
-//     }
-//   }
-// `;
-
-export default function useBooks(id) {
+export default function useBook(id) {
   console.log("🚀 ~ useBooks ~ id:", id);
   // const { data, loading, error } = useQuery(GET_Book);
 
@@ -54,11 +24,6 @@ export default function useBooks(id) {
   // console.log("🚀 ~ useBooks ~ data?.books:", data?.Books);
 
   // return [books, loading, error];
-
-  const [
-    getAllBooks,
-    { data: allBooksData, loading: allBooksLoading, error: allBooksError },
-  ] = useLazyQuery(GET_BOOKS);
 
   const {
     data: uniqueBookData,
@@ -76,23 +41,12 @@ export default function useBooks(id) {
   //   };
   // }
 
-  // function getUniqueBook() {
-  //   return {
-  //     data: uniqueBookData,
-  //     loading: uniqueBookLoading,
-  //     error: uniqueBookError,
-  //   };
-  // }
-  return {
-    books: {
-      data: allBooksData,
-      loading: allBooksLoading,
-      error: allBooksError,
-    },
-    book: {
-      data: uniqueBookData,
+  function getUniqueBook() {
+    return {
+      data: uniqueBookData?.book,
       loading: uniqueBookLoading,
       error: uniqueBookError,
-    },
-  };
+    };
+  }
+  return { getUniqueBook };
 }

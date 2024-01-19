@@ -8,10 +8,36 @@ const addToLike = gql`
   }
 `;
 
+const GET_LIKE = gql`
+  {
+    likeItems {
+      userId
+      id
+      book {
+        catagory
+        createdAt
+        desc
+        id
+        img
+        price
+        title
+        updatedAt
+      }
+    }
+  }
+`;
+
 export default function useLike() {
-  const [addLike, { loading, error }] = useMutation(addToLike);
+  const [addLike, { loading, error }] = useMutation(addToLike, {
+    refetchQueries: [{ query: GET_LIKE }],
+  });
 
   //   const newMessage = data?.createOneMessage;
+
+  // function MyComponent() {
+  //   const [createBook, { data }] = useMutation(CREATE_BOOK, {
+  //     refetchQueries: [{ query: GET_BOOKS }],
+  //   });
 
   return [addLike, loading, error];
 }

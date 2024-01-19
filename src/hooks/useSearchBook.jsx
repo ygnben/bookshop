@@ -1,7 +1,7 @@
 import { gql, useQuery, useLazyQuery } from "@apollo/client";
 
 const SEARCH_BOOK = gql`
-  query SearchBooks($title: String!) {
+  query Query($title: String!) {
     searchBooks(title: $title) {
       catagory
       createdAt
@@ -28,6 +28,6 @@ export default function useSearchBook(title) {
     { data: searchData, loading: searchLoading, error: searchError },
   ] = useLazyQuery(SEARCH_BOOK);
 
-  //   console.log("bookdata", allBooksData);
+  console.log("searchData123", searchData);
   return { getSearchBook, searchLoading, searchError, searchData };
 }

@@ -20,17 +20,19 @@ import Loader from "../components/Loader.jsx";
 import Counter from "../components/FavButton.jsx";
 import Shop from "../components/BuyButton.jsx";
 
-import useBooks from "../hooks/useBooks.jsx";
+// import useBooks from "../hooks/useBooks.jsx";
+
+import useBook from "../hooks/useBook.jsx";
 
 function Detail() {
   const { id } = useParams();
 
   const [login, setLogin] = useState(localStorage.getItem("token"));
 
-  const [data, setData] = useState(null);
-  const [isLoading, setIsLoading] = useState(true);
+  const [book, setBook] = useState(null);
+  const [isLoading, setIsLoading] = useState(false);
 
-  const { getAllBooks, getUniqueBook } = useBooks(id);
+  const { getUniqueBook } = useBook(id);
 
   // useEffect(() => {
   //   // Function to fetch data asynchronously
@@ -53,22 +55,28 @@ function Detail() {
   //   fetchData();
   // }, []);
 
-  useEffect(() => {
-    const { data, loading, error } = getUniqueBook();
-    console.log("🚀 ~ useEffect ~ data:", data?.book);
+  const { data, loading, error } = getUniqueBook();
+  // setBook(data?.book);
+  console.log("data", data);
 
-    if (loading) {
-      // Handle loading state
-      setIsLoading(false);
-    }
-    if (error) {
-      // Handle error state
-    }
-    if (data) {
-      // Do something with the fetched books
-      setData(data?.book);
-    }
-  }, [getUniqueBook]);
+  // useEffect(() => {
+  //   const { data, loading, error } = getUniqueBook();
+  //   console.log("🚀 ~ useEffect ~ data:", data);
+  //   // console.log(data);
+  //   // console.log("🚀 ~ useEffect ~ data:", data?.book);
+  //   setData(data?.book);
+  //   // if (loading) {
+  //   //   // Handle loading state
+  //   //   setIsLoading(false);
+  //   // }
+  //   // if (error) {
+  //   //   // Handle error state
+  //   // }
+  //   // if (data) {
+  //   //   // Do something with the fetched books
+  //   //   setData(data?.book);
+  //   // }
+  // }, [data]);
   return (
     <Box>
       <PrimarySearchAppBar login={login} setLogin={setLogin} />

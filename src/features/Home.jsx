@@ -101,7 +101,7 @@ function BookList({ books, login }) {
         justifyContent: "center",
       }}
     >
-      {books?.books?.map((book) => (
+      {books?.map((book) => (
         <Book
           key={book.id}
           id={book.id}
@@ -158,7 +158,7 @@ function CategoryBar({ category }) {
 
 function Home() {
   // const [data, setData] = useState([]);
-  const [books, setBooks] = useState([]);
+  const [stateBooks, setBooks] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [searchName, setSearchName] = useState("");
   const [login, setLogin] = useState(localStorage.getItem("token"));
@@ -168,19 +168,26 @@ function Home() {
   const name = useSelector(selectName);
   const shop = useSelector(selectShop);
 
-  const { allBooksData, allBooksLoading, allBooksError } = useBooks();
+  // const { allBooksData, allBooksLoading, allBooksError } = useBooks();
 
-  const { getSearchBook, searchLoading, searchError, searchData } =
-    useSearchBook();
+  const [books, loading, error] = useBooks();
 
-  console.log("allBooksData1", allBooksData);
-  console.log("allBooksLoading1", allBooksLoading);
+  console.log("books1", books);
+  // const { getSearchBook, searchLoading, searchError, searchData } =
+  //   useSearchBook();
+
+  const { getSearchBook, searchData } = useSearchBook();
+
+  console.log("searchData1234", searchData);
+
+  // console.log("allBooksData1", allBooksData);
+  // console.log("allBooksLoading1", allBooksLoading);
   useEffect(() => {
     localStorage.setItem("items", items);
     localStorage.setItem("shop", shop);
   }, [items, shop]);
 
-  const { searchBook } = useSearchBook("java");
+  // const { searchBook } = useSearchBook("java");
   // useEffect(() => {
   //   const fetchData = async () => {
   //     try {
@@ -215,37 +222,44 @@ function Home() {
       // const { data, loading, error } = getAllBooks();
       getSearchBook({
         variables: {
-          search: searchName,
+          title: searchName,
         },
-      });
+      }).then((res) => setBooks(res.data.searchBooks));
+
+      console.log("searchDatasearchDatasearchData", searchData);
+
       // console.log("🚀 ~ useEffect ~ data:", data);
       // Handle loading state
-      setIsLoading(searchLoading);
+      // setIsLoading(searchLoading);
 
-      if (searchError) {
-        // Handle error state
-      }
-      if (searchData) {
-        // Do something with the fetched books
-        setBooks(searchData);
-      }
+      // console.log("searchData", searchData1);
+      // if (searchError) {
+      //   // Handle error state
+      // }
+      // if (searchData) {
+      //   // Do something with the fetched books
+      //   // setBooks(searchData);
+      // }
     } else {
-      console.log("all data");
-      console.log("all dataallBooksData allBooksData", allBooksData);
+      //   console.log("all data");
+      //   // console.log("all dataallBooksData allBooksData", allBooksData);
+      //   console.log("allBooksData allBooksData", books);
 
-      // setIsLoading(allBooksLoading);
+      //   // setIsLoading(allBooksLoading);
 
-      if (allBooksError) {
-        // Handle error state
-      }
-      if (allBooksData) {
-        // Do something with the fetched books
-        setBooks(allBooksData);
-      }
+      //   // if (allBooksError) {
+      //   //   // Handle error state
+      //   // }
+      //   // setBooks(allBooksData);
+      //   // if (allBooksData) {
+      //   //   // Do something with the fetched books
+      setBooks(books);
+      //   // }
     }
     // console.log("🚀 ~ useEffect ~ data:", data);
   }, [searchName]);
 
+  console.log(stateBooks);
   // useEffect(() => {
   //   if (typeof category === "string") {
   //     // get(category);
@@ -282,9 +296,9 @@ function Home() {
     return <Loader />;
   }
 
-  if (!books) {
-    return <div>No data available.</div>;
-  }
+  // if (!books) {
+  //   return <div>No data available.</div>;
+  // }
   return (
     <div style={{ width: "100%" }}>
       <PrimarySearchAppBar
@@ -295,7 +309,7 @@ function Home() {
       <PictureBar />
       <CategoryBar category={setSearchName} />
       {/* <BookList books={data} login={login} /> */}
-      <BookList books={books} login={login} />
+      <BookList books={stateBooks || books} login={login} />
     </div>
   );
 }
