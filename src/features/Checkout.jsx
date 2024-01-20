@@ -46,16 +46,14 @@ export default function Checkout({ state, setState, total, books }) {
       >
         <DialogTitle id="alert-dialog-title">{"Check out book"}</DialogTitle>
         <DialogContent>
-          {books.map((book) =>
-            book.map((book) => (
-              <>
-                <Typography>{book.volumeInfo.title} </Typography>
-                <Typography>
-                  price:{book.saleInfo?.listPrice?.amount || 50}
-                </Typography>
-              </>
-            ))
-          )}
+          {books.map((book) => (
+            <>
+              <Typography>{book.title} </Typography>
+              <Typography>
+                {/* price:{book.saleInfo?.listPrice?.amount || 50} */}
+              </Typography>
+            </>
+          ))}
           <Typography>Total book:{books.length}</Typography>
           <Typography> Total Price:{total}</Typography>
         </DialogContent>

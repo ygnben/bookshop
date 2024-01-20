@@ -133,6 +133,10 @@ function DetailInfo({ bookInfo, login, id }) {
               <Typography gutterBottom variant="subtitle1" component="div">
                 {bookInfo?.title}
               </Typography>
+              <Typography variant="body2" component="div" gutterBottom>
+                {bookInfo?.desc}
+                {/* {parse(bookInfo?.desc)} */}
+              </Typography>
             </Grid>
             <Grid item></Grid>
           </Grid>

@@ -1,4 +1,8 @@
 import * as React from "react";
+import { useNavigate } from "react-router-dom";
+
+import Swal from "sweetalert2";
+
 import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import CssBaseline from "@mui/material/CssBaseline";
@@ -28,7 +32,7 @@ export default function SignUp() {
   //       password: data.get("password"),
   //     });
   //   };
-
+  const navigate = useNavigate();
   const [signUp, signUpLoading, signUpError] = useSignUp();
 
   const handleSubmit = async (event) => {
@@ -37,11 +41,16 @@ export default function SignUp() {
     const token = await signUp({
       variables: { username: data.get("name"), password: data.get("password") },
     });
+    console.log(signUpError);
+    if (signUpError) {
+      Swal.fire("Sign up fail", "Please check your information");
+    }
+    if (token) {
+      // localStorage.setItem("token", token?.data.login?.token);
+      Swal.fire("Sign up success", "You can now login");
 
-    // if (token) {
-    //   localStorage.setItem("token", token?.data.login?.token);
-    //   navigate("/Home");
-    // }
+      navigate("/home");
+    }
   };
   return (
     <ThemeProvider theme={defaultTheme}>
@@ -101,7 +110,7 @@ export default function SignUp() {
             <Grid container justifyContent="flex-end">
               <Grid item>
                 <Link href="#" variant="body2">
-                  Already have an account? Sign in
+                  {/* Already have an account? Sign in */}
                 </Link>
               </Grid>
             </Grid>

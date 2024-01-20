@@ -120,7 +120,7 @@ function BookList({ likeItems, login, view, refetch, setData }) {
           id={book.book.id}
           likeId={book.id}
           title={book.book.title}
-          // img={item.volumeInfo.imageLinks}
+          img={book.book.img}
           // desc={book.book.desc}
           // price={item.saleInfo?.listPrice?.amount}
           // curCode={item.saleInfo?.listPrice?.currencyCode}
@@ -172,7 +172,7 @@ function Book({
           <CardMedia
             component="img"
             sx={{ width: 151 }}
-            // image={img.smallThumbnail}
+            image={img}
             alt="Live from space album cover"
           />
           <Box sx={{ display: "flex", flexDirection: "column" }}>
@@ -196,11 +196,7 @@ function Book({
         </Card>
       ) : (
         <Card sx={{ maxWidth: 345 }}>
-          <CardMedia
-            sx={{ height: 400 }}
-            // image={img.smallThumbnail}
-            title="green iguana"
-          />
+          <CardMedia sx={{ height: 400 }} image={img} title="green iguana" />
           <CardContent>
             <Typography gutterBottom variant="h5" component="div">
               {title}

@@ -23,6 +23,8 @@ import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 
 import { useNavigate } from "react-router-dom";
 
+import useLikeItem from "../hooks/useLikeItem";
+
 const Search = styled("div")(({ theme }) => ({
   position: "relative",
   borderRadius: theme.shape.borderRadius,
@@ -61,6 +63,9 @@ export default function PrimarySearchAppBar({
 }) {
   const favBook = useSelector(selectItems);
   const shop = useSelector(selectShop);
+  console.log("login", login);
+  const [likes, _likesLoading, _error, refetch] = useLikeItem();
+  console.log("🚀 ~ likes:", likes);
 
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
@@ -234,13 +239,18 @@ export default function PrimarySearchAppBar({
               <MoreIcon />
             </IconButton>
           </Box>
-          <Button color="inherit" onClick={handleOnSignUp}>
-            Sign up
-          </Button>
+          {login ? null : (
+            <Button color="inherit" onClick={handleOnSignUp}>
+              Sign up
+            </Button>
+          )}
+
           {login ? (
             <Button
               color="inherit"
               onClick={() => {
+                // const cache = client.cache;
+                // cache.reset();
                 localStorage.removeItem("token");
                 setLogin("");
               }}

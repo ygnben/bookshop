@@ -152,6 +152,7 @@ function Shopcart() {
         <Button onClick={handleClickOpen} fullWidth>
           Check out
         </Button>
+        <Checkout state={open} setState={setOpen} books={data} />
         {/* <Checkout state={open} setState={setOpen} total={total} books={data} /> */}
       </Paper>
     </>
@@ -180,7 +181,7 @@ function BookList({ books, login }) {
           itemId={book.id}
           id={book.book.id}
           title={book.book.title}
-          // img={item.volumeInfo.imageLinks}
+          img={book.book.img}
           desc={book.book.desc}
           // price={item.saleInfo?.listPrice?.amount}
           // curCode={item.saleInfo?.listPrice?.currencyCode}
@@ -229,7 +230,7 @@ function Book({ id, title, img, desc, price, curCode, itemId, login }) {
       <CardMedia
         component="img"
         sx={{ width: 151 }}
-        // image={img.smallThumbnail}
+        image={img}
         alt="Live from space album cover"
       />
       <Box sx={{ display: "flex", flexDirection: "column" }}>
