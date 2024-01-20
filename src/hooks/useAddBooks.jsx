@@ -15,12 +15,10 @@ const GET_CART = gql`
   query CartItems {
     cartItems {
       book {
-        catagory
         createdAt
         desc
         id
         img
-        price
         title
         updatedAt
       }

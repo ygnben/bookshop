@@ -1,14 +1,27 @@
 import { gql, useQuery, useLazyQuery } from "@apollo/client";
 
+// const GET_BOOKS = gql`
+//   query Books {
+//     books {
+//       catagory
+//       createdAt
+//       desc
+//       id
+//       img
+//       price
+//       title
+//       updatedAt
+//     }
+//   }
+// `;
+
 const GET_BOOKS = gql`
   query Books {
     books {
-      catagory
       createdAt
       desc
       id
       img
-      price
       title
       updatedAt
     }
@@ -18,12 +31,10 @@ const GET_BOOKS = gql`
 const GET_UNIQUE_BOOK = gql`
   query Book($bookId: Int!) {
     book(id: $bookId) {
-      catagory
       createdAt
       desc
       id
       img
-      price
       title
       updatedAt
     }

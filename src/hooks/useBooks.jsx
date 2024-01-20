@@ -3,12 +3,10 @@ import { gql, useQuery, useLazyQuery } from "@apollo/client";
 const GET_BOOKS = gql`
   query Books {
     books {
-      catagory
       createdAt
       desc
       id
       img
-      price
       title
       updatedAt
     }

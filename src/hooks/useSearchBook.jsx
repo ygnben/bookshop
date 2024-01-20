@@ -1,14 +1,27 @@
 import { gql, useQuery, useLazyQuery } from "@apollo/client";
 
+// const SEARCH_BOOK = gql`
+//   query Query($title: String!) {
+//     searchBooks(title: $title) {
+//       catagory
+//       createdAt
+//       desc
+//       id
+//       img
+//       price
+//       title
+//       updatedAt
+//     }
+//   }
+// `;
+
 const SEARCH_BOOK = gql`
-  query Query($title: String!) {
+  query Books($title: String!) {
     searchBooks(title: $title) {
-      catagory
       createdAt
       desc
       id
       img
-      price
       title
       updatedAt
     }

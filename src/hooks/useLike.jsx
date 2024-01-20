@@ -14,12 +14,10 @@ const GET_LIKE = gql`
       userId
       id
       book {
-        catagory
         createdAt
         desc
         id
         img
-        price
         title
         updatedAt
       }

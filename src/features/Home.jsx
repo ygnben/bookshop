@@ -47,11 +47,7 @@ function Book({ id, title, img, desc, price, curCode, login }) {
 
   return (
     <Card sx={{ maxWidth: 345 }}>
-      <CardMedia
-        sx={{ height: 400 }}
-        image={img.smallThumbnail}
-        title="green iguana"
-      />
+      <CardMedia sx={{ height: 400 }} image={img} title="green iguana" />
       <CardContent>
         <Typography gutterBottom variant="h5" component="div">
           {title}
