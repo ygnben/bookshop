@@ -192,8 +192,9 @@ function CategoryBar({ category }) {
         scrollButtons="auto"
         aria-label="scrollable auto tabs example"
       >
-        <Tab label="JavaScript" onClick={() => category("javascript")} />
+        <Tab label="all" onClick={() => category("")} />
         <Tab label="CSS" onClick={() => category("css")} />
+        <Tab label="JavaScript" onClick={() => category("javascript")} />
         <Tab label="GraphQL" onClick={() => category("GraphQL")} />
         <Tab label="REACT" onClick={() => category("REACT")} />
         <Tab label="JAVA" onClick={() => category("JAVA")} />

@@ -128,6 +128,7 @@ function BookList({ likeItems, login, view, refetch, setData }) {
           refetch={refetch}
           setData={setData}
           likeItems={likeItems}
+          view={view}
         ></Book>
       ))}
     </Box>

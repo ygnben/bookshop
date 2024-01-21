@@ -24,6 +24,7 @@ import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import { useNavigate } from "react-router-dom";
 
 import useLikeItem from "../hooks/useLikeItem";
+import { useQuery, useApolloClient } from "@apollo/client";
 
 const Search = styled("div")(({ theme }) => ({
   position: "relative",
@@ -61,11 +62,15 @@ export default function PrimarySearchAppBar({
   login,
   setLogin,
 }) {
+  const client = useApolloClient();
+
   const favBook = useSelector(selectItems);
   const shop = useSelector(selectShop);
+
+  const username = localStorage.getItem("name");
   console.log("login", login);
-  const [likes, _likesLoading, _error, refetch] = useLikeItem();
-  console.log("🚀 ~ likes:", likes);
+  // const [likes, _likesLoading, _error, refetch] = useLikeItem();
+  // console.log("🚀 ~ likes:", likes);
 
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
@@ -201,6 +206,15 @@ export default function PrimarySearchAppBar({
           </Search>
           <Box sx={{ flexGrow: 1 }} />
           <Box sx={{ display: { xs: "none", md: "flex" } }}>
+            <Typography
+              variant="h6"
+              noWrap
+              component="div"
+              sx={{ display: { xs: "none", sm: "block" } }}
+            >
+              Hi,{username || "Username"}
+            </Typography>
+
             {login ? (
               <IconButton
                 size="large"
@@ -251,8 +265,11 @@ export default function PrimarySearchAppBar({
               onClick={() => {
                 // const cache = client.cache;
                 // cache.reset();
-                localStorage.removeItem("token");
+                localStorage.removeItem("token", "name");
+                localStorage.removeItem("name");
                 setLogin("");
+                client.resetStore();
+                navigate("/Home");
               }}
             >
               Logout

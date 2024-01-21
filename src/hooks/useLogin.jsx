@@ -11,6 +11,7 @@ const LOGIN = gql`
 export default function useLogin() {
   const [Login, { data, loading, error }] = useMutation(LOGIN);
   const token = data?.token;
+  // console.log("error", error);
   // , {
   //   variables: { name: "test", password: "test" },
   // }

@@ -55,7 +55,7 @@ export default function Checkout({ state, setState, total, books }) {
             </>
           ))}
           <Typography>Total book:{books.length}</Typography>
-          <Typography> Total Price:{total}</Typography>
+          <Typography> Total Price:{books.length*50}</Typography>
         </DialogContent>
         <DialogActions>
           <Button onClick={handleClose}>Cancel</Button>

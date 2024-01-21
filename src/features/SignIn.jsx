@@ -14,6 +14,8 @@ import { LoginSocialGoogle } from "reactjs-social-login";
 
 import { GoogleLoginButton } from "react-social-login-buttons";
 
+import Swal from "sweetalert2";
+
 import * as jose from "jose";
 import useLogin from "../hooks/useLogin";
 
@@ -44,12 +46,19 @@ export default function SignIn() {
   const handleSubmit = async (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
-    const token = await login({
-      variables: { name: data.get("name"), password: data.get("password") },
-    });
+    let token;
+    try {
+      token = await login({
+        variables: { name: data.get("name"), password: data.get("password") },
+      });
+    } catch (loginError) {
+      console.log("loginError", loginError);
+      Swal.fire("Sign up fail", "Please check your information");
+    }
 
     if (token) {
       localStorage.setItem("token", token?.data.login?.token);
+      localStorage.setItem("name", data.get("name"));
       navigate("/Home");
     }
   };

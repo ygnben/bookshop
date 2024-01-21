@@ -20,6 +20,7 @@ import Loader from "../components/Loader.jsx";
 import Counter from "../components/FavButton.jsx";
 import Shop from "../components/BuyButton.jsx";
 
+import Comment from "./Comment.jsx";
 // import useBooks from "../hooks/useBooks.jsx";
 
 import useBook from "../hooks/useBook.jsx";
@@ -101,57 +102,60 @@ function DetailInfo({ bookInfo, login, id }) {
   const [favClick, setFavClick] = useState(false);
   const [shopClick, setShopClick] = useState(false);
   return (
-    <Paper
-      sx={{
-        p: 2,
-        margin: "auto",
-        maxWidth: "100%",
-        minHeight: "50%",
+    <>
+      <Paper
+        sx={{
+          p: 2,
+          margin: "auto",
+          maxWidth: "100%",
+          minHeight: "50%",
 
-        flexGrow: 1,
-        backgroundColor: (theme) =>
-          theme.palette.mode === "dark" ? "#1A2027" : "#fff",
-      }}
-    >
-      <Grid container spacing={2}>
-        <Grid item>
-          <ButtonBase sx={{ width: 128, height: 128 }}>
-            <Img alt="complex" src={bookInfo?.img} />
-          </ButtonBase>
-          <Box sx={{ padding: "10px", display: "flex" }}>
-            {login ? (
-              <Counter id={id} setClicked={setFavClick} clicked={favClick} />
-            ) : null}
-            {login ? (
-              <Shop id={id} setClicked={setShopClick} clicked={shopClick} />
-            ) : null}
-          </Box>
-        </Grid>
-        <Grid item xs={12} sm container>
-          <Grid item xs container direction="column" spacing={2}>
-            <Grid item xs>
-              <Typography gutterBottom variant="subtitle1" component="div">
-                {bookInfo?.title}
+          flexGrow: 1,
+          backgroundColor: (theme) =>
+            theme.palette.mode === "dark" ? "#1A2027" : "#fff",
+        }}
+      >
+        <Grid container spacing={2}>
+          <Grid item>
+            <ButtonBase sx={{ width: 128, height: 128 }}>
+              <Img alt="complex" src={bookInfo?.img} />
+            </ButtonBase>
+            <Box sx={{ padding: "10px", display: "flex" }}>
+              {login ? (
+                <Counter id={id} setClicked={setFavClick} clicked={favClick} />
+              ) : null}
+              {login ? (
+                <Shop id={id} setClicked={setShopClick} clicked={shopClick} />
+              ) : null}
+            </Box>
+          </Grid>
+          <Grid item xs={12} sm container>
+            <Grid item xs container direction="column" spacing={2}>
+              <Grid item xs>
+                <Typography gutterBottom variant="subtitle1" component="div">
+                  {bookInfo?.title}
+                </Typography>
+                <Typography variant="body2" component="div" gutterBottom>
+                  {bookInfo?.desc}
+                  {/* {parse(bookInfo?.desc)} */}
+                </Typography>
+              </Grid>
+              <Grid item></Grid>
+            </Grid>
+            <Grid item>
+              <Typography variant="subtitle1" component="div">
+                {/* {bookInfo.saleInfo.country} */}
               </Typography>
-              <Typography variant="body2" component="div" gutterBottom>
-                {bookInfo?.desc}
-                {/* {parse(bookInfo?.desc)} */}
+
+              <Typography variant="subtitle1" component="div">
+                {/* {bookInfo.saleInfo?.listPrice?.amount} */}
               </Typography>
             </Grid>
-            <Grid item></Grid>
-          </Grid>
-          <Grid item>
-            <Typography variant="subtitle1" component="div">
-              {/* {bookInfo.saleInfo.country} */}
-            </Typography>
-
-            <Typography variant="subtitle1" component="div">
-              {/* {bookInfo.saleInfo?.listPrice?.amount} */}
-            </Typography>
           </Grid>
         </Grid>
-      </Grid>
-    </Paper>
+      </Paper>
+      <Comment />
+    </>
   );
 }
 
