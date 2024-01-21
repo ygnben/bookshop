@@ -20,10 +20,23 @@ import Loader from "../components/Loader.jsx";
 import Counter from "../components/FavButton.jsx";
 import Shop from "../components/BuyButton.jsx";
 
+import { useQuery, useMutation, gql } from "@apollo/client";
+
 import Comment from "./Comment.jsx";
 // import useBooks from "../hooks/useBooks.jsx";
 
 import useBook from "../hooks/useBook.jsx";
+
+const GET_COMMENTS = gql`
+  query Comment($bookId: Int!) {
+    Comment(bookId: $bookId) {
+      content
+      createdAt
+      id
+      userId
+    }
+  }
+`;
 
 function Detail() {
   const { id } = useParams();
@@ -86,6 +99,7 @@ function Detail() {
       ) : (
         <>
           <DetailInfo bookInfo={data} login={login} id={id} />
+          <Comment bookId={id} />
         </>
       )}
     </Box>
@@ -154,7 +168,6 @@ function DetailInfo({ bookInfo, login, id }) {
           </Grid>
         </Grid>
       </Paper>
-      <Comment />
     </>
   );
 }
