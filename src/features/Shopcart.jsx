@@ -152,7 +152,8 @@ function Shopcart() {
         <Button onClick={handleClickOpen} fullWidth>
           Check out
         </Button>
-        <Checkout state={open} setState={setOpen} books={data} />
+        {cart && <Checkout state={open} setState={setOpen} books={cart} />}
+
         {/* <Checkout state={open} setState={setOpen} total={total} books={data} /> */}
       </Paper>
     </>

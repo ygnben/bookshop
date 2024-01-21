@@ -13,6 +13,13 @@ import FormGroup from "@mui/material/FormGroup";
 import MenuItem from "@mui/material/MenuItem";
 import Menu from "@mui/material/Menu";
 
+//scroll
+import useScrollTrigger from "@mui/material/useScrollTrigger";
+import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
+import Fade from "@mui/material/Fade";
+import Fab from "@mui/material/Fab";
+import PropTypes from "prop-types";
+
 import Counter from "../components/FavButton.jsx";
 import Shop from "../components/BuyButton.jsx";
 
@@ -40,6 +47,51 @@ import useSearchBook from "../hooks/useSearchBook.jsx";
 import Loader from "../components/Loader.jsx";
 // import useSearchBook from "../hooks/useSearchBook.jsx";
 const apiUrl = "https://www.googleapis.com/books/v1/volumes?q=javascript";
+
+function ScrollTop(props) {
+  const { children, window } = props;
+  // Note that you normally won't need to set the window ref as useScrollTrigger
+  // will default to window.
+  // This is only being set here because the demo is in an iframe.
+  const trigger = useScrollTrigger({
+    target: window ? window() : undefined,
+    disableHysteresis: true,
+    threshold: 100,
+  });
+
+  const handleClick = (event) => {
+    const anchor = (event.target.ownerDocument || document).querySelector(
+      "#back-to-top-anchor"
+    );
+
+    if (anchor) {
+      anchor.scrollIntoView({
+        block: "center",
+      });
+    }
+  };
+
+  return (
+    <Fade in={trigger}>
+      <Box
+        onClick={handleClick}
+        role="presentation"
+        sx={{ position: "fixed", bottom: 16, right: 16 }}
+      >
+        {children}
+      </Box>
+    </Fade>
+  );
+}
+
+ScrollTop.propTypes = {
+  children: PropTypes.element.isRequired,
+  /**
+   * Injected by the documentation to work in an iframe.
+   * You won't need it on your project.
+   */
+  window: PropTypes.func,
+};
 
 function Book({ id, title, img, desc, price, curCode, login }) {
   const [favClick, setFavClick] = useState(false);
@@ -152,7 +204,7 @@ function CategoryBar({ category }) {
   );
 }
 
-function Home() {
+function Home(props) {
   // const [data, setData] = useState([]);
   const [stateBooks, setBooks] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
@@ -302,10 +354,17 @@ function Home() {
         login={login}
         setLogin={setLogin}
       />
+      <span id="back-to-top-anchor" />
+
       <PictureBar />
       <CategoryBar category={setSearchName} />
       {/* <BookList books={data} login={login} /> */}
       <BookList books={stateBooks || books} login={login} />
+      <ScrollTop {...props}>
+        <Fab size="small" aria-label="scroll back to top">
+          <KeyboardArrowUpIcon />
+        </Fab>
+      </ScrollTop>
     </div>
   );
 }
