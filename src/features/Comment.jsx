@@ -1,7 +1,17 @@
 import { React, useState } from "react";
 import ReactDOM from "react-dom";
 
-import { Divider, Avatar, Grid, Paper, TextField, Button } from "@mui/material";
+import {
+  Divider,
+  Avatar,
+  Grid,
+  Paper,
+  TextField,
+  Button,
+  Box,
+} from "@mui/material";
+
+import Swal from "sweetalert2";
 
 import { useQuery, useMutation, gql } from "@apollo/client";
 
@@ -29,15 +39,22 @@ const GET_COMMENTS = gql`
     }
   }
 `;
+
 function CommentBox({ bookId }) {
   const [inputValue, setInputValue] = useState("");
 
-  const [createComment, { data, loading, error }] = useMutation(ADD_COMMENT);
+  const [createComment, { data, loading, error }] = useMutation(ADD_COMMENT, {
+    refetchQueries: [
+      { query: GET_COMMENTS, variables: { bookId: parseInt(bookId) } },
+    ],
+  });
 
   function handleOnClick() {
     createComment({
       variables: { bookId: parseInt(bookId), content: inputValue },
     });
+    setInputValue("");
+    Swal.fire("Added comment", "success");
     console.log("clicked", bookId);
   }
   return (
@@ -50,7 +67,7 @@ function CommentBox({ bookId }) {
         multiline
         rows={4}
       />
-
+      <div></div>
       <Button variant="contained" color="primary" onClick={handleOnClick}>
         Submit
       </Button>
