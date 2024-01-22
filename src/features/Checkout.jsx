@@ -14,7 +14,41 @@ import { setShopNull } from "../redux/shopslice";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
+import useCart from "../hooks/useGetCartItem.jsx";
+
+// import { useQuery, useApolloClient } from "@apollo/client";
+
+import { gql, useMutation, useQuery, useApolloClient } from "@apollo/client";
+
+const DELETE_CART = gql`
+  mutation Mutation {
+    deleteAll
+  }
+`;
+
+const GET_CART = gql`
+  query CartItems {
+    cartItems {
+      book {
+        createdAt
+        desc
+        id
+        img
+        title
+        updatedAt
+      }
+      id
+    }
+  }
+`;
+
 export default function Checkout({ state, setState, total, books }) {
+  console.log("🚀 ~ Checkout ~ books:", books);
+  const [cart, cartLoading] = useCart();
+
+  const [deleteCart] = useMutation(DELETE_CART, {
+    refetchQueries: [{ query: GET_CART }],
+  });
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -33,8 +67,9 @@ export default function Checkout({ state, setState, total, books }) {
 
     localStorage.removeItem("shop");
     dispatch(setShopNull());
-
+    deleteCart();
     navigate("/Home");
+    // client.resetStore();
   };
   return (
     <>
@@ -48,14 +83,14 @@ export default function Checkout({ state, setState, total, books }) {
         <DialogContent>
           {books.map((book) => (
             <>
-              <Typography>{book.title} </Typography>
+              <Typography>{book.book.title} </Typography>
               <Typography>
-                {/* price:{book.saleInfo?.listPrice?.amount || 50} */}
+                price:{book.saleInfo?.listPrice?.amount || 50}
               </Typography>
             </>
           ))}
           <Typography>Total book:{books.length}</Typography>
-          <Typography> Total Price:{books.length*50}</Typography>
+          <Typography> Total Price:{books.length * 50}</Typography>
         </DialogContent>
         <DialogActions>
           <Button onClick={handleClose}>Cancel</Button>

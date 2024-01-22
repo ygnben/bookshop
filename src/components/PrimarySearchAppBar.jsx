@@ -222,7 +222,8 @@ export default function PrimarySearchAppBar({
                 color="inherit"
                 onClick={() => navigate("/Shopcart")}
               >
-                <Badge badgeContent={shop.length} color="error">
+                {/* <Badge badgeContent={shop.length} color="error"> */}
+                <Badge badgeContent={0} color="error">
                   <ShoppingCartIcon />
                 </Badge>
               </IconButton>
@@ -235,7 +236,8 @@ export default function PrimarySearchAppBar({
                 color="inherit"
                 onClick={() => navigate("/Favourite")}
               >
-                <Badge badgeContent={favBook.length || 0} color="error">
+                {/* <Badge badgeContent={favBook.length || 0} color="error"> */}
+                <Badge badgeContent={0} color="error">
                   <FavoriteIcon />
                 </Badge>
               </IconButton>
