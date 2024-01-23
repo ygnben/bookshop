@@ -199,21 +199,37 @@ export default function PrimarySearchAppBar({
               value={searchValue}
               onChange={handleSearchChange}
             />
-            <SearchIcon
-              sx={{ cursor: "pointer" }}
-              onClick={() => handleSearchClick()}
-            />
+
+            <Box sx={{ position: "absolute", top: 9, right: 5 }}>
+              <SearchIcon
+                sx={{
+                  cursor: "pointer",
+                }}
+                onClick={() => handleSearchClick()}
+              />
+            </Box>
           </Search>
           <Box sx={{ flexGrow: 1 }} />
           <Box sx={{ display: { xs: "none", md: "flex" } }}>
-            <Typography
-              variant="h6"
-              noWrap
-              component="div"
-              sx={{ display: { xs: "none", sm: "block" } }}
+            <Box
+              sx={{
+                display: "flex",
+                flexDirection: "row",
+                justifyContent: "center",
+                alignItems: "center",
+              }}
             >
-              Hi,{username || "Username"}
-            </Typography>
+              <Typography
+                variant="h6"
+                noWrap
+                component="div"
+                sx={{
+                  display: { xs: "none", sm: "flex", textAlign: "center" },
+                }}
+              >
+                Hi,{username || "Username"}
+              </Typography>
+            </Box>
 
             {login ? (
               <IconButton
